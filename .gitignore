@@ -1,3 +1,7 @@
+jsconfig.json
+
+#Standaard .gitignore bestanden
+
 ##### Windows
 # Windows thumbnail cache files
 Thumbs.db
@@ -472,5 +476,3 @@ composer.lock
 *.css.map
 *.sass.map
 *.scss.map
-
-jsconfig.json
