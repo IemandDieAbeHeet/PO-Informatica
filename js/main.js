@@ -1,7 +1,7 @@
 let allInputs = Array();
 let currentInput;
 
-$(document).on("keydown", "input", function (e) {
+$(document).on("keydown", ".woord", function (e) {
     if(e.key != "Tab") return;
     allInputs = Array.from(document.getElementsByClassName("woord"));
     currentInput = allInputs[allInputs.indexOf(document.activeElement) + 1];
@@ -29,3 +29,44 @@ function woordenToevoegen(hoeveelheid) {
         input1.focus();
     }
 }
+
+$('#woordenForm').on('submit', function (e) {
+    e.preventDefault();
+
+    let woordenLijst = {
+        title: $("#lijstNaam").val(),
+        woordenArray: {
+            0: [],
+            1: []
+        }
+    }
+
+    $('#woordenForm #woord1').each(function(index){
+        let woord = {};
+        woord[index] = $(this).val();
+        woordenLijst.woordenArray[0].push($(this).val());
+    });
+
+    $('#woordenForm #woord2').each(function(index){
+        let woord = {};
+        woord[index] = $(this).val();
+        woordenLijst.woordenArray[1].push($(this).val());
+    });
+
+    console.log(woordenLijst);
+
+    $.ajax({
+      type: 'post',
+      url: 'includes/woordenSubmit.inc.php',
+      data: woordenLijst,
+      success: function (data) {
+        if(!data.success) {
+            alert(data.error);
+            $("#error").val(data.error);
+        }
+      },
+      error: function(xhr) {
+          alert(xhr.status);
+      }
+    });
+});
