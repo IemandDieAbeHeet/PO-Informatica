@@ -9,6 +9,11 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
     <body>
-        
+        <header>
+            <nav>
+                <a href="login.php">Inloggen</a>
+                <a href="signup.php">Registreren</a>
+            </nav>
+        </header>
     </body>
 </html>
