@@ -1,0 +1,37 @@
+.woordendiv {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.woord {
+    max-height: 25px;
+}
+
+#woordnummer {
+    margin-right: 15px;
+}
+
+#woordenForm {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+nav a {
+    margin-right: 15px;
+}
