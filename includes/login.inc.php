@@ -35,7 +35,7 @@ if(isset($_POST["login-submit"])) {
                     $_SESSION["username"] = $row["username"];
                     $_SESSION["loginTime"] = date("H:i:s");
 
-                    header("Location: ../account.php?login=success");
+                    header("Location: ../index.php?login=success");
                     exit();
                 }
                 else {
