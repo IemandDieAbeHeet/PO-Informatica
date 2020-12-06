@@ -103,11 +103,11 @@ $('#woordenForm').on('submit', function (e) {
 
     $.ajax({
       type: 'post',
-      url: 'includes/woordenSubmit.inc.php',
+      url: 'includes/woordenLijstSubmit.inc.php',
       data: woordenLijst,
       success: function (xhr) {
         $("#response").attr("class", "success");
-        $("#response").text(xhr.statusText)
+        $("#response").text(xhr.statusText);
       },
       error: function(xhr) {
         $("#response").attr("class", "error");
