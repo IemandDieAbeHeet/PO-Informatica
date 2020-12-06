@@ -1,8 +1,9 @@
 <?php
 include 'header.php';
+include 'sidebar.php';
 ?>
 
-<main>
+<main class="main">
     <?php
     require "includes/dbh.inc.php";
 
@@ -20,7 +21,10 @@ include 'header.php';
     ?>
 
         <div>
+            <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
             <p><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></p>
+            <button class="bewerkButton">Bewerken</button>
+            <button class="oefenButton">Oefenen</button>
         </div>
 
     <?php

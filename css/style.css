@@ -56,4 +56,33 @@ nav {
 nav a {
   margin-right: 15px;
 }
+
+.sidenav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: auto;
+  background-color: aquamarine;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.main {
+  margin-left: 160px;
+  padding: 0px 10px;
+}
+
+.hidden {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
