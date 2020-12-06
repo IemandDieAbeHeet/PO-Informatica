@@ -1,3 +1,5 @@
+const urlParameters = new URLSearchParams(window.location.search);
+
 $(window).on("load", function() {
     checkForEmptyInputs();
 })
@@ -39,7 +41,7 @@ $(document).on("click", "#verwijderWoord", function() {
     buttonParent.remove();
 });
 
-let totaalWoordenDiv = document.getElementById("woordentotaal");
+const totaalWoordenDiv = document.getElementById("woordentotaal");
 
 function woordenToevoegen(hoeveelheid) {
     if(hoeveelheid == null) hoeveelheid = document.getElementById("hoeveelheid").value;
@@ -72,10 +74,25 @@ function woordenToevoegen(hoeveelheid) {
     }
 }
 
+$('.oefenButton').on('click', function(e) {
+    e.preventDefault;
+    let woordenLijstId = $(this).siblings('.lijstId').text();
+    window.location.href = window.location.protocol + "//" + window.location.host + "/PO-Informatica/lijst" + "?woordenLijst=" + woordenLijstId;
+});
+
+$('.bewerkButton').on('click', function(e) {
+    e.preventDefault;
+    let woordenLijstId = $(this).siblings('.lijstId').text();
+    window.location.href = window.location.protocol + "//" + window.location.host + "/PO-Informatica/lijst-editor" + "?woordenLijst=" + woordenLijstId;
+});
+
+
+
 $('#woordenForm').on('submit', function (e) {
     e.preventDefault();
 
     let woordenLijst = {
+        id: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
         title: $("#lijstNaam").val(),
         woordenArray: {
             0: [],
@@ -115,3 +132,17 @@ $('#woordenForm').on('submit', function (e) {
       }
     });
 });
+
+function getWoordenLijstData(id) {
+    $.ajax({
+        type: 'get',
+        url: 'includes/woordenLijstGet.inc.php',
+        data: id,
+        success: function (xhr) {
+
+        },
+        error: function(xhr) {
+
+        }
+    });
+}
