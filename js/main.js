@@ -86,6 +86,10 @@ $('.bewerkButton').on('click', function(e) {
     window.location.href = window.location.protocol + "//" + window.location.host + "/PO-Informatica/lijst-editor" + "?woordenLijst=" + woordenLijstId;
 });
 
+$(".lijstMakenButton").on("click", function(e) {
+    e.preventDefault;
+    window.location.href="lijst-editor";
+})
 
 
 $('#woordenForm').on('submit', function (e) {
@@ -126,7 +130,7 @@ $('#woordenForm').on('submit', function (e) {
       data: woordenLijst,
       success: function (xhr) {
         $("#response").attr("class", "success");
-        $("#response").text(xhr.statusText);
+        window.location.href = "lijsten";
       },
       error: function(xhr) {
         $("#response").attr("class", "error");
@@ -135,16 +139,26 @@ $('#woordenForm').on('submit', function (e) {
     });
 });
 
-function getWoordenLijstData(id) {
+if(urlParameters.has("woordenLijst")) {
     $.ajax({
         type: 'get',
         url: 'includes/woordenLijstGet.inc.php',
-        data: id,
-        success: function (xhr) {
-
+        data: {
+            id: urlParameters.get("woordenLijst")
+        },
+        success: function (response) {
+            $('#lijstNaam').val(response.woordenLijstNaam);
+            $('#taal1').val(response.taalOrigineel);
+            $('#taal2').val(response.taalVertaald);
+            $('#woord1').each(function(index) {
+                $(this).val(response.woordenOrigineel[index]);
+            });
+            $('#woord2').each(function(index) {
+                $(this).val(response.woordenVertaald[index]);
+            });
         },
         error: function(xhr) {
-
+            $('#response').text(xhr.statusText);
         }
     });
 }

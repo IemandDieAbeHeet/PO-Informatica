@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $dBUsername = "root";
-$dBPassword = file_get_contents("E:/XAMPP/htdocs/has.txt") . "!";
+$dBPassword = file_get_contents("C:/XAMPP/htdocs/has.txt") . "!";
 $dBName = "poinformatica";
 
 $conn = mysqli_connect($servername, $dBUsername, $dBPassword, $dBName);

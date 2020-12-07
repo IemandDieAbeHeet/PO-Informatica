@@ -3,18 +3,20 @@ include 'header.php';
 
 require "includes/dbh.inc.php";
 
-$sql = "SELECT * FROM woordjes WHERE woordenLijstId=? ORDER BY woordenLijstId ASC";
-$stmt = mysqli_stmt_init($conn);
-if(!mysqli_stmt_prepare($stmt, $sql)) {
-    header("Location: ../?error=sqlerror");
-    exit();
-} else {
-    mysqli_stmt_bind_param($stmt, "i", $_GET['woordenLijst']);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $resultId = mysqli_fetch_assoc($result)['userId'];
-    if($resultId != $_SESSION['userId']) {
-        header("Location: lijst?woordenLijst=" . $_GET['woordenLijst']);
+if(!empty($_GET['woordenLijst'])) {
+    $sql = "SELECT * FROM woordjes WHERE woordenLijstId=? ORDER BY woordenLijstId ASC";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)) {
+        header("Location: ../?error=sqlerror");
+        exit();
+    } else {
+        mysqli_stmt_bind_param($stmt, "i", $_GET['woordenLijst']);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $resultId = mysqli_fetch_assoc($result)['userId'];
+        if($resultId != $_SESSION['userId']) {
+            header("Location: lijst?woordenLijst=" . $_GET['woordenLijst']);
+        }
     }
 }
 ?>

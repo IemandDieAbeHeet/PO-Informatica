@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div>
-        <button href="/lijst-editor">Lijst maken</button>
+        <button type="button" class="lijstMakenButton">Lijst maken</button>
     </div>
     <nav>
         <a href="/lijsten">Lijsten</a>
