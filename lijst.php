@@ -28,16 +28,22 @@ include 'sidebar.php';
         <div>
             <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
             <h1><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></h1>
+            
             <?php
             $woordenLijst1array = explode(",", $lijst['woordOrigineel']);
             $woordenLijst2array = explode(",", $lijst['woordVertaling']);
-
+            ?>
+            <div class="lijstDiv">
+            <div class="">
+            <?php
             foreach($woordenLijst1array as $woord) {
                 ?>
                 <p><?php echo $woord; ?></p>
             <?php    
                 }
             ?>
+            </div>
+            <div>
             <?php
             foreach($woordenLijst2array as $woord) {
                 ?>
@@ -45,6 +51,15 @@ include 'sidebar.php';
             <?php    
                 }
             ?>
+            </div>
+            </div>
+            <form id="oefenForm">
+                <select name="oefentype" id="oefenselection">
+                    <option value="Toets">Toets</option>
+                    <option value="Memoery">Memory</option>
+                </select>
+                <button type="submit" name="submit">Oefenen</button>
+            </form>
         </div>
 
     <?php

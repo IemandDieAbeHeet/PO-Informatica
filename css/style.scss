@@ -73,3 +73,8 @@ nav a {
 .hidden {
     display: none;
 }
+
+.lijstDiv {
+    display: flex;
+    flex-flow: row wrap;
+}
