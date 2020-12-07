@@ -10,7 +10,7 @@ include 'sidebar.php';
     $sql = "SELECT * FROM woordjes WHERE userId=? ORDER BY woordenLijstId ASC";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: ../index.php?error=sqlerror");
+        header("Location: ../?error=sqlerror");
         exit();
     } else {
         mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);

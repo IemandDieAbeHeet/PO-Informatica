@@ -14,7 +14,7 @@ include 'sidebar.php';
         exit();
     } else {
         if(!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: ../index.php?error=sqlerror");
+            header("Location: ../?error=sqlerror");
             exit();
         } else {
             $woordenLijstId = intval($_GET['woordenLijst']);

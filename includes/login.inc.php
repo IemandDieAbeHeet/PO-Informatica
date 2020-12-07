@@ -8,14 +8,14 @@ if(isset($_POST["login-submit"])) {
     $password = $_POST["pwd"];
 
     if(empty($mailuid) || empty($password)) {
-        header("Location: ../login.php?error=emptyfields&mailuid=".$mailuid);
+        header("Location: ../login?error=emptyfields&mailuid=".$mailuid);
         exit();
     }
     else {
         $sql = "SELECT * FROM users WHERE username=? OR email=?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: ../login.php?error=sqlerror");
+            header("Location: ../login?error=sqlerror");
             exit();
         }
         else {
@@ -25,8 +25,7 @@ if(isset($_POST["login-submit"])) {
             if($row = mysqli_fetch_assoc($result)) {
                 $pwdCheck = password_verify($password, $row["password"]);
                 if($pwdCheck == false) {
-                    header("Location: ../login.php?error=wrongpwd");
-                    //echo "<script>console.log( 'Debug: " . $pwdCheck . "' );</script>";
+                    header("Location: ../login?error=wrongpwd");
                     exit();
                 }
                 elseif($pwdCheck == true) {
@@ -35,16 +34,16 @@ if(isset($_POST["login-submit"])) {
                     $_SESSION["username"] = $row["username"];
                     $_SESSION["loginTime"] = date("H:i:s");
 
-                    header("Location: ../lijsten.php?login=success");
+                    header("Location: ../lijsten?login=success");
                     exit();
                 }
                 else {
-                    header("Location: ../login.php?error=wrongpwd");
+                    header("Location: ../login?error=wrongpwd");
                     exit();
                 }
             }
             else {
-                header("Location: ../login.php?error=nouser");
+                header("Location: ../login?error=nouser");
                 exit();
             }
         }
@@ -52,6 +51,6 @@ if(isset($_POST["login-submit"])) {
 }
 
 else {
-    header("Location: ../index.php");
+    header("Location: ../");
     exit();
 }

@@ -2,15 +2,15 @@
 include 'header.php';
 
 if(isset($_SESSION['userId'])) {
-    header('Location: lijsten.php');
+    header('Location: /PO-Informatica/lijsten');
 }
 ?>
 
 <main class="main">
     <header>
                 <nav>
-                    <a href="login.php">Inloggen</a>
-                    <a href="signup.php">Registreren</a>
+                    <a href="login">Inloggen</a>
+                    <a href="signup">Registreren</a>
                 </nav>
     </header>
 </main>
