@@ -29,7 +29,7 @@ if(!mysqli_stmt_prepare($stmt, $sql)) {
                         <option value="Nederlands">Nederlands</option>
                         <option value="Engels">Engels</option>
                     </select>
-                    <select name="taal2" id="taal1">
+                    <select name="taal2" id="taal2">
                         <option value="Nederlands">Nederlands</option>
                         <option value="Engels">Engels</option>
                     </select>

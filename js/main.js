@@ -94,6 +94,8 @@ $('#woordenForm').on('submit', function (e) {
     let woordenLijst = {
         id: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
         title: $("#lijstNaam").val(),
+        taalOrigineel: $("#taal1 option:selected").text(),
+        taalVertaald: $("#taal2 option:selected").text(),
         woordenArray: {
             0: [],
             1: []
