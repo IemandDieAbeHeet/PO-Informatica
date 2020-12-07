@@ -3,7 +3,7 @@ include 'header.php';
 include 'sidebar.php';
 ?>
 
-<main class="main">
+<main class="main-sidebar">
     <?php
     require "includes/dbh.inc.php";
 

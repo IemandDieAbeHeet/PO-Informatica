@@ -8,10 +8,13 @@ if(isset($_SESSION['userId'])) {
 
 <main class="main">
     <header>
-                <nav>
-                    <a href="login">Inloggen</a>
-                    <a href="signup">Registreren</a>
-                </nav>
+        <div>
+            <h1>WRTS 2.0</h1>
+        </div>
+        <nav>
+            <a href="login">Inloggen</a>
+            <a href="signup">Registreren</a>
+        </nav>
     </header>
 </main>
 

@@ -1,3 +1,17 @@
+@import 'reset';
+
+header {
+    height: 85px;
+	width: 100%;
+	background-color: #2E3E56;
+	display: flex;
+	flex-flow: row nowrap;
+	align-content: center;
+	align-items: center;
+	justify-content: space-around;
+	z-index: 5;
+}
+
 .woordendiv {
     display: flex;
     flex-flow: row nowrap;
@@ -51,7 +65,7 @@ nav a {
     padding-top: 20px;
 }
 
-.main {
+.main-sidebar {
     margin-left: 160px;
     padding: 0px 10px;
 }
