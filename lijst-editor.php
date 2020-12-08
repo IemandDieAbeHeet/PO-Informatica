@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+include 'sidebar.php';
 
 require "includes/dbh.inc.php";
 
@@ -22,7 +23,7 @@ if(!empty($_GET['woordenLijst'])) {
 ?>
 <html>
     <body>
-        <main>
+        <main class="main-sidebar">
         <div class="wrapper">
             <form id="woordenForm">
                 <input name="lijstNaam" id="lijstNaam" placeholder="Naam woordenlijst" type="text" value="">

@@ -119,11 +119,7 @@ nav {
           justify-content: flex-end;
 }
 
-nav a {
-  margin-right: 15px;
-}
-
-.sidenav {
+.sidebar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -141,6 +137,9 @@ nav a {
   background-color: aquamarine;
   overflow-x: hidden;
   padding-top: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .main-sidebar {
@@ -160,5 +159,31 @@ nav a {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+}
+
+.lijstenHeader {
+  height: 50px;
+  width: 100%;
+  background-color: #2E3E56;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  z-index: 5;
+}
+
+.lijstenHeader a {
+  margin-right: 50px;
 }
 /*# sourceMappingURL=style.css.map */

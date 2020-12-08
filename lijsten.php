@@ -3,6 +3,10 @@ include 'header.php';
 include 'sidebar.php';
 ?>
 
+<header class="lijstenHeader">
+    <a href="includes/logout.inc.php">Uitloggen</a>
+</header>
+
 <main class="main-sidebar">
     <?php
     require "includes/dbh.inc.php";
@@ -23,6 +27,7 @@ include 'sidebar.php';
         <div>
             <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
             <p><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></p>
+            <p><?php echo 'Aantal woorden: ' . $lijst['woordenAantal'] ?></p>
             <button class="bewerkButton">Bewerken</button>
             <button class="oefenButton">Oefenen</button>
         </div>

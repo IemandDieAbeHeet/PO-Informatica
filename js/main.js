@@ -98,6 +98,7 @@ $('#woordenForm').on('submit', function (e) {
     let woordenLijst = {
         id: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
         title: $("#lijstNaam").val(),
+        woordenAantal: $("#woordenForm #woord1").length,
         taalOrigineel: $("#taal1 option:selected").text(),
         taalVertaald: $("#taal2 option:selected").text(),
         woordenArray: {
@@ -123,7 +124,7 @@ $('#woordenForm').on('submit', function (e) {
     });
 
     console.log(woordenLijst);
-
+    
     $.ajax({
       type: 'post',
       url: 'includes/woordenLijstSubmit.inc.php',

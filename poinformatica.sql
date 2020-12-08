@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 06 dec 2020 om 01:58
--- Serverversie: 10.4.14-MariaDB
--- PHP-versie: 7.4.9
+-- Gegenereerd op: 08 dec 2020 om 02:54
+-- Serverversie: 10.4.13-MariaDB
+-- PHP-versie: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,13 +34,6 @@ CREATE TABLE `users` (
   `password` varchar(535) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Gegevens worden geëxporteerd voor tabel `users`
---
-
-INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
-(1, 'Test', 'test@mail.com', '$2y$10$kaUT2FwKD0PEJDnQgsMvGucLiojHIq2SBhowQ6w8aUEDRBkNlmoDy'),
-
 -- --------------------------------------------------------
 
 --
@@ -53,26 +46,10 @@ CREATE TABLE `woordjes` (
   `woordenLijstNaam` varchar(535) NOT NULL,
   `taalOrigineel` varchar(535) NOT NULL,
   `taalVertaald` varchar(535) NOT NULL,
+  `woordenAantal` int(11) NOT NULL,
   `woordOrigineel` varchar(535) NOT NULL,
   `woordVertaling` varchar(535) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Gegevens worden geëxporteerd voor tabel `woordjes`
---
-
-INSERT INTO `woordjes` (`woordenLijstId`, `userId`, `woordenLijstNaam`, `taalOrigineel`, `taalVertaald`, `woordOrigineel`, `woordVertaling`) VALUES
-(2, 1, 'Shid', 'Nederlands', 'Nederlands', 'Poep', 'Shit'),
-(3, 2, 'Shid', 'Nederlands', 'Nederlands', 'Test', 'test'),
-(4, 2, 'Shid', 'Nederlands', 'Nederlands', 'Test', 'test'),
-(5, 2, 'Vv', 'Nederlands', 'Nederlands', 'Test', 'test'),
-(6, 2, 'BTR', 'Nederlands', 'Nederlands', 'Test', 'test'),
-(7, 2, 'uk', 'Nederlands', 'Nederlands', 'Test', 'test'),
-(8, 2, 'Poep', 'Nederlands', 'Nederlands', 'HasHpePRaalHPeo', 'plaspROGotoeFGv'),
-(9, 2, 'HTHBEB', 'Nederlands', 'Nederlands', ', nbtent, nbtyr, bter', 'nteqnbtrrbt'),
-(10, 2, 'Tanno', 'Nederlands', 'Nederlands', 'Tanno', 'tanno'),
-(11, 2, 'Tanno', 'Nederlands', 'Nederlands', 'Tanno,Tanno', 'tanno,tanno'),
-(12, 2, 'Tanno', 'Nederlands', 'Nederlands', 'Tanno,Tanno,b', 'tanno,tanno,b');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -99,13 +76,13 @@ ALTER TABLE `woordjes`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT voor een tabel `woordjes`
 --
 ALTER TABLE `woordjes`
-  MODIFY `woordenLijstId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `woordenLijstId` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -9,6 +9,7 @@ $woordenlijstNaam = $_POST['title'];
 $woordenLijstId = $_POST['id'];
 $taalOrigineel = $_POST['taalOrigineel'];
 $taalVertaald = $_POST['taalVertaald'];
+$woordenAantal = $_POST['woordenAantal'];
 
 $woordenLijst1array = array();
 
@@ -31,14 +32,14 @@ if(empty($userId)) {
 } else if(empty($woordenlijstNaam) || empty($_POST["woordenArray"][0]) || empty($_POST["woordenArray"][1]) || empty($taalOrigineel) || empty($taalVertaald)) {
     header('HTTP/1.1 400 Velden niet ingevuld!');
 } else if(empty($woordenLijstId)) {
-    $sql = "INSERT INTO woordjes (userId, woordenLijstNaam, taalOrigineel, taalVertaald, woordOrigineel, woordVertaling) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO woordjes (userId, woordenLijstNaam, taalOrigineel, taalVertaald, woordenAantal, woordOrigineel, woordVertaling) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
         header('HTTP/1.1 400 SQL error!');
         exit();
     }
     else {
-        mysqli_stmt_bind_param($stmt, "ssssss", $userId, $woordenlijstNaam, $taalOrigineel, $taalVertaald, $woordenLijst1, $woordenLijst2);
+        mysqli_stmt_bind_param($stmt, "issssss", $userId, $woordenlijstNaam, $taalOrigineel, $taalVertaald, $woordenAantal, $woordenLijst1, $woordenLijst2);
         $result = mysqli_stmt_execute($stmt);
 
         $affectedRow = mysqli_info($conn);
@@ -47,14 +48,14 @@ if(empty($userId)) {
         exit();
     }
 } else {
-    $sql = "UPDATE woordjes SET woordenLijstNaam=?, taalOrigineel=?, taalVertaald=?, woordOrigineel=?, woordVertaling=? WHERE woordenLijstId=?";
+    $sql = "UPDATE woordjes SET woordenLijstNaam=?, taalOrigineel=?, taalVertaald=?, woordenAantal=?, woordOrigineel=?, woordVertaling=? WHERE woordenLijstId=?";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
         header('HTTP/1.1 400 SQL error!');
         exit();
     }
     else {
-        mysqli_stmt_bind_param($stmt, "sssssi", $woordenlijstNaam, $taalOrigineel, $taalVertaald, $woordenLijst1, $woordenLijst2, $woordenLijstId);
+        mysqli_stmt_bind_param($stmt, "ssssssi", $woordenlijstNaam, $taalOrigineel, $taalVertaald, $woordenAantal, $woordenLijst1, $woordenLijst2, $woordenLijstId);
         $result = mysqli_stmt_execute($stmt);
 
         $affectedRow = mysqli_info($conn);
