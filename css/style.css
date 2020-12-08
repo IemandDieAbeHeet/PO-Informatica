@@ -194,4 +194,8 @@ a {
 a:visited {
   color: green;
 }
+
+.wrapper {
+  margin-top: 50px;
+}
 /*# sourceMappingURL=style.css.map */

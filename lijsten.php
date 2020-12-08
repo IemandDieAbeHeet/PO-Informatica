@@ -29,7 +29,7 @@ include 'sidebar.php';
             <p><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></p>
             <p><?php echo 'Aantal woorden: ' . $lijst['woordenAantal'] ?></p>
             <button class="bewerkButton">Bewerken</button>
-            <button class="oefenButton">Oefenen</button>
+            <button class="bekijkButton">Bekijken</button>
         </div>
 
     <?php

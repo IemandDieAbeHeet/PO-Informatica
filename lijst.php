@@ -53,13 +53,11 @@ include 'sidebar.php';
             ?>
             </div>
             </div>
-            <form id="oefenForm">
-                <select name="oefentype" id="oefenselection">
-                    <option value="Toets">Toets</option>
-                    <option value="Memoery">Memory</option>
-                </select>
-                <button type="submit" name="submit">Oefenen</button>
-            </form>
+            <select name="oefentype" id="oefenSelection">
+                <option value="Toets">Toets</option>
+                <option value="Memory">Memory</option>
+            </select>
+            <button type="submit" name="submit" id="oefenButton">Oefenen</button>
         </div>
 
     <?php
