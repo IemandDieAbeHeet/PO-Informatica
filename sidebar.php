@@ -3,6 +3,6 @@
         <button type="button" class="lijstMakenButton">Lijst maken</button>
     </div>
     <nav>
-        <a href="/lijsten">Lijsten</a>
+        <a href="/PO-Informatica/lijsten">Lijsten</a>
     </nav>
 </div>

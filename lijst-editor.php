@@ -38,7 +38,7 @@ if(!empty($_GET['woordenLijst'])) {
                     </select>
                 </div>
                 <div id="woordentotaal">
-                    <div class="woordendiv">
+                    <div class="woordenDiv">
                         <p id="woordnummer">1</p>
                         <input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">
                         <input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling" type="text" value="">

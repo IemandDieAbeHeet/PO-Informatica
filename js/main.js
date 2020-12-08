@@ -47,7 +47,7 @@ function woordenToevoegen(hoeveelheid) {
     if(hoeveelheid == null) hoeveelheid = document.getElementById("hoeveelheid").value;
     for(let i = 1; i <= hoeveelheid; i++) {
         let woordenDiv = document.createElement("div");
-        woordenDiv.className = "woordendiv";
+        woordenDiv.className = "woordenDiv";
         totaalWoordenDiv.appendChild(woordenDiv);
         
         let vorigNummer = parseInt($("p#woordnummer").last().text());
@@ -140,7 +140,7 @@ $('#woordenForm').on('submit', function (e) {
     });
 });
 
-if(urlParameters.has("woordenLijst")) {
+if(urlParameters.has("woordenLijst") && window.location.pathname == '/PO-Informatica/lijst-editor') {
     $.ajax({
         type: 'get',
         url: 'includes/woordenLijstGet.inc.php',
@@ -148,13 +148,16 @@ if(urlParameters.has("woordenLijst")) {
             id: urlParameters.get("woordenLijst")
         },
         success: function (response) {
+            woordenToevoegen(response.woordenAantal-1);
             $('#lijstNaam').val(response.woordenLijstNaam);
             $('#taal1').val(response.taalOrigineel);
             $('#taal2').val(response.taalVertaald);
-            $('#woord1').each(function(index) {
+            
+            $('.woordenDiv #woord1').each(function(index) {
+                console.log("berb");
                 $(this).val(response.woordenOrigineel[index]);
             });
-            $('#woord2').each(function(index) {
+            $('.woordenDiv #woord2').each(function(index) {
                 $(this).val(response.woordenVertaald[index]);
             });
         },

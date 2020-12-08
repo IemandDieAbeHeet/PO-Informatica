@@ -186,4 +186,12 @@ nav {
 .lijstenHeader a {
   margin-right: 50px;
 }
+
+a {
+  color: green;
+}
+
+a:visited {
+  color: green;
+}
 /*# sourceMappingURL=style.css.map */

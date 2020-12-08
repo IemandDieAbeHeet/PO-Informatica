@@ -32,7 +32,7 @@ if(empty($userId)) {
 } else if(empty($woordenlijstNaam) || empty($_POST["woordenArray"][0]) || empty($_POST["woordenArray"][1]) || empty($taalOrigineel) || empty($taalVertaald)) {
     header('HTTP/1.1 400 Velden niet ingevuld!');
 } else if(empty($woordenLijstId)) {
-    $sql = "INSERT INTO woordjes (userId, woordenLijstNaam, taalOrigineel, taalVertaald, woordenAantal, woordOrigineel, woordVertaling) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO woordjes (userId, woordenLijstNaam, taalOrigineel, taalVertaald, woordenAantal, woordOrigineel, woordVertaling) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
         header('HTTP/1.1 400 SQL error!');
