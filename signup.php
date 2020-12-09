@@ -4,7 +4,7 @@
 
     <main>
         <div class="wrapper">
-            <h1 >Signup</h1>
+            <h1 >Aanmelden</h1>
             <div class="signup">
                 <?php
                 if(isset($_GET["error"])) {
