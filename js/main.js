@@ -153,13 +153,13 @@ $('#woordenForm').on('submit', function (e) {
 $('.bekijkButton').on('click', function(e) {
     e.preventDefault;
     let woordenLijstId = $(this).siblings('.lijstId').text();
-    window.location.href = window.location.protocol + "//" + window.location.host + "/PO-Informatica/lijst" + "?woordenLijst=" + woordenLijstId;
+    window.location.href = window.location.protocol + "//" + window.location.host + "/lijst" + "?woordenLijst=" + woordenLijstId;
 });
 
 $('.bewerkButton').on('click', function(e) {
     e.preventDefault;
     let woordenLijstId = $(this).siblings('.lijstId').text();
-    window.location.href = window.location.protocol + "//" + window.location.host + "/PO-Informatica/lijst-editor" + "?woordenLijst=" + woordenLijstId;
+    window.location.href = window.location.protocol + "//" + window.location.host + "/lijst-editor" + "?woordenLijst=" + woordenLijstId;
 });
 
 $(".lijstMakenButton").on("click", function(e) {
