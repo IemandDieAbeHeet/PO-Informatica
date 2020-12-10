@@ -8,7 +8,3 @@ RewriteRule ^(.*)$ $1index.php  [L]
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
-
-<Files "has.txt">
-    Require all denied
-</Files>
