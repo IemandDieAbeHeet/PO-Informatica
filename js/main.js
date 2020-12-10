@@ -72,7 +72,7 @@ function woordenToevoegen(hoeveelheid) {
     }
 }
 
-if(urlParameters.has("woordenLijst") && window.location.pathname == '/PO-Informatica/lijst-editor') {
+if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-editor')) {
     $.ajax({
         type: 'get',
         url: 'includes/woordenLijstGet.inc.php',
@@ -175,7 +175,7 @@ $("#oefenButton").on("click", function(e) {
     e.preventDefault();
     let woordenLijstId = $(this).siblings('.lijstId').text();
     let oefenType = $(this).siblings('#oefenSelection').find('option:selected').text()
-    window.location.href = window.location.protocol + "//" + window.location.host + "/PO-Informatica/lijst-oefenen" + "?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
+    window.location.href = "/lijst-oefenen?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
 
 //--------------------------------------------------------
@@ -184,7 +184,7 @@ $("#oefenButton").on("click", function(e) {
 
 let woordenOrigineelArray;
 
-if(urlParameters.has("woordenLijst") && window.location.pathname == ("/PO-Informatica/lijst-oefenen")) {
+if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-oefenen")) {
     $.ajax({
         type: 'get',
         url: 'includes/woordenLijstGet.inc.php',
