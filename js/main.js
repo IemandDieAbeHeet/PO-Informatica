@@ -175,7 +175,7 @@ $("#oefenButton").on("click", function(e) {
     e.preventDefault();
     let woordenLijstId = $(this).siblings('.lijstId').text();
     let oefenType = $(this).siblings('#oefenSelection').find('option:selected').text()
-    window.location.href = "/lijst-oefenen?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
+    window.location.href = "lijst-oefenen?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
 
 //--------------------------------------------------------
