@@ -2,9 +2,6 @@
 include 'header.php';
 require "loginDisallowed.php";
 
-if(isset($_SESSION['userId'])) {
-    header('Location: /PO-Informatica/lijsten');
-}
 ?>
 
 <main class="main">
