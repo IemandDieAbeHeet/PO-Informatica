@@ -5,7 +5,7 @@
 
     <main>
         <div class="wrapper">
-            <h1>Login</h1>
+            <h1>Inloggen</h1>
             <div class="login">
             <?php
             if(isset($_GET["error"])) {
