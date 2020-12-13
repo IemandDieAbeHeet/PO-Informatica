@@ -1,6 +1,7 @@
 <?php
 include 'header.php';
 include 'sidebar.php';
+require "loginRequired.php";
 ?>
 
 <header class="lijstenHeader">
