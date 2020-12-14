@@ -107,3 +107,22 @@ a:visited {
 .test {
     text-shadow: fade-in($color: #000000, $amount: 0);
 }
+
+#kaarten {
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+}
+
+#kaarten .kaart {
+    display: flex;
+    word-wrap: break-word;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: cadetblue;
+}
+
+.selected {
+    background-color: grey !important;
+}

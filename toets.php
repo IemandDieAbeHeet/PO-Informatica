@@ -1,3 +1,3 @@
-<p id="oefenWoord">Woord</p>
+<p class="oefenWoord">Woord</p>
 <input type="text" id="oefenInput">
-<button>Nakijken</button>
+<button id="oefenButton">Nakijken</button>

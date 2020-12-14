@@ -183,6 +183,8 @@ $("#oefenButton").on("click", function(e) {
 //----------------------Lijst oefenen---------------------
 
 let woordenOrigineelArray;
+let woordenVertaaldArray;
+let woordenAntwoord;
 
 if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-oefenen")) {
     $.ajax({
@@ -192,9 +194,34 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
             id: urlParameters.get("woordenLijst")
         },
         success: function (response) {
-            $("#oefenDiv").load("toets.php");
             woordenOrigineelArray = response.woordenOrigineel;
-            $("#oefenWoord").val(woordenOrigineelArray[0]);
+            woordenVertaaldArray = response.woordenVertaald;
+
+            switch(urlParameters.get("oefenType")) {
+                case "Toets":
+                    $("#oefenDiv").load("toets.php", function() {
+                        
+                        woordenAntwoord = woordenVertaaldArray[0];
+                        $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[0]);
+
+                        $("#oefenDiv #oefenButton").on("click", function(e) {
+                            antwoordCheck();
+                        })
+                        
+                        $("#oefenDiv #oefenInput").on("keyup", function(e) {
+                            if(e.key != "Enter") return;
+                            antwoordCheck();
+                        })
+                    });
+                    break;
+                case "Memory":
+                    $("#oefenDiv").load("memory.php", function() {
+                        laadMemory();
+                    })
+                    break;
+                default:
+                    window.location.href = "lijst?woordenLijst=" + urlParameters.get("woordenLijst");
+            }
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -206,5 +233,92 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
         $("#oefenWoord").text(woordenOrigineelArray[0]);
     });
 }
+
+let random = 0;
+function antwoordCheck() {
+    if($("#oefenDiv #oefenInput").val() == woordenAntwoord) {
+        let iframe = $("<iframe src='audio.php' style='display:none'></iframe>");
+        $("body").append(iframe);
+        $(iframe).on("load", function() {
+            $(iframe).contents().find("audio").on("ended", function() {
+                $(iframe).remove();
+            })
+
+            woordenOrigineelArray.splice(random, 1);
+            woordenVertaaldArray.splice(random, 1);
+
+            if(woordenOrigineelArray.length > 0 && woordenVertaaldArray.length > 0) {
+                console.log(woordenOrigineelArray.length);
+                random = Math.floor(Math.random() * woordenVertaaldArray.length-1) + 1;
+                woordenAntwoord = woordenVertaaldArray[random];
+                $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[random]);
+            } else {
+                window.location.href = "lijst?woordenLijst=" + urlParameters.get("woordenLijst");
+            }
+        })
+    } else {
+        alert("fout kut");
+    }
+}
+
+let kaartenGrid = $("#oefenDiv #kaarten");
+let kaart;
+let geopendeKaarten = [];
+
+function laadMemory() {
+    for(let i = 0; i < woordenOrigineelArray.length; i++) {
+        kaart = $("<li class='kaart'><p>" + woordenOrigineelArray[i] + "</p></li>");
+        $("#oefenDiv #kaarten").append(kaart);
+    }
+
+    kaart.each(function(index) {
+        $(this).find("p").text(woordenOrigineelArray[index]);
+    });
+    
+    $("#oefenDiv #kaarten").css("grid", "repeat(" + Math.ceil(Math.sqrt(woordenOrigineelArray.length)) + ", 100px) / repeat(" + Math.ceil(Math.sqrt(woordenOrigineelArray.length)) + ", 100px)");
+    
+    $("#oefenDiv .kaart").on("click", function() {
+        $(this).addClass("selected");
+    });
+}
+
+function openKaart() {
+    geopendeKaarten.push($(this));
+    let len = geopendeKaarten.length;
+    if(len === 2) {
+        if(geopendeKaarten[0].find("p").text() === geopendeKaarten[1].find("p").text()) {
+            match();
+        } else {
+            mismatch();
+        }
+    }
+}
+
+function match() {
+
+}
+
+function mismatch() {
+    
+}
+
+function toggleKaart() {
+    $(this).toggleClass("open");
+    $(this).toggleClass("show");
+    $(this).toggleClass("disabled");
+}
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
 
 //--------------------------------------------------------

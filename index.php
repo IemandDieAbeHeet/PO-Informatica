@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'defaultHeader.php';
 require "loginDisallowed.php";
 
 ?>
@@ -17,5 +17,5 @@ require "loginDisallowed.php";
 </main>
 
 <?php
-include 'footer.php';
+include 'defaultFooter.php';
 ?>

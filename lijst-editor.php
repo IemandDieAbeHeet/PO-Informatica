@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'defaultHeader.php';
 include 'sidebar.php';
 require "loginRequired.php";
 
@@ -53,5 +53,5 @@ if(!empty($_GET['woordenLijst'])) {
     </div>
 </main>
 <?php
-include 'footer.php';
+include 'defaultFooter.php';
 ?>

@@ -1,12 +1,8 @@
 <?php
-include 'header.php';
+include 'loginHeader.php';
 include 'sidebar.php';
 require "loginRequired.php";
 ?>
-
-<header class="lijstenHeader">
-    <a href="includes/logout.inc.php">Uitloggen</a>
-</header>
 
 <main class="main-sidebar">
     <?php
@@ -15,7 +11,7 @@ require "loginRequired.php";
     $sql = "SELECT * FROM woordjes WHERE userId=? ORDER BY woordenLijstId ASC";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
-        header("Location: ../?error=sqlerror");
+        header("Location: /?error=sqlerror");
         exit();
     } else {
         mysqli_stmt_bind_param($stmt, "i", $_SESSION['userId']);
@@ -41,5 +37,5 @@ require "loginRequired.php";
 </main>
 
 <?php
-include 'footer.php';
+include 'defaultFooter.php';
 ?>

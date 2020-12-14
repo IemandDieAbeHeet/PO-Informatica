@@ -198,4 +198,36 @@ a:visited {
 .wrapper {
   margin-top: 50px;
 }
+
+.test {
+  text-shadow: black;
+}
+
+#kaarten {
+  display: -ms-grid;
+  display: grid;
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#kaarten .kaart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  word-wrap: break-word;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: cadetblue;
+}
+
+.selected {
+  background-color: grey !important;
+}
 /*# sourceMappingURL=style.css.map */

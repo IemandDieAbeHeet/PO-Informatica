@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'defaultHeader.php';
 include 'sidebar.php';
 require "loginRequired.php";
 ?>
@@ -70,5 +70,5 @@ require "loginRequired.php";
 </main>
 
 <?php
-include 'footer.php';
+include 'defaultFooter.php';
 ?>
