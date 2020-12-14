@@ -227,7 +227,22 @@ a:visited {
   background-color: cadetblue;
 }
 
-.selected {
-  background-color: grey !important;
+#kaarten .kaart p {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#kaarten .kaart.disabled {
+  pointer-events: none;
+  opacity: 90;
+}
+
+.show > p {
+  visibility: visible !important;
+  opacity: 100 !important;
+}
+
+.matching {
+  background-color: greenyellow !important;
 }
 /*# sourceMappingURL=style.css.map */
