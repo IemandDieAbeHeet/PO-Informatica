@@ -29,11 +29,11 @@ if(!empty($_GET['woordenLijst'])) {
             <div>
                 <select name="taal1" id="taal1">
                     <option value="Nederlands">Nederlands</option>
-                    <option value="Engels">Engels</option>
+                    <option value="Engels">Duits</option>
                 </select>
                 <select name="taal2" id="taal2">
                     <option value="Nederlands">Nederlands</option>
-                    <option value="Engels">Engels</option>
+                    <option value="Engels">Duits</option>
                 </select>
             </div>
             <div id="woordentotaal">
