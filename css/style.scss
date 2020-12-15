@@ -110,6 +110,7 @@ a:visited {
 
 #kaarten {
     display: grid;
+    grid: repeat(4, 100px) / repeat(4, 100px);
     gap: 10px;
     justify-content: center;
 }

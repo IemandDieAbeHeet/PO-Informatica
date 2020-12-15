@@ -277,16 +277,15 @@ function laadMemory() {
         woordenVertaaldAssoc[woordenVertaaldArray[i]] = woordenOrigineelArray[i];
     }
 
-    for(let i = 0; i < woordenTotaalArray.length; i++) {
+    for(let i = 0; i <= 4; i++) {
         kaarten = $("<li class='kaart'><p>" + woordenTotaalArray[i] + "</p></li>");
         $("#oefenDiv #kaarten").append(kaarten);
+        woordenTotaalArray.splice(i, 1);
     }
 
     $('#oefenDiv .kaart').each(function(index) {
         $(this).find("p").text(woordenTotaalArray[index]);
     });
-    
-    $("#oefenDiv #kaarten").css("grid", "repeat(" + Math.ceil(Math.sqrt(woordenTotaalArray.length)) + ", 100px) / repeat(" + Math.ceil(Math.sqrt(woordenTotaalArray.length)) + ", 100px)");
     
     $("#oefenDiv .kaart").on("click", function() {
         toggleKaart(this);

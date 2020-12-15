@@ -206,6 +206,7 @@ a:visited {
 #kaarten {
   display: -ms-grid;
   display: grid;
+  grid: repeat(4, 100px)/repeat(4, 100px);
   gap: 10px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
