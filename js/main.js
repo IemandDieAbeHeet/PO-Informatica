@@ -196,7 +196,10 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
         success: function (response) {
             woordenOrigineelArray = response.woordenOrigineel;
             woordenVertaaldArray = response.woordenVertaald;
-            woordenTotaalArray = woordenOrigineelArray.concat(woordenVertaaldArray);
+            for(let i = 0; i < woordenOrigineelArray.length; i++) {
+                woordenTotaalArray.push(woordenOrigineelArray[i] + "O");
+                woordenTotaalArray.push(woordenVertaaldArray[i] + "V");
+            }
 
             switch(urlParameters.get("oefenType")) {
                 case "Toets":
@@ -217,7 +220,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                     break;
                 case "Memory":
                     $("#oefenDiv").load("memory.php", function() {
-                        laadMemory();
+                        startMemory();
                     })
                     break;
                 default:
@@ -249,10 +252,9 @@ function antwoordCheck() {
             woordenVertaaldArray.splice(random, 1);
 
             if(woordenOrigineelArray.length > 0 && woordenVertaaldArray.length > 0) {
-                console.log(woordenOrigineelArray.length);
                 random = Math.floor(Math.random() * woordenVertaaldArray.length-1) + 1;
-                woordenAntwoord = woordenVertaaldArray[random];
-                $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[random]);
+                woordenAntwoord = woordenVertaaldArray[random].slice(0, -1);
+                $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[random].slice(0, -1));
             } else {
                 window.location.href = "lijst?woordenLijst=" + urlParameters.get("woordenLijst");
             }
@@ -266,60 +268,92 @@ let kaartenGrid = $("#oefenDiv #kaarten");
 let kaarten;
 let geopendeKaarten = [];
 let matchedKaarten = [];
-let woordenOrigineelAssoc = {};
-let woordenVertaaldAssoc = {};
 
-function laadMemory() {
-    shuffleArray(woordenTotaalArray);
-    
-    for(var i = 0, ii = woordenOrigineelArray.length; i<ii; i++) {
-        woordenOrigineelAssoc[woordenOrigineelArray[i]] = woordenVertaaldArray[i];
-        woordenVertaaldAssoc[woordenVertaaldArray[i]] = woordenOrigineelArray[i];
+let huidigeScore = 0;
+
+let arrayChunks = [];
+let currChunk = 0;
+
+let interval;
+
+function startMemory() {
+    let chunkGrootte = 16;
+
+    for(let i = 0, j = woordenTotaalArray.length; i < j; i += chunkGrootte) {
+        let chunk = woordenTotaalArray.slice(i, i+chunkGrootte);
+        let temp = shuffleArray(chunk);
+        arrayChunks.push(temp);
     }
 
-    for(let i = 0; i <= 4; i++) {
-        kaarten = $("<li class='kaart'><p>" + woordenTotaalArray[i] + "</p></li>");
-        $("#oefenDiv #kaarten").append(kaarten);
-        woordenTotaalArray.splice(i, 1);
+    laadWoorden(0);
+
+    interval = setInterval(updateMemory, 1000)
+}
+
+function updateMemory() {
+    if(arrayChunks.length > currChunk) {
+        if(huidigeScore >= arrayChunks[currChunk].length/2) {
+            laadWoorden(currChunk+1);
+            currChunk++;
+            huidigeScore = 0;
+        }
+    } else {
+        alert("klaar!");
+        clearInterval(interval);
     }
+}
+
+function laadWoorden(woordenIndex) {
+    $('#oefenDiv .kaart').remove();
+
+    arrayChunks.forEach(function(item, index) {
+        if(index == woordenIndex) {
+            for(let z = 0; z <= item.length-1; z++) {
+                kaarten = $("<li class='kaart' id=" + z + "><p type=" + item[z].slice(-1, item[z].length) + "></p></li>");
+                $("#oefenDiv #kaarten").append(kaarten);
+            }
+        }
+    });
 
     $('#oefenDiv .kaart').each(function(index) {
-        $(this).find("p").text(woordenTotaalArray[index]);
+        $(this).find("p").text(arrayChunks[woordenIndex][index].slice(0, -1));
     });
     
     $("#oefenDiv .kaart").on("click", function() {
-        toggleKaart(this);
-        openKaart(this);
+        toggleKaart($(this));
+        openKaart($(this));
     });
 }
 
 function openKaart(kaart) {
-    geopendeKaarten.push($(kaart));
+    geopendeKaarten.push(kaart);
     let len = geopendeKaarten.length;
     if(len === 2) {
         let matching = false;
         let num1;
         let num2;
         for(let i = 0; i < 2; i++) {
-            temp1 = (woordenVertaaldArray.indexOf(geopendeKaarten[i].find("p").text()));
-            temp2 = (woordenOrigineelArray.indexOf(geopendeKaarten[i].find("p").text()));
-            
-            if((temp1 != -1)) {
-                num1 = temp1;
-            } else if(temp2 != -1) {
-                num2 = temp2;
+            let type= geopendeKaarten[i].find("p").attr('type');
+            if(type === "V") {
+                num1 = (woordenVertaaldArray.indexOf(geopendeKaarten[i].find("p").text()));
+            } else if(type === "O") {
+                num2 = (woordenOrigineelArray.indexOf(geopendeKaarten[i].find("p").text()));
             }
         }
 
-        if(num1 === num2) {
+        if(num1 === num2 && num1 != -1 && num2 != -1) {
             matching = true;
         }
+
+        num1 = -1;
+        num2 = -1;
 
         if(matching) {
             geopendeKaarten[0].addClass("disabled show matching");
             geopendeKaarten[1].addClass("disabled show matching");
             matchedKaarten.push(geopendeKaarten[0], geopendeKaarten[1]);
             geopendeKaarten = [];
+            huidigeScore++;
         } else {
             disableKaarten();
             setTimeout(function(){
@@ -348,8 +382,8 @@ function enableKaarten(){
 }
 
 function toggleKaart(kaart) {
-    $(kaart).toggleClass("show");
-    $(kaart).toggleClass("disabled");
+    kaart.toggleClass("show");
+    kaart.toggleClass("disabled");
 }
 
 function shuffleArray(array) {
