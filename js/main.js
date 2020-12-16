@@ -204,7 +204,6 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
             switch(urlParameters.get("oefenType")) {
                 case "Toets":
                     $("#oefenDiv").load("toets.php", function() {
-                        
                         woordenAntwoord = woordenVertaaldArray[0];
                         $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[0]);
 
@@ -253,8 +252,9 @@ function antwoordCheck() {
 
             if(woordenOrigineelArray.length > 0 && woordenVertaaldArray.length > 0) {
                 random = Math.floor(Math.random() * woordenVertaaldArray.length-1) + 1;
-                woordenAntwoord = woordenVertaaldArray[random].slice(0, -1);
-                $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[random].slice(0, -1));
+                woordenAntwoord = woordenVertaaldArray[random];
+                $("#oefenDiv #oefenInput").val("");
+                $("#oefenDiv .oefenWoord").text(woordenOrigineelArray[random]);
             } else {
                 window.location.href = "lijst?woordenLijst=" + urlParameters.get("woordenLijst");
             }
