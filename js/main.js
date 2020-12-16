@@ -287,7 +287,7 @@ function startMemory() {
 
     laadWoorden(0);
 
-    interval = setInterval(updateMemory, 1000)
+    interval = setInterval(updateMemory, 10)
 }
 
 function updateMemory() {
@@ -298,7 +298,7 @@ function updateMemory() {
             huidigeScore = 0;
         }
     } else {
-        alert("klaar!");
+        window.location.href = "lijst?woordenLijst=" + urlParameters.get("woordenLijst");
         clearInterval(interval);
     }
 }
