@@ -29,11 +29,11 @@ if(!empty($_GET['woordenLijst'])) {
             <div>
                 <select name="taal1" id="taal1">
                     <option value="Nederlands">Nederlands</option>
-                    <option value="Engels">Duits</option>
+                    <option value="Duits">Duits</option>
                 </select>
                 <select name="taal2" id="taal2">
                     <option value="Nederlands">Nederlands</option>
-                    <option value="Engels">Duits</option>
+                    <option value="Duits">Duits</option>
                 </select>
             </div>
             <div id="woordentotaal">
@@ -47,6 +47,11 @@ if(!empty($_GET['woordenLijst'])) {
                 <input type="number" id="hoeveelheid" name="hoeveelheid" value="1" min="1" max="100">
                 <input type="button" value="Voeg woorden toe" onclick="woordenToevoegen()">
                 <input type="submit" id="woordenSubmit" name="woordenSubmit" value="Klaar">
+            </div>
+            <p>Of</p>
+            <div>
+                <input id="bestandInput" type="file" style="display:none;">
+                <input id="bestandButton" type="button" value="Importeer woordenlijst">
             </div>
             <p id="response"></p>
         </form>

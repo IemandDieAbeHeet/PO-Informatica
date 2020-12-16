@@ -8,7 +8,7 @@ $("#woordenForm input[type='text']").on("keyup", checkEmptyInputs);
 function checkEmptyInputs() {
     let anyEmpty = false;
     let emptyAmount = 0;
-    $("#woordenForm input[type='text']").each(function() {
+    $("#woordenForm input[type='text']").filter(function() { return $(this).val() != "" }).each(function() {
         if(this.value.trim() == "") {
             anyEmpty = true;
         }
@@ -29,6 +29,9 @@ $(document).on("keydown", ".woord", function (e) {
     if(currentInput == null) {
         e.preventDefault();
         woordenToevoegen(1);
+    } else {
+        e.preventDefault();
+        $(currentInput).trigger('focus');
     }
 });
 
@@ -36,7 +39,17 @@ $(document).on("click", "#verwijderWoord", function() {
     let buttonParent = $(this).parent();
     buttonParent.empty();
     buttonParent.remove();
+
+    updateWoordenNummers();
 });
+
+function updateWoordenNummers() {
+    $("#woordenForm .woordenDiv").each(function() {
+        let vorigNummer = $("p#woordnummer").index($(this).find("p#woordnummer"));
+        $(this).find("p#woordnummer").text(vorigNummer + 1);
+        console.log(vorigNummer);
+    });
+}
 
 const totaalWoordenDiv = document.getElementById("woordentotaal");
 
@@ -54,12 +67,10 @@ function woordenToevoegen(hoeveelheid) {
         woordNummerElement.appendChild(woordNummerNode);
         woordenDiv.appendChild(woordNummerElement);
         
-        let input1 = document.getElementById("woord1").cloneNode();
-        input1.value = "";
-        let input2 = document.getElementById("woord2").cloneNode();
-        input2.value = "";
-        woordenDiv.appendChild(input1);
-        woordenDiv.appendChild(input2);
+        let input1 = $('<input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">');
+        let input2 = $('<input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling" type="text" value=""></input>');
+        $(woordenDiv).append(input1);
+        $(woordenDiv).append(input2);
 
         let removeButton = document.createElement("input");
         removeButton.type = "button";
@@ -67,7 +78,38 @@ function woordenToevoegen(hoeveelheid) {
         removeButton.id = "verwijderWoord"
         woordenDiv.appendChild(removeButton);
 
-        input1.focus();
+        input1.trigger('focus');
+    }
+}
+
+function woordenReplace(hoeveelheid) {
+    if(hoeveelheid == null) hoeveelheid = document.getElementById("hoeveelheid").value;
+    $(".woordenDiv").remove();
+    for(let i = 1; i <= hoeveelheid; i++) {
+        let woordenDiv = document.createElement("div");
+        woordenDiv.className = "woordenDiv";
+        totaalWoordenDiv.appendChild(woordenDiv);
+        
+        let vorigNummer = i-1;
+        let woordNummerElement = document.createElement("p");
+        woordNummerElement.id = "woordnummer";
+        let woordNummerNode = document.createTextNode(vorigNummer + 1);
+        woordNummerElement.appendChild(woordNummerNode);
+        woordenDiv.appendChild(woordNummerElement);
+        
+        let input1 = $('<input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">');
+        let input2 = $('<input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling" type="text" value=""></input>');
+        $(woordenDiv).append(input1);
+        $(woordenDiv).append(input2);
+
+        let removeButton = document.createElement("input");
+        removeButton.type = "button";
+        removeButton.value = "X";
+        removeButton.id = "verwijderWoord";
+
+        woordenDiv.appendChild(removeButton);
+
+        input1.trigger('focus');
     }
 }
 
@@ -81,8 +123,8 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
         success: function (response) {
             woordenToevoegen(response.woordenAantal-1);
             $('#lijstNaam').val(response.woordenLijstNaam);
-            $('#taal1').val(response.taalOrigineel);
-            $('#taal2').val(response.taalVertaald);
+            $('#woordenForm #taal1').val(response.taalOrigineel);
+            $('#woordenForm #taal2').val(response.taalVertaald);
             
             $('.woordenDiv #woord1').each(function(index) {
                 $(this).val(response.woordenOrigineel[index]);
@@ -91,7 +133,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
                 $(this).val(response.woordenVertaald[index]);
             });
 
-            checkEmptyInputs();
+            setInterval(checkEmptyInputs, 10);
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -105,7 +147,7 @@ $('#woordenForm').on('submit', function (e) {
     let woordenLijst = {
         id: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
         title: $("#lijstNaam").val(),
-        woordenAantal: $("#woordenForm #woord1").length,
+        woordenAantal: $('#woordenForm #woord1').filter(function() { return $(this).val() != ""; }).length,
         taalOrigineel: $("#taal1 option:selected").text(),
         taalVertaald: $("#taal2 option:selected").text(),
         woordenArray: {
@@ -144,6 +186,84 @@ $('#woordenForm').on('submit', function (e) {
       }
     });
 });
+
+//Lijst importeren
+
+$("#bestandInput").on("change", function() {
+    $("#woordenForm #woord1").each(function(index) {
+        $(this).val(CSVToArray());
+    });
+
+    let woordenArray;
+
+    this.files[0].text().then(function(text) {
+        woordenArray = CSVToArray(text, ";");
+        woordenReplace(woordenArray.length);
+
+        let i = 0;
+        $("#woordenForm #woord1").each(function() {
+            $(this).val(woordenArray[i][0]);
+            i++;
+        });
+
+
+        let j = 0
+        $("#woordenForm #woord2").each(function() {
+            $(this).val(woordenArray[j][1]);
+            j++;
+        });
+    });
+});
+
+$("#bestandButton").on("click", function() {
+    $("#bestandInput").trigger("click");
+});
+
+function CSVToArray( strData, strDelimiter ){
+    
+    
+    strDelimiter = (strDelimiter || ",");
+    
+    var objPattern = new RegExp(
+        (
+            "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+            "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+            "([^\"\\" + strDelimiter + "\\r\\n]*))"
+        ),
+        "gi"
+        );
+
+    var arrData = [[]];
+    var arrMatches = null;
+
+    while (arrMatches = objPattern.exec( strData )){
+        var strMatchedDelimiter = arrMatches[ 1 ];
+
+        if (
+            strMatchedDelimiter.length &&
+            (strMatchedDelimiter != strDelimiter)
+            ){
+            arrData.push( [] );
+        }
+
+        if (arrMatches[ 2 ]){
+            var strMatchedValue = arrMatches[ 2 ].replace(
+                new RegExp( "\"\"", "g" ),
+                "\""
+                );
+        } else {
+            var strMatchedValue = arrMatches[ 3 ];
+        }
+        arrData[ arrData.length - 1 ].push( strMatchedValue );
+
+        arrFiltered = arrData.filter(el => {
+            return el != null && el != '';
+          });
+        arrData = arrFiltered;
+    }
+    
+    return( arrData );
+}
 
 //--------------------------------------------------------
 

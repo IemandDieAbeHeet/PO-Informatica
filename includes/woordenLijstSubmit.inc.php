@@ -11,6 +11,7 @@ $taalOrigineel = $_POST['taalOrigineel'];
 $taalVertaald = $_POST['taalVertaald'];
 $woordenAantal = $_POST['woordenAantal'];
 
+$woordenLijst1 = "";
 $woordenLijst1array = array();
 
 foreach($_POST["woordenArray"][0] as $woord) {
