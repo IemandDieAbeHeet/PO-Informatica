@@ -44,7 +44,7 @@ if(!empty($_GET['woordenLijst'])) {
                 </div>
             </div>
             <div>
-                <input type="number" id="hoeveelheid" name="hoeveelheid" min="1" max="100">
+                <input type="number" id="hoeveelheid" name="hoeveelheid" value="1" min="1" max="100">
                 <input type="button" value="Voeg woorden toe" onclick="woordenToevoegen()">
                 <input type="submit" id="woordenSubmit" name="woordenSubmit" value="Klaar">
             </div>
