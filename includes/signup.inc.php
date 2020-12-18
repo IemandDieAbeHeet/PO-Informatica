@@ -5,11 +5,12 @@ if(isset($_POST["signup-submit"])) {
     require "dbh.inc.php";
 
     $username = $_POST["username"];
+    $volledigenaam = $_POST["volledigenaam"];
     $email = $_POST["mail"];
     $password = $_POST["pwd"];
     $passwordRepeat = $_POST["pwd-repeat"];
 
-    if(empty($username) || empty($email) || empty($password) || empty($passwordRepeat)) {
+    if(empty($username) || empty($email) || empty($password) || empty($volledigenaam) || empty($passwordRepeat)) {
         header("Location: ../signup?error=emptyfields&uid=".$username."&mail=".$email);
         exit();
     }
@@ -25,13 +26,16 @@ if(isset($_POST["signup-submit"])) {
         header("Location: ../signup?error=invaliduid&mail=".$email);
         exit();
     }
+    elseif(!preg_match("/^[a-zA-Z\s]*$/", $volledigenaam)) {
+        header("Location: ../signup?error=invalidname&uid=".$username."&mail=".$email);
+    }
     elseif($password !== $passwordRepeat) {
         header("Location: ../signup?error=passwordcheck&uid=".$username."&mail=".$email);
         exit();
     }
     else {
 
-        $sql = "SELECT username FROM users WHERE username=?";
+        $sql = "SELECT userUsername FROM users WHERE userUsername=?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)) {
             header("Location: ../signup?error=sqlerror");
@@ -47,7 +51,7 @@ if(isset($_POST["signup-submit"])) {
                 exit();
             }
             else {
-                $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+                $sql = "INSERT INTO users (userUsername, userVolledigenaam, userEmail, userPassword) VALUES (?, ?, ?, ?)";
                 $stmt = mysqli_stmt_init($conn);
                 if(!mysqli_stmt_prepare($stmt, $sql)) {
                     header("Location: ../signup?error=sqlerror");
@@ -56,7 +60,7 @@ if(isset($_POST["signup-submit"])) {
                 else {
                     $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
 
-                    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashedPwd);
+                    mysqli_stmt_bind_param($stmt, "ssss", $username, $volledigenaam, $email, $hashedPwd);
                     $result = mysqli_stmt_execute($stmt);
 
                     session_start();
@@ -64,7 +68,9 @@ if(isset($_POST["signup-submit"])) {
                     $affectedRow = mysqli_info($conn);
                     
                     $_SESSION["userId"] = mysqli_insert_id($conn);
+                    $_SESSION["userVolledigenaam"] = $volledigenaam;
                     $_SESSION["userUid"] = $username;
+                    $_SESSION["userType"] = "Leerling";
                     $_SESSION["loginTime"] = date("H:i:s");
 
                     header("Location: ../lijsten?signup=success");

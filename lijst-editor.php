@@ -32,8 +32,8 @@ if(!empty($_GET['woordenLijst'])) {
                     <option value="Duits">Duits</option>
                 </select>
                 <select name="taal2" id="taal2">
-                    <option value="Nederlands">Nederlands</option>
                     <option value="Duits">Duits</option>
+                    <option value="Nederlands">Nederlands</option>
                 </select>
             </div>
             <div id="woordentotaal">
