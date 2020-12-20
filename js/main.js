@@ -440,8 +440,8 @@ let interval;
 function startMemory() {
     let chunkGrootte = 16;
 
-    for(let i = 0, j = woordenTotaalArray.length; i < j; i += chunkGrootte) {
-        let chunk = woordenTotaalArray.slice(i, i+chunkGrootte);
+    for(let i = 0, j = woordenLijst.length*2; i < j; i += chunkGrootte) {
+        let chunk = woordenLijst.slice(i, i+chunkGrootte);
         let temp = shuffleArray(chunk);
         arrayChunks.push(temp);
     }
@@ -528,7 +528,7 @@ function openKaart(kaart) {
                 }
                 if(type === "V") {
                     if(!fouteAntwoordenVertaald.includes(geopendeKaarten[i])) {
-                        fouteAntwoorden.push(geopendeKaarten[i].find("p").text());
+                        fouteAntwoordenVertaald.push(geopendeKaarten[i].find("p").text());
                     }
                 }
             }
