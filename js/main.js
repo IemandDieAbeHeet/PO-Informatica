@@ -528,7 +528,7 @@ function openKaart(kaart) {
                 }
                 if(type === "V") {
                     if(!fouteAntwoordenVertaald.includes(geopendeKaarten[i])) {
-                        fouteAntwoordenVertaald.push(geopendeKaarten[i].find("p").text());
+                        fouteAntwoorden.push(geopendeKaarten[i].find("p").text());
                     }
                 }
             }
