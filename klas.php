@@ -17,7 +17,7 @@ require "loginRequired.php";
             header("Location: /?error=sqlerror");
             exit();
         } else {
-            mysqli_stmt_bind_param($stmt, "i", $_SESSION['klasId']);
+            mysqli_stmt_bind_param($stmt, "i", $_GET['klasId']);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if(mysqli_num_rows($result) > 0) {
@@ -43,13 +43,14 @@ require "loginRequired.php";
             header("Location: /?error=sqlerror");
             exit();
         } else {
-            mysqli_stmt_bind_param($stmt, "i", $_SESSION['klasId']);
+            mysqli_stmt_bind_param($stmt, "i", $_GET['klasId']);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if(mysqli_num_rows($result) > 0) {
                 while($klas = mysqli_fetch_assoc($result)) {
         ?>
                 <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
+                <p>Docent: <?php echo $klas['klasDocent'] ?></p>
 
         <?php
                 }

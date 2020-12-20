@@ -25,6 +25,8 @@ require "loginRequired.php";
             <p><?php echo 'Klas: ' . $lijst['klasNaam'] ?></p>
             <p><?php echo 'Niveau: ' . $lijst['klasNiveau'] ?></p>
             <p><?php echo 'Jaar: ' . $lijst['klasJaar'] ?></p>
+            <p><?php echo 'Klassenscore: ' . $lijst['klasScore'] ?></p>
+            <button class="klasBekijkButton">Klas bekijken</button>
             <?php
             if(!isset($_SESSION['klasId'])) {
             ?>

@@ -6,6 +6,7 @@ require "loginRequired.php";
 <main>
     <div id="oefenDiv">
     </div>
+    <p id="response"></p>
 </main>
 
 <?php

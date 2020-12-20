@@ -31,6 +31,10 @@ require "loginRequired.php";
 
     <?php
             }
+        } else {
+            ?>
+            <p>Geen lijsten gevonden, klik <a href="lijst-editor">hier</a> om er een aan te maken</p>
+            <?php
         }
     }
     ?>

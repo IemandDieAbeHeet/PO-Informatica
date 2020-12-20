@@ -8,7 +8,7 @@
         <?php
         if(isset($_SESSION['klasId'])) {
         ?>
-        <a href="klas">Mijn klas</a>
+        <a href="klas?klasId=<?php echo $_SESSION['klasId'] ?>">Mijn klas</a>
         <?php
         }
         ?>

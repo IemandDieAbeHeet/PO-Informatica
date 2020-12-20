@@ -21,18 +21,11 @@ if(empty($userId)) {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
-        $row = mysqli_fetch_assoc($result);
-        $woorden2 = array_pop($row);
-        $woorden1 = array_pop($row);
-
-        $woorden1array = explode(",", $woorden1);
-        $woorden2array = explode(",", $woorden2);
-
-        $woordenLijsten = array('woordenOrigineel' => $woorden1array, 'woordenVertaald' => $woorden2array);
-        $woordenLijstData = array_merge($row, $woordenLijsten);
-
+        $woordenLijstData = mysqli_fetch_assoc($result);
+        $woordenLijst = array("woordenArray" => json_decode(array_pop($woordenLijstData)));
+        $data = array_merge($woordenLijstData, $woordenLijst);
         header('Content-type:application/json;charset=utf-8');
-        echo json_encode($woordenLijstData, true);
+        echo json_encode($data, true);
 
         exit();
     }

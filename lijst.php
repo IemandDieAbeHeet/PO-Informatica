@@ -31,24 +31,23 @@ require "loginRequired.php";
             <h1><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></h1>
             
             <?php
-            $woordenLijst1array = explode(",", $lijst['woordOrigineel']);
-            $woordenLijst2array = explode(",", $lijst['woordVertaling']);
+            $woordenArray = json_decode($lijst['woordenArray']);
             ?>
             <div class="lijstDiv">
             <div class="">
             <?php
-            foreach($woordenLijst1array as $woord) {
+            for($i = 0; $i < count($woordenArray); $i++) {
                 ?>
-                <p><?php echo $woord; ?></p>
+                <p><?php echo $woordenArray[$i][0]; ?></p>
             <?php    
                 }
             ?>
             </div>
             <div>
             <?php
-            foreach($woordenLijst2array as $woord) {
+            for($i = 0; $i < count($woordenArray); $i++) {
                 ?>
-                <p><?php echo $woord; ?></p>
+                <p><?php echo $woordenArray[$i][1]; ?></p>
             <?php    
                 }
             ?>
