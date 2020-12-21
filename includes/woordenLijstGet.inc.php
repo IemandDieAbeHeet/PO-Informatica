@@ -13,7 +13,7 @@ if(empty($userId)) {
     $sql = "SELECT * FROM woordjes WHERE woordenLijstId=?";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
-        header('HTTP/1.1 400 SQL error!');
+        header('HTTP/1.1 500 SQL error!');
         exit();
     }
     else {

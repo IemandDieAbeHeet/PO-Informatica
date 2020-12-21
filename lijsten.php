@@ -27,6 +27,7 @@ require "loginRequired.php";
             <p><?php echo 'Aantal woorden: ' . $lijst['woordenAantal'] ?></p>
             <button class="bewerkButton">Bewerken</button>
             <button class="bekijkButton">Bekijken</button>
+            <button class="verwijderWoordenlijstButton">Verwijderen</button>
         </div>
 
     <?php

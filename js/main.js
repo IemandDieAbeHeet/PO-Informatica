@@ -1,5 +1,6 @@
 //Globale variabelen
 const urlParameters = new URLSearchParams(window.location.search);
+let woordenLijst = {};
 
 //----------------------Lijst editor----------------------
 
@@ -143,9 +144,9 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
 $('#woordenForm').on('submit', function (e) {
     e.preventDefault();
 
-    let woordenLijst = {
-        id: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
-        title: $("#lijstNaam").val(),
+    woordenLijst = {
+        woordenLijstId: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
+        woordenLijstNaam: $("#lijstNaam").val(),
         woordenAantal: $('#woordenForm #woord1').filter(function() { return $(this).val() != ""; }).length,
         taalOrigineel: $("#taal1 option:selected").text(),
         taalVertaald: $("#taal2 option:selected").text(),
@@ -278,6 +279,23 @@ $(".lijstMakenButton").on("click", function(e) {
     window.location.href="lijst-editor";
 })
 
+$(".verwijderWoordenlijstButton").on("click", function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'post',
+        url: 'includes/woordenLijstDelete.inc.php',
+        data: { woordenLijstId: $(this).siblings('.lijstId').text() },
+        success: function () {
+            $("#response").attr("class", "success");
+            window.location.href = "lijsten";
+        },
+        error: function(xhr) {
+            $("#response").attr("class", "error");
+            $("#response").text(xhr.statusText);
+        }
+    });
+})
+
 //--------------------------------------------------------
 
 //----------------------Lijst weergave--------------------
@@ -293,7 +311,7 @@ $("#oefenButton").on("click", function(e) {
 
 //----------------------Lijst oefenen---------------------
 
-let woordenLijst = [];
+let woordenArray = [];
 let woordenAntwoord;
 
 let volgendeWoordenOrigineel = [];
@@ -317,14 +335,15 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
             id: urlParameters.get("woordenLijst")
         },
         success: function (response) {
-            woordenLijst = response.woordenArray;
+            woordenLijst = response;
+            woordenArray = woordenLijst.woordenArray;
 
             switch(urlParameters.get("oefenType")) {
                 case "Toets":
                     $("#oefenDiv").load("toets.php", function() {
-                        woordenLijst = shuffleArray(woordenLijst);
-                        woordenAntwoord = woordenLijst[0][1];
-                        $("#oefenDiv .oefenWoord").text(woordenLijst[0][0]);
+                        woordenArray = shuffleArray(woordenArray);
+                        woordenAntwoord = woordenArray[0][1];
+                        $("#oefenDiv .oefenWoord").text(woordenArray[0][0]);
 
                         $("#oefenDiv #oefenButton").on("click", function(e) {
                             e.preventDefault();
@@ -342,6 +361,8 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                         $("#resultaatDiv #resultaatButton").on("click", function() {
                             window.location.href = "lijsten";
                         });
+
+                        $("#resultaatDiv #foutenImporterenButton").on("click", nieuweWoordenlijstFouten);
                     });
                     break;
                 case "Memory":
@@ -351,6 +372,8 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                         $("#resultaatDiv #resultaatButton").on("click", function() {
                             window.location.href = "lijsten";
                         });
+
+                        $("#resultaatDiv #foutenImporterenButton").on("click", nieuweWoordenlijstFouten);
                     });
 
                     break;
@@ -364,8 +387,29 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
     });
 }
 
+function nieuweWoordenlijstFouten() {
+    console.log(woordenLijst);
+    let nieuweWoordenLijst = woordenLijst;
+    nieuweWoordenLijst.woordenLijstId = null;
+    nieuweWoordenLijst.woordenLijstNaam =  woordenLijst.woordenLijstNaam + " (fouten)";
+    nieuweWoordenLijst.woordenAantal = fouteAntwoorden.length;
+    nieuweWoordenLijst.woordenArray = fouteAntwoorden;
+    $.ajax({
+        type: 'post',
+        url: 'includes/woordenLijstSubmit.inc.php',
+        data: nieuweWoordenLijst,
+        success: function (response) {
+            $("#response").attr("class", "success");
+            window.location.href = "lijst?woordenLijst=" + response.woordenLijstId;
+        },
+        error: function(xhr) {
+            $("#response").attr("class", "error");
+            $("#response").text(xhr.statusText);
+        }
+    });
+}
+
 function antwoordCheck() {
-    
     if($("#oefenDiv #oefenInput").val() == woordenAntwoord) {
         let iframe = $("<iframe src='audio.php' style='display:none'></iframe>");
         $("body").append(iframe);
@@ -375,14 +419,14 @@ function antwoordCheck() {
             })
 
             goedCount++;
-            woordenLijst.splice(0, 1);
+            woordenArray.splice(0, 1);
 
-            if(woordenLijst.length > 0) {
-                woordenAntwoord = woordenLijst[0][1];
+            if(woordenArray.length > 0) {
+                woordenAntwoord = woordenArray[0][1];
                 $("#oefenDiv #oefenInput").val("");
-                $("#oefenDiv .oefenWoord").text(woordenLijst[0][0]);
+                $("#oefenDiv .oefenWoord").text(woordenArray[0][0]);
             } else {
-                cijfer = parseInt(((goedCount/woordenLijst.length*9)+1).toFixed(1));
+                cijfer = parseInt(((goedCount/woordenArray.length*9)+1).toFixed(1));
                 verstuurScore(cijfer * 10);
             }
         });
@@ -393,18 +437,18 @@ function antwoordCheck() {
             $(".oefenWoord").removeClass("foutAntwoord");
             disabled = false;
             foutCount++;
-            let temp = woordenLijst.splice(0, 1);
+            let temp = woordenArray.splice(0, 1)[0];
             
             if(!fouteAntwoorden.includes(temp[0]) && !fouteAntwoorden.includes(temp[1])) {
                 fouteAntwoorden.push(temp);
             }
 
-            woordenLijst.splice(2, 0, temp);
+            woordenArray.splice(2, 0, temp);
 
             alert("Hahahahahahahahahahahahahaha");
-            woordenAntwoord = woordenLijst[0][1];
+            woordenAntwoord = woordenArray[0][1];
             $("#oefenDiv #oefenInput").val("");
-            $("#oefenDiv .oefenWoord").text(woordenLijst[0][0]);
+            $("#oefenDiv .oefenWoord").text(woordenArray[0][0]);
         }, 1200);
     }
 }
@@ -438,10 +482,10 @@ let currChunk = 0;
 let interval;
 
 function startMemory() {
-    let chunkGrootte = 16;
+    let chunkGrootte = 8;
 
-    for(let i = 0, j = woordenLijst.length*2; i < j; i += chunkGrootte) {
-        let chunk = woordenLijst.slice(i, i+chunkGrootte);
+    for(let i = 0, j = woordenArray.length; i < j; i += chunkGrootte) {
+        let chunk = woordenArray.slice(i, i+chunkGrootte);
         let temp = shuffleArray(chunk);
         arrayChunks.push(temp);
     }
@@ -468,49 +512,52 @@ function updateMemory() {
 function laadWoorden(woordenIndex) {
     $('#oefenDiv .kaart').remove();
 
-    arrayChunks.forEach(function(item, index) {
-        if(index == woordenIndex) {
-            for(let z = 0; z <= item.length-1; z++) {
-                kaarten = $("<li class='kaart' id=" + z + "><p type=" + item[z].slice(-1, item[z].length) + "></p></li>");
-                $("#oefenDiv #kaarten").append(kaarten);
-            }
+    arrayChunks[woordenIndex].forEach(function(item, index) {
+        for(let z = 0; z <= item.length-1; z++) {
+            kaarten = $("<li class='kaart' id=" + index + "><p type=" + z + ">" + item[z] + "</p></li>");
+            $("#oefenDiv #kaarten").append(kaarten);
         }
     });
-
-    $('#oefenDiv .kaart').each(function(index) {
-        $(this).find("p").text(arrayChunks[woordenIndex][index].slice(0, -1));
-    });
     
+    $("#oefenDiv .kaart").shuffle();
+
     $("#oefenDiv .kaart").on("click", function() {
         toggleKaart($(this));
         openKaart($(this));
     });
 }
 
+(function($){
+ 
+    $.fn.shuffle = function() {
+ 
+        var allElems = this.get(),
+            getRandom = function(max) {
+                return Math.floor(Math.random() * max);
+            },
+            shuffled = $.map(allElems, function(){
+                var random = getRandom(allElems.length),
+                    randEl = $(allElems[random]).clone(true)[0];
+                allElems.splice(random, 1);
+                return randEl;
+           });
+ 
+        this.each(function(i){
+            $(this).replaceWith($(shuffled[i]));
+        });
+ 
+        return $(shuffled);
+ 
+    };
+ 
+})(jQuery);
+
 function openKaart(kaart) {
     geopendeKaarten.push(kaart);
     let len = geopendeKaarten.length;
     if(len === 2) {
-        let matching = false;
-        let num1;
-        let num2;
-        for(let i = 0; i < 2; i++) {
-            let type = geopendeKaarten[i].find("p").attr('type');
-            if(type === "V") {
-                num1 = (woordenVertaaldArray.indexOf(geopendeKaarten[i].find("p").text()));
-            } else if(type === "O") {
-                num2 = (woordenOrigineelArray.indexOf(geopendeKaarten[i].find("p").text()));
-            }
-        }
 
-        if(num1 === num2 && num1 != -1 && num2 != -1) {
-            matching = true;
-        }
-
-        num1 = -1;
-        num2 = -1;
-
-        if(matching) {
+        if($(geopendeKaarten[0]).attr("id") === $(geopendeKaarten[1]).attr("id")) {
             geopendeKaarten[0].addClass("disabled show matching");
             geopendeKaarten[1].addClass("disabled show matching");
             matchedKaarten.push(geopendeKaarten[0], geopendeKaarten[1]);
@@ -519,16 +566,20 @@ function openKaart(kaart) {
         } else {
             disableKaarten();
             foutCount++;
-            for(let i = 0; i < 2; i++) {
-                let type = geopendeKaarten[i].find("p").attr('type');
-                if(type === "O") {
-                    if(!fouteAntwoordenOrigineel.includes(geopendeKaarten[i])) {
-                        fouteAntwoordenOrigineel.push(geopendeKaarten[i].find("p").text());
-                    }
-                }
-                if(type === "V") {
-                    if(!fouteAntwoordenVertaald.includes(geopendeKaarten[i])) {
-                        fouteAntwoordenVertaald.push(geopendeKaarten[i].find("p").text());
+            if(!fouteAntwoorden.includes(geopendeKaarten[0].find("p").text())) {
+                for(let i = 0; i < 2; i++) {
+                    let woordenIndex = woordenArray.findIndex(function(currentValue) {
+                        if(currentValue[i] === geopendeKaarten[i].find("p").text() || currentValue[1] === geopendeKaarten[i].find("p").text()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+
+                    if(woordenIndex >= 0) {
+                        if(!fouteAntwoorden.includes(woordenArray[woordenIndex])) {
+                            fouteAntwoorden.push(woordenArray[woordenIndex]);
+                        }
                     }
                 }
             }
@@ -588,7 +639,7 @@ function verstuurScore(score) {
         success: function (response) {
             disabled = true;
             $("#resultaatDiv").css("visibility", "visible");
-            $("#cijferText").text("Cijfer: " + ((goedCount/woordenVertaaldArray.length*9)+1).toFixed(1));
+            $("#cijferText").text("Cijfer: " + ((goedCount/woordenArray.length*9)+1).toFixed(1));
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);

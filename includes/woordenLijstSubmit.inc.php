@@ -5,14 +5,12 @@ session_start();
 require 'dbh.inc.php';
 
 $userId = $_SESSION["userId"];
-$woordenlijstNaam = $_POST['title'];
-$woordenLijstId = $_POST['id'];
+$woordenlijstNaam = $_POST['woordenLijstNaam'];
+$woordenLijstId = $_POST['woordenLijstId'];
 $taalOrigineel = $_POST['taalOrigineel'];
 $taalVertaald = $_POST['taalVertaald'];
 $woordenAantal = $_POST['woordenAantal'];
 $woordenArray = json_encode($_POST['woordenArray']);
-
-var_dump($woordenArray);
 
 if(empty($userId)) {
     header('HTTP/1.1 400 Je bent niet ingelogd!');
@@ -22,32 +20,34 @@ if(empty($userId)) {
     $sql = "INSERT INTO woordjes (userId, woordenLijstNaam, taalOrigineel, taalVertaald, woordenAantal, woordenArray) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
-        header('HTTP/1.1 400 SQL error!');
+        header('HTTP/1.1 500 SQL error!');
         exit();
     }
     else {
         mysqli_stmt_bind_param($stmt, "isssss", $userId, $woordenlijstNaam, $taalOrigineel, $taalVertaald, $woordenAantal, $woordenArray);
         $result = mysqli_stmt_execute($stmt);
 
-        $affectedRow = mysqli_info($conn);
+        $id = mysqli_insert_id($conn);
 
-        header('HTTP/1.1 200 Woordenlijst succesvol opgeslagen!');
+        header('Content-type:application/json;charset=utf-8');
+        echo json_encode(array("woordenLijstId" => $id), true);
         exit();
     }
 } else {
     $sql = "UPDATE woordjes SET woordenLijstNaam=?, taalOrigineel=?, taalVertaald=?, woordenAantal=?, woordenArray=? WHERE woordenLijstId=?";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
-        header('HTTP/1.1 400 SQL error!');
+        header('HTTP/1.1 500 SQL error!');
         exit();
     }
     else {
         mysqli_stmt_bind_param($stmt, "sssssi", $woordenlijstNaam, $taalOrigineel, $taalVertaald, $woordenAantal, $woordenArray, $woordenLijstId);
         $result = mysqli_stmt_execute($stmt);
 
-        $affectedRow = mysqli_info($conn);
+        $id = mysqli_insert_id($conn);
 
-        header('HTTP/1.1 200 Woordenlijst succesvol opgeslagen!');
+        header('Content-type:application/json;charset=utf-8');
+        echo json_encode(array("woordenLijstId" => $id), true);
         exit();
     }
 }
