@@ -388,7 +388,6 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
 }
 
 function nieuweWoordenlijstFouten() {
-    console.log(woordenLijst);
     let nieuweWoordenLijst = woordenLijst;
     nieuweWoordenLijst.woordenLijstId = null;
     nieuweWoordenLijst.woordenLijstNaam =  woordenLijst.woordenLijstNaam + " (fouten)";
@@ -400,7 +399,7 @@ function nieuweWoordenlijstFouten() {
         data: nieuweWoordenLijst,
         success: function (response) {
             $("#response").attr("class", "success");
-            window.location.href = "lijst?woordenLijst=" + response.woordenLijstId;
+            window.location.href = "lijst-editor?woordenLijst=" + response.woordenLijstId;
         },
         error: function(xhr) {
             $("#response").attr("class", "error");

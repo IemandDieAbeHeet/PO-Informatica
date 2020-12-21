@@ -51,7 +51,14 @@ require "loginRequired.php";
         ?>
                 <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
                 <p>Docent: <?php echo $klas['klasDocent'] ?></p>
-
+                
+                <div class="character">
+                    <div id="hoed"></div>
+                    <div id="hoofd"></div>
+                    <div id="lichaam"></div>
+                    <div id="broek"></div>
+                    <div id="schoenen"></div>
+                </div>
         <?php
                 }
             }
