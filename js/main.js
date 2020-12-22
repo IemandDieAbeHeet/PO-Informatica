@@ -332,7 +332,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
         type: 'get',
         url: 'includes/woordenLijstGet.inc.php',
         data: {
-            id: urlParameters.get("woordenLijst")
+            woordenLijstId: urlParameters.get("woordenLijst")
         },
         success: function (response) {
             woordenLijst = response;
@@ -683,10 +683,197 @@ $(".klasJoinButton").on("click", function() {
 
 //----------------------Klas informatie-------------------
 
-$(".character #hoed").draggable();
-$(".character #lichaam").draggable();
-$(".character #hoofd").draggable();
-$(".character #broek").draggable();
-$(".character #schoenen").draggable();
+let boundsElement;
+let targetElement;
+
+if(urlParameters.has("klasId") && window.location.pathname.match("/klas")) {
+    $(window).on("load", function() {
+        boundsElement = $(".character");
+
+        $.ajax({
+            type: 'get',
+            url: 'includes/characterGet.inc.php',
+            data: {
+                klasId: parseInt(urlParameters.get("klasId"))
+            },
+            success: function (response) {
+                laadCharacter(response);
+            },
+            error: function(xhr) {
+                $('#response').text(xhr.statusText);
+            }
+        });
+    });
+}
+
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+
+let dragging = false;
+
+let characterData = [];
+
+function laadCharacter(res) {
+    characterData = res;
+    characterData.forEach(function(item) {
+        let newElement = $("<div draggable='true' id='" + item.id + "'></div>");
+        newElement.css({"left": item.x + "px", "top": item.y + "px"});
+        boundsElement.append(newElement);
+        let img = new Image();
+        img.src = newElement.css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+        newElement.width(img.width);
+        newElement.height(img.height);
+    });
+
+    $(".character > *").on({
+        mousedown: dragStart,
+    });
+}
+
+$("#characterResetButton").on("click", function() {
+    let elements = $(".character > *");
+    characterData.forEach(function(item, index) {
+        $(elements[index]).css({"left": item.x + "px", "top": item.y + "px"});
+    });
+});
+
+$("#characterOpslaanButton").on("click", function() {
+    let newCharacterData = [];
+    $(".character > *").each(function() {
+        newCharacterData.push({id: $(this).attr("id"), x: parseInt($(this).css('left').slice(0, -2)), y: parseInt($(this).css('top').slice(0, -2))})
+    });
+
+    $.ajax({
+        type: 'post',
+        url: 'includes/characterUpdate.inc.php',
+        data: {
+            characterData: newCharacterData
+        },
+        success: function (response) {
+            $("#response").text("Poppetje opgeslagen!");
+        },
+        error: function(xhr) {
+            $('#response').text(xhr.statusText);
+        }
+    });
+});
+
+$(document).on({
+    mousemove: function(e) {
+        drag(e);
+    },
+    mouseup: dragEnd,
+})
+
+function dragStart(e) {
+    if(!dragging) {
+        e.preventDefault();
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX;
+            initialY = e.touches[0].clientY;
+        } else {
+            initialX = e.clientX;
+            initialY = e.clientY;
+        }
+
+        targetElement = e.target;
+        dragging = true;
+    }
+}
+
+function dragEnd(e) {
+    e.preventDefault();
+    dragging = false;
+    targetElement = null;
+}
+
+function drag(e) {
+    e.preventDefault();
+    if($(targetElement).attr('draggable') === 'true') {
+        if(dragging) {
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX - boundsElement.position().left - $(targetElement).width()/2;
+                currentY = e.touches[0].clientY - boundsElement.position().top - $(targetElement).height()/2;
+            } else {
+                currentX = e.clientX - boundsElement.position().left - $(targetElement).width()/2;
+                currentY = e.clientY - boundsElement.position().top - $(targetElement).height()/2;
+            }
+
+            xAllowed = currentX >= boundsElement.position().left - boundsElement.offset().left && currentX <= boundsElement.position().left - boundsElement.offset().left + boundsElement.width();
+            yAllowed = currentY >= boundsElement.position().top - boundsElement.offset().top && currentY <= boundsElement.position().top - boundsElement.offset().top + boundsElement.height();
+            if(xAllowed && yAllowed) {
+                $(targetElement).css({"left": currentX+"px","top": currentY+"px"});
+            } else if(!xAllowed && yAllowed) {
+                $(targetElement).css({"top": currentY+"px"});
+            } else if(!yAllowed && xAllowed) {
+                $(targetElement).css({"left": currentX+"px"});
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------
+
+//----------------------Leraar dashboard-------------------
+
+if(window.location.pathname.match("/leraarDashboard")) {
+    laadKlassen();
+}
+
+$("#addKlasOpenButton").on("click", function(e) {
+    $("#addKlasDiv").css("visibility", "visible");
+})
+
+$("#addKlasCollapseButton").on("click", function(e) {
+    $("#addKlasDiv").css("visibility", "hidden");
+})
+
+$("#addKlasForm").on("submit", function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'post',
+        url: 'includes/klasAdd.inc.php',
+        data: {
+            klasNaam: $("#klasNaam").val(),
+            klasNiveau: $("#klasNiveau option:selected").val(),
+            klasJaar: $("#klasJaar").val(),
+        },
+        success: function (response) {
+            laadKlassen();
+        },
+        error: function(xhr) {
+            $('#response').text(xhr.statusText);
+        }
+    });
+});
+
+function laadKlassen() {
+    $("#klassenLijst ul > *").remove();
+    $("#klassenLijst ul").load("klassenLijst.php", function() {
+        $(".klasBekijkButton").on("click", function() {
+            window.location.href = "klas?klasId=" + parseInt($(this).siblings(".klasId").text());
+        });
+
+        $(".klasDeleteButton").on("click", function() {
+            if(confirm("Zeker?")) {
+                $.ajax({
+                    type: 'post',
+                    url: 'includes/klasDelete.inc.php',
+                    data: {
+                        klasId: parseInt($(this).siblings(".klasId").text()),
+                    },
+                    success: function (response) {
+                        laadKlassen();
+                    },
+                    error: function(xhr) {
+                        $('#response').text(xhr.statusText);
+                    }
+                });
+            }
+        });
+    });
+}
 
 //--------------------------------------------------------
