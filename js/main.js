@@ -683,6 +683,10 @@ $(".klasJoinButton").on("click", function() {
 
 //----------------------Klas informatie-------------------
 
-
+$(".character #hoed").draggable();
+$(".character #lichaam").draggable();
+$(".character #hoofd").draggable();
+$(".character #broek").draggable();
+$(".character #schoenen").draggable();
 
 //--------------------------------------------------------
