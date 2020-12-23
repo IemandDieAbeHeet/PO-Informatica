@@ -221,3 +221,47 @@ a:visited {
 #addKlasDiv {
     visibility: hidden;
 }
+
+.shop {
+    position: absolute;
+    left: 45%;
+    background-color: grey;
+    display: flex;
+    width: 350px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+
+.shop .shopItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.shopItem p {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+}
+
+#itemId {
+    display: none;
+}
+
+.shop > button {
+    height: inherit;
+    border: none;
+    outline: none;
+    font-size: 4em;
+    background-color: grey;
+    color: lightgray;
+}
+
+.shop > button:hover {
+    height: inherit;
+    font-size: 4rem;
+    background-color: grey;
+    color: white;
+}

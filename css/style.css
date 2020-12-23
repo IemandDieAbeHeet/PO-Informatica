@@ -339,4 +339,58 @@ a:visited {
 #addKlasDiv {
   visibility: hidden;
 }
+
+.shop {
+  position: absolute;
+  left: 45%;
+  background-color: grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 350px;
+  height: 150px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.shop .shopItem {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+}
+
+.shopItem p {
+  position: absolute;
+  top: 60px;
+  left: 80px;
+}
+
+#itemId {
+  display: none;
+}
+
+.shop > button {
+  height: inherit;
+  border: none;
+  outline: none;
+  font-size: 4em;
+  background-color: grey;
+  color: lightgray;
+}
+
+.shop > button:hover {
+  height: inherit;
+  font-size: 4rem;
+  background-color: grey;
+  color: white;
+}
 /*# sourceMappingURL=style.css.map */

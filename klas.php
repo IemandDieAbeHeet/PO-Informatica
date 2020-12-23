@@ -57,9 +57,20 @@ require "loginRequired.php";
                 while($klas = mysqli_fetch_assoc($result)) {
         ?>
                 <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
-                <p>Docent: <?php echo $klas['klasDocent'] ?></p>
+                <p>Docent: <?php echo $klas['klasDocentNaam'] ?></p>
                 
                 <div class="character">
+                </div>
+
+                <div class="shop">
+                    <button id="shopPreviousItem"><</button>
+                    <div class="shopItem">
+                        <p id="itemId"></p>
+                        <img id="itemImg" src="img/character/hoed/hoed0.png">
+                        <p id="itemPrice">50 punten</p>
+                        <button id="itemUnlockButton">Ontgrendelen</button>
+                    </div>
+                    <button id="shopNextItem">></button>
                 </div>
                 
                 <button id="characterResetButton">Reset</button>

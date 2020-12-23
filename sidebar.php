@@ -6,7 +6,7 @@
         <a href="lijsten">Lijsten</a>
         <a href="klassen">Klassen</a>
         <?php
-        if(isset($_SESSION['klasId'])) {
+        if(isset($_SESSION['klasId']) && $_SESSION['userType'] != "Leraar") {
         ?>
         <a href="klas?klasId=<?php echo $_SESSION['klasId'] ?>">Mijn klas</a>
         <?php

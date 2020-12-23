@@ -118,7 +118,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
         type: 'get',
         url: 'includes/woordenLijstGet.inc.php',
         data: {
-            id: urlParameters.get("woordenLijst")
+            woordenLijstId: parseInt(urlParameters.get("woordenLijst"))
         },
         success: function (response) {
             woordenToevoegen(response.woordenAantal-1);
@@ -129,6 +129,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
             $('.woordenDiv #woord1').each(function(index) {
                 $(this).val(response.woordenArray[index][0]);
             });
+
             $('.woordenDiv #woord2').each(function(index) {
                 $(this).val(response.woordenArray[index][1]);
             });
@@ -770,15 +771,15 @@ $(document).on({
 function dragStart(e) {
     if(!dragging) {
         e.preventDefault();
+        targetElement = e.target;
         if (e.type === "touchstart") {
-            initialX = e.touches[0].clientX;
+            initialX = e.touches[0].clientX ;
             initialY = e.touches[0].clientY;
         } else {
-            initialX = e.clientX;
-            initialY = e.clientY;
+            initialX = ($(targetElement).offset().left + $(targetElement).width() / 2) - e.clientX;
+            initialY = ($(targetElement).offset().top + $(targetElement).height() / 2) - e.clientY;
         }
 
-        targetElement = e.target;
         dragging = true;
     }
 }
@@ -797,8 +798,8 @@ function drag(e) {
                 currentX = e.touches[0].clientX - boundsElement.position().left - $(targetElement).width()/2;
                 currentY = e.touches[0].clientY - boundsElement.position().top - $(targetElement).height()/2;
             } else {
-                currentX = e.clientX - boundsElement.position().left - $(targetElement).width()/2;
-                currentY = e.clientY - boundsElement.position().top - $(targetElement).height()/2;
+                currentX = e.clientX - boundsElement.position().left - $(targetElement).width()/2 + initialX;
+                currentY = e.clientY - boundsElement.position().top - $(targetElement).height()/2 + initialY;
             }
 
             xAllowed = currentX >= boundsElement.position().left - boundsElement.offset().left && currentX <= boundsElement.position().left - boundsElement.offset().left + boundsElement.width();
@@ -813,6 +814,66 @@ function drag(e) {
         }
     }
 }
+
+let shopItems = null;
+
+let currentIndex = 0;
+let currentItem = null;
+
+$(window).on("load", function() {
+    $.ajax({
+        type: 'post',
+        url: "./includes/itemsData.json",
+        success: function (response) {
+            console.log(response);
+            shopItems = response;
+        }
+    }); 
+});
+
+$(".shopItem").on("load", function() {
+    currentItem = shopItems[currentIndex];
+    updateItem();
+})
+
+$("#shopPreviousItem").on("click", function() {
+    if(currentIndex-1 >= 0) {
+        currentIndex--;
+        currentItem = shopItems[currentIndex];
+        updateItem();
+    }
+});
+
+$("#shopNextItem").on("click", function() {
+    if(currentIndex+1 < shopItems.length) {
+        currentIndex++;
+        currentItem = shopItems[currentIndex];
+        updateItem();
+    }
+});
+
+function updateItem() {
+    $("#itemId").text(shopItems.indexOf(currentItem));
+    $("#itemImg").attr("src", currentItem.itemImage);
+    $("#itemPrice").text(currentItem.itemPrice);
+}
+
+$("itemUnlockButton").on("click", function() {
+
+    $.ajax({
+        type: 'post',
+        url: 'includes/characterUnlock.inc.php',
+        data: {
+            itemData: currentItem
+        },
+        success: function (response) {
+            
+        },
+        error: function(xhr) {
+            $('#response').text(xhr.statusText);
+        }
+    });
+});
 
 //--------------------------------------------------------
 

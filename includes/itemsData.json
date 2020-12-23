@@ -1,0 +1,27 @@
+[
+    {
+        "itemName": "Hoed",
+        "itemPrice": 50,
+        "itemImage": "img/character/hoed/hoed0.png"
+    },
+    {
+        "itemName": "Bril en haar",
+        "itemPrice": 150,
+        "itemImage": "img/character/gezicht/gezicht0.png"
+    },
+    {
+        "itemName": "Shirt",
+        "itemPrice": 200,
+        "itemImage": "img/character/buik/buik0.png"
+    },
+    {
+        "itemName": "Broek",
+        "itemPrice": 100,
+        "itemImage": "img/character/broek/broek0.png"
+    },
+    {
+        "itemName": "Schoenen",
+        "itemPrice": 100,
+        "itemImage": "img/character/schoenen/schoen0.png"
+    }
+]
