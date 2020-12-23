@@ -59,25 +59,7 @@ require "loginRequired.php";
                 <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
                 <p>Docent: <?php echo $klas['klasDocent'] ?></p>
                 
-<<<<<<< HEAD
-                <div>
-                    <div class="character">
-                        <div id="hoed"></div>
-                        <div id="hoofd"></div>
-                        <div id="lichaam"></div>
-                        <div id="broek"></div>
-                        <div id="schoenen"></div>
-                    </div>
-                    <div>
-                        <button id="hoedLeft"><</button><button id="hoedRight">></button>
-                        <button id="hoofdLeft"><</button><button id="hoofdRight">></button>
-                        <button id="lichaamLeft"><</button><button id="lichaamRight">></button>
-                        <button id="broekLeft"><</button><button id="broekRight">></button>
-                        <button id="schoenenLeft"><</button><button id="schoenenRight">></button>
-                    </div>
-=======
                 <div class="character">
->>>>>>> 64bcf5b27b79e20c845230e45138c56619e25dad
                 </div>
                 
                 <button id="characterResetButton">Reset</button>

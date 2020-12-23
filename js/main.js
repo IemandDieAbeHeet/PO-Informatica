@@ -683,9 +683,6 @@ $(".klasJoinButton").on("click", function() {
 
 //----------------------Klas informatie-------------------
 
-<<<<<<< HEAD
-$
-=======
 let boundsElement;
 let targetElement;
 
@@ -878,6 +875,5 @@ function laadKlassen() {
         });
     });
 }
->>>>>>> 64bcf5b27b79e20c845230e45138c56619e25dad
 
 //--------------------------------------------------------
