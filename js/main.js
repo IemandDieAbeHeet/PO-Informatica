@@ -825,7 +825,6 @@ $(window).on("load", function() {
         type: 'post',
         url: "./includes/itemsData.json",
         success: function (response) {
-            console.log(response);
             shopItems = response;
         }
     }); 
@@ -858,7 +857,7 @@ function updateItem() {
     $("#itemPrice").text(currentItem.itemPrice);
 }
 
-$("itemUnlockButton").on("click", function() {
+$("#itemUnlockButton").on("click", function() {
 
     $.ajax({
         type: 'post',
@@ -867,10 +866,10 @@ $("itemUnlockButton").on("click", function() {
             itemData: currentItem
         },
         success: function (response) {
-            
+            console.log(response);
         },
-        error: function(xhr) {
-            $('#response').text(xhr.statusText);
+        error: function(response) {
+            $('#response').text(response.statusText);
         }
     });
 });

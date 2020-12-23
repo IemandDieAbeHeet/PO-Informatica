@@ -59,6 +59,27 @@ require "loginRequired.php";
                 <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
                 <p>Docent: <?php echo $klas['klasDocentNaam'] ?></p>
                 
+                <div class="itemSelection">
+                    <button id="selectionPreviousItem"><</button>
+                    <div class="itemSelect">
+                        <p id="selectItemId">Hoed</p>
+                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
+                    </div>
+                    <div class="itemSelect">
+                        <p id="selectItemId">Hoed</p>
+                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
+                    </div>
+                    <div class="itemSelect">
+                        <p id="selectItemId">Hoed</p>
+                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
+                    </div>
+                    <div class="itemSelect">
+                        <p id="selectItemId">Hoed</p>
+                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
+                    </div>
+                    <button id="selectionNextItem">></button>
+                </div>
+
                 <div class="character">
                 </div>
 

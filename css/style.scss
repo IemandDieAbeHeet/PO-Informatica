@@ -260,8 +260,53 @@ a:visited {
 }
 
 .shop > button:hover {
-    height: inherit;
-    font-size: 4rem;
-    background-color: grey;
     color: white;
+}
+
+.itemSelection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: grey;
+    width: 600px;
+}
+
+.itemSelection > button {
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    color: lightgray;
+    border: none;
+    outline: none;
+    font-size: 4em;
+    background-color: grey;
+}
+
+.itemSelection > button:hover {
+    color: white;
+}
+
+.itemSelection > button:active {
+    color: rgb(158, 158, 158);
+}
+
+.itemSelect {
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    width: 100px;
+    height: 100px;
+    align-content: center;
+    justify-content: center;
+}
+
+.itemSelect p {
+    position: absolute;
+    top: 80%;
+}
+
+.itemSelect img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
