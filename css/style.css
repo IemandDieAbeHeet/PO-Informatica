@@ -487,4 +487,11 @@ a:visited {
 .self {
   color: greenyellow;
 }
+
+#delete {
+  background-image: url("../img/character/delete/trash.png");
+  top: 100%;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+}
 /*# sourceMappingURL=style.css.map */

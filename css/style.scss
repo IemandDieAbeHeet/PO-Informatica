@@ -334,3 +334,9 @@ a:visited {
 .self {
     color: greenyellow;
 }
+
+#delete {
+    background-image: url('../img/character/delete/trash.png');
+    top: 100%;
+    transform: translateY(-100%);
+}

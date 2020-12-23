@@ -101,6 +101,7 @@ require "loginRequired.php";
                 ?>
 
                 <div class="character">
+                <div draggable='false' id='delete'></div>
                 </div>
 
                 <div class="shop">

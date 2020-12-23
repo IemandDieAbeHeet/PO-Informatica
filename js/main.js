@@ -769,7 +769,9 @@ let initialX;
 let initialY;
 
 let dragging = false;
+let deleting = false;
 
+let deleteElement;
 let characterData = [];
 
 function laadCharacter(res) {
@@ -788,6 +790,8 @@ function laadCharacter(res) {
         $(this).width(img.width);
         $(this).height(img.height);
     });
+
+    deleteElement = $('#delete');
 
     $(".character > *").on({
         mousedown: dragStart,
@@ -833,7 +837,9 @@ $(document).on({
     mousemove: function(e) {
         drag(e);
     },
-    mouseup: dragEnd,
+    mouseup: function(e) {
+        dragEnd(e);
+    }
 })
 
 function dragStart(e) {
@@ -854,9 +860,18 @@ function dragStart(e) {
 
 function dragEnd(e) {
     e.preventDefault();
+
+    if(deleting) {
+        alert("bruh");
+    }
+
+    deleting = false;
     dragging = false;
     targetElement = null;
 }
+
+let xAllowed;
+let yAllowed;
 
 function drag(e) {
     e.preventDefault();
@@ -870,14 +885,40 @@ function drag(e) {
                 currentY = e.clientY - boundsElement.position().top - $(targetElement).height()/2 + initialY;
             }
 
-            xAllowed = currentX >= boundsElement.position().left - boundsElement.offset().left && currentX <= boundsElement.position().left - boundsElement.offset().left + boundsElement.width();
-            yAllowed = currentY >= boundsElement.position().top - boundsElement.offset().top && currentY <= boundsElement.position().top - boundsElement.offset().top + boundsElement.height();
+            boundsLeft = 0;
+            boundsRight = boundsElement.width();
+            boundsTop = 0;
+            boundsBottom = boundsElement.height();
+
+            if(xAllowed) {
+                xAllowed = $(targetElement).position().left > boundsLeft && $(targetElement).position().left + $(targetElement).width() <= boundsRight;
+            } else {
+                xAllowed = $(targetElement).position().left >= boundsLeft && $(targetElement).position().left + $(targetElement).width() <= boundsRight;
+            }
+            yAllowed = $(targetElement).position().top >= boundsTop && $(targetElement).position().top + $(targetElement).height() <= boundsBottom;
+            console.log(xAllowed, yAllowed);
             if(xAllowed && yAllowed) {
                 $(targetElement).css({"left": currentX+"px","top": currentY+"px"});
             } else if(!xAllowed && yAllowed) {
                 $(targetElement).css({"top": currentY+"px"});
             } else if(!yAllowed && xAllowed) {
                 $(targetElement).css({"left": currentX+"px"});
+            }
+
+            deleteLeft = deleteElement.position().left;
+            deleteRight = deleteElement.position().left + deleteElement.width();
+            deleteTop = deleteElement.position().top;
+            deleteBottom = deleteElement.position().top + deleteElement.height();
+
+            deleteXAllowed = $(targetElement).position().left <= deleteRight && $(targetElement).position().left + $(targetElement).width() >= deleteLeft;
+            deleteYAllowed = $(targetElement).position().top + $(targetElement).height() >= deleteTop && $(targetElement).position().top <= deleteBottom;
+            if(deleteXAllowed && deleteYAllowed) {
+                deleting = true;
+                deleteElement.css('background-image', 'url(./img/character/delete/trashopen.png)');
+            } else {
+                deleting = false;
+                deleteElement.css('background-image', 'url(./img/character/delete/trash.png)');
+                deleteElement.height(81);
             }
         }
     }
