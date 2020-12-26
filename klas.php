@@ -59,26 +59,40 @@ require "loginRequired.php";
                 <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
                 <p>Docent: <?php echo $klas['klasDocentNaam'] ?></p>
                 
+                <?php
+                if($_SESSION['userType'] === "Leraar") {
+                ?>
                 <div class="itemSelection">
                     <button id="selectionPreviousItem"><</button>
                     <div class="itemSelect">
-                        <p id="selectItemId">Hoed</p>
+                        <p id="selectItemId" class="hidden">0</p>
+                        <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <div class="itemSelect">
-                        <p id="selectItemId">Hoed</p>
+                        <p id="selectItemId" class="hidden">1</p>
+                        <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <div class="itemSelect">
-                        <p id="selectItemId">Hoed</p>
+                        <p id="selectItemId" class="hidden">2</p>
+                        <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <div class="itemSelect">
-                        <p id="selectItemId">Hoed</p>
+                        <p id="selectItemId" class="hidden">3</p>
+                        <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <button id="selectionNextItem">></button>
                 </div>
+                <?php
+                }
+                ?>
 
                 <div class="character">
                 </div>

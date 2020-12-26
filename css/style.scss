@@ -201,7 +201,7 @@ a:visited {
     z-index: 2;
 }
 
-#hoofd {
+#gezicht {
     background-image: url("../img/character/gezicht/gezicht0.png");
     z-index: 1;
 }
@@ -265,6 +265,7 @@ a:visited {
 
 .itemSelection {
     display: flex;
+    overflow: hidden;
     justify-content: space-between;
     align-items: center;
     background-color: grey;

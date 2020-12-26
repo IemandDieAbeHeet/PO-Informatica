@@ -719,8 +719,10 @@ let characterData = [];
 function laadCharacter(res) {
     characterData = res;
     characterData.forEach(function(item) {
-        let newElement = $("<div draggable='true' id='" + item.id + "'></div>");
+        console.log(item);
+        let newElement = $("<div draggable='true' id='" + item.type + "'></div>");
         newElement.css({"left": item.x + "px", "top": item.y + "px"});
+        newElement.css("background-image", item.imageLocation);
         boundsElement.append(newElement);
         let img = new Image();
         img.src = newElement.css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
@@ -743,14 +745,20 @@ $("#characterResetButton").on("click", function() {
 $("#characterOpslaanButton").on("click", function() {
     let newCharacterData = [];
     $(".character > *").each(function() {
-        newCharacterData.push({id: $(this).attr("id"), x: parseInt($(this).css('left').slice(0, -2)), y: parseInt($(this).css('top').slice(0, -2))})
+        newCharacterData.push({
+            type: $(this).attr("id"),
+            imageLocation: $(this).css("background-image"),
+            x: parseInt($(this).css('left').slice(0, -2)),
+            y: parseInt($(this).css('top').slice(0, -2))
+        });
     });
 
     $.ajax({
         type: 'post',
         url: 'includes/characterUpdate.inc.php',
         data: {
-            characterData: newCharacterData
+            characterData: newCharacterData,
+            klasId: parseInt(urlParameters.get("klasId"))
         },
         success: function (response) {
             $("#response").text("Poppetje opgeslagen!");
@@ -815,47 +823,86 @@ function drag(e) {
     }
 }
 
-let shopItems = null;
+let allItems = null;
 
 let currentIndex = 0;
 let currentItem = null;
+let currentItems = [];
+
+let selectStartIndex = 0;
+let selectEndIndex = 4;
 
 $(window).on("load", function() {
     $.ajax({
         type: 'post',
         url: "./includes/itemsData.json",
         success: function (response) {
-            shopItems = response;
+            allItems = response;
+            currentItem = allItems[currentIndex];
+            updateItem();
+            currentItems = allItems.slice(selectStartIndex, selectEndIndex);
+            updateItems();
         }
     }); 
 });
 
-$(".shopItem").on("load", function() {
-    currentItem = shopItems[currentIndex];
-    updateItem();
-})
-
 $("#shopPreviousItem").on("click", function() {
     if(currentIndex-1 >= 0) {
         currentIndex--;
-        currentItem = shopItems[currentIndex];
+        currentItem = allItems[currentIndex];
         updateItem();
     }
 });
 
 $("#shopNextItem").on("click", function() {
-    if(currentIndex+1 < shopItems.length) {
+    if(currentIndex+1 < allItems.length) {
         currentIndex++;
-        currentItem = shopItems[currentIndex];
+        currentItem = allItems[currentIndex];
         updateItem();
     }
 });
 
+let selectInverseIndex = 1;
+
+$("#selectionPreviousItem").on("click", function() {
+    let shiftedItem = allItems.pop();
+    allItems.unshift(shiftedItem);
+    currentItems = allItems.slice(0, 4);
+    updateItems();
+});
+
+$("#selectionNextItem").on("click", function() {
+    let shiftedItem = allItems.shift();
+    allItems.push(shiftedItem);
+    currentItems = allItems.slice(0, 4);
+    updateItems();
+});
+
 function updateItem() {
-    $("#itemId").text(shopItems.indexOf(currentItem));
+    $("#itemId").text(allItems.indexOf(currentItem));
+    $("#selectItemType").text(currentItem.itemType);
     $("#itemImg").attr("src", currentItem.itemImage);
     $("#itemPrice").text(currentItem.itemPrice);
 }
+
+function updateItems() {
+    for(let i = 0; i < 4; i++) {
+        let selectionDivs = $(".itemSelect").toArray();
+        $(selectionDivs[i]).find("#selectItemId").text(allItems.indexOf(currentItems[i]));
+        $(selectionDivs[i]).find("#selectItemType").text(currentItems[i].itemType);
+        $(selectionDivs[i]).find("#selectItemName").text(currentItems[i].itemName);
+        $(selectionDivs[i]).find("#selectItemImg").attr("src", currentItems[i].itemImage);
+    }
+}
+
+$(".itemSelect").on("click", function() {
+    let itemType = $(this).find("#selectItemType").text();
+    $("#" + itemType).css("background-image", "url(" + $(this).find("#selectItemImg").attr("src") + ")");
+    let img = new Image();
+    img.src = $("#" + itemType).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+    $("#" + itemType).width(img.width);
+    $("#" + itemType).height(img.height);
+});
 
 $("#itemUnlockButton").on("click", function() {
 

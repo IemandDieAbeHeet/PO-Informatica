@@ -21,7 +21,8 @@ if(empty($userId)) {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
-        $characterData = json_decode(mysqli_fetch_assoc($result)['klasCharacterData']);
+        $assoc = mysqli_fetch_assoc($result);
+        $characterData = json_decode($assoc['klasCharacterData']);
         header('Content-type:application/json;charset=utf-8');
         echo json_encode($characterData, true);
 

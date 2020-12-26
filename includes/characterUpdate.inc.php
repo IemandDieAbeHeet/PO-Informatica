@@ -5,7 +5,7 @@ session_start();
 require 'dbh.inc.php';
 
 $characterData = $_POST["characterData"];
-$klasId = $_SESSION['klasId'];
+$klasId = $_POST['klasId'];
 $userType = $_SESSION['userType'];
 
 if(empty($characterData)) {

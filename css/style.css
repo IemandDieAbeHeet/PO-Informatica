@@ -319,7 +319,7 @@ a:visited {
   z-index: 2;
 }
 
-#hoofd {
+#gezicht {
   background-image: url("../img/character/gezicht/gezicht0.png");
   z-index: 1;
 }
@@ -395,6 +395,7 @@ a:visited {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  overflow: hidden;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
