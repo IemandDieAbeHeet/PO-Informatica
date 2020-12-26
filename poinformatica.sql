@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 21 dec 2020 om 01:37
--- Serverversie: 10.4.14-MariaDB
--- PHP-versie: 7.4.9
+-- Gegenereerd op: 26 dec 2020 om 21:13
+-- Serverversie: 10.4.13-MariaDB
+-- PHP-versie: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,15 +33,17 @@ CREATE TABLE `klassen` (
   `klasNiveau` varchar(255) NOT NULL,
   `klasJaar` int(11) NOT NULL,
   `klasScore` int(11) NOT NULL,
-  `klasDocent` varchar(535) NOT NULL
+  `klasDocentId` int(11) NOT NULL,
+  `klasDocentNaam` varchar(535) NOT NULL,
+  `klasCharacterData` text NOT NULL DEFAULT '[{"type":"hoed","x":"68","y":"1"},{"type":"hoofd","x":"100","y":"20"},{"type":"buik","x":"102","y":"135"},{"type":"broek","x":"112","y":"195"},{"type":"schoenen","x":"87","y":"273"}]'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `klassen`
 --
 
-INSERT INTO `klassen` (`klasId`, `klasNaam`, `klasNiveau`, `klasJaar`, `klasScore`, `klasDocent`) VALUES
-(1, 'v6du1', 'VWO', 6, 921, 'Hesselberth');
+INSERT INTO `klassen` (`klasId`, `klasNaam`, `klasNiveau`, `klasJaar`, `klasScore`, `klasDocentId`, `klasDocentNaam`, `klasCharacterData`) VALUES
+(1, 'v6du1', 'VWO', 6, 921, 3, 'Hesselberth', '[{\"type\":\"hoed\",\"imageLocation\":\"url(\\\"http:\\/\\/localhost\\/PO-Informatica\\/img\\/character\\/hoed\\/hoed1.png\\\")\",\"x\":\"73\",\"y\":\"1\"},{\"type\":\"gezicht\",\"imageLocation\":\"url(\\\"http:\\/\\/localhost\\/PO-Informatica\\/img\\/character\\/gezicht\\/gezicht0.png\\\")\",\"x\":\"100\",\"y\":\"20\"},{\"type\":\"buik\",\"imageLocation\":\"url(\\\"http:\\/\\/localhost\\/PO-Informatica\\/img\\/character\\/buik\\/buik0.png\\\")\",\"x\":\"102\",\"y\":\"135\"},{\"type\":\"broek\",\"imageLocation\":\"url(\\\"http:\\/\\/localhost\\/PO-Informatica\\/img\\/character\\/broek\\/broek0.png\\\")\",\"x\":\"112\",\"y\":\"195\"},{\"type\":\"schoenen\",\"imageLocation\":\"url(\\\"http:\\/\\/localhost\\/PO-Informatica\\/img\\/character\\/schoenen\\/schoen0.png\\\")\",\"x\":\"87\",\"y\":\"273\"}]');
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,8 @@ CREATE TABLE `woordjes` (
 
 INSERT INTO `woordjes` (`woordenLijstId`, `userId`, `woordenLijstNaam`, `taalOrigineel`, `taalVertaald`, `woordenAantal`, `woordenArray`) VALUES
 (1, 1, 'Poep', 'Duits', 'Nederlands', 7, '[[\"hetijo\",\"oijoij\"],[\"iojjio\",\"ijoioj\"],[\"ijoioj\",\"iojiojjio\"],[\"iojjio\",\"oijjiooigtiorjeoirtge\"],[\"joioijj\",\"oijjio\"],[\"jiojiojoi\",\"iojjio\"],[\"ijojiojio\",\"jiojio\"]]'),
-(3, 1, 'Duits', 'Nederlands', 'Duits', 11, '[[\"Gehen\",\"Gaan\"],[\"Laten\",\"Lassen\"],[\"Lopen\",\"Laufen\"],[\"Langlaufen\",\"Langlaufen\"],[\"Zitten\",\"Setzen\"],[\"Staan\",\"Stehen\"],[\"Springen\",\"Springen\"],[\"Liggen\",\"Liegen\"],[\"Drinken\",\"Trinken\"],[\"Eten\",\"Essen\"],[\"Braadworst\",\"Bratwurst\"]]');
+(3, 1, 'Duits', 'Nederlands', 'Duits', 11, '[[\"Gehen\",\"Gaan\"],[\"Laten\",\"Lassen\"],[\"Lopen\",\"Laufen\"],[\"Langlaufen\",\"Langlaufen\"],[\"Zitten\",\"Setzen\"],[\"Staan\",\"Stehen\"],[\"Springen\",\"Springen\"],[\"Liggen\",\"Liegen\"],[\"Drinken\",\"Trinken\"],[\"Eten\",\"Essen\"],[\"Braadworst\",\"Bratwurst\"]]'),
+(27, 2, 'Duits woordjes', 'Nederlands', 'Duits', 2, '[[\"Gaan\",\"Gehen\"],[\"Proberen\",\"Probieren\"]]');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -137,7 +140,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `woordjes`
 --
 ALTER TABLE `woordjes`
-  MODIFY `woordenLijstId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `woordenLijstId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
