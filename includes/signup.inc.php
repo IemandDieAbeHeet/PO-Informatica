@@ -72,6 +72,7 @@ if(isset($_POST["signup-submit"])) {
                     $_SESSION["userUid"] = $username;
                     $_SESSION["userType"] = "Leerling";
                     $_SESSION["loginTime"] = date("H:i:s");
+                    $_SESSION["userScore"] = 0;
 
                     header("Location: ../lijsten?signup=success");
                     exit();

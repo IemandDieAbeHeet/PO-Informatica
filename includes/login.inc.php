@@ -36,6 +36,7 @@ if(isset($_POST["login-submit"])) {
                     $_SESSION["klasId"] = $row["klasId"];
                     $_SESSION["userType"] = $row["userType"];
                     $_SESSION["loginTime"] = date("H:i:s");
+                    $_SESSION["userScore"] = $row["userScore"];
 
                     header("Location: ../lijsten?login=success");
                     exit();

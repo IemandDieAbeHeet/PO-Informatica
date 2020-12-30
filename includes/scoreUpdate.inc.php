@@ -6,7 +6,9 @@ require 'dbh.inc.php';
 
 $userId = $_SESSION["userId"];
 $klasId = $_SESSION["klasId"];
-$score = $_POST['score'];
+if(isset($_POST['score'])) {
+    $score = $_POST['score'];
+}
 
 if(empty($userId)) {
     header('HTTP/1.1 400 Je bent niet ingelogd!');
@@ -35,6 +37,7 @@ if(empty($userId)) {
             mysqli_stmt_bind_param($stmt, "ii", $score, $klasId);
             $result = mysqli_stmt_execute($stmt);
     
+            $_SESSION["userScore"] += $score;
             header('HTTP/1.1 200 Score geupdatet!');
             exit();
         }

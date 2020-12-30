@@ -301,6 +301,10 @@ a:visited {
     justify-content: center;
 }
 
+.itemDisabled {
+    background-color: red;
+}
+
 .itemSelect p {
     position: absolute;
     top: 80%;
@@ -310,4 +314,18 @@ a:visited {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.leerlingDiv {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.klassenScoreDiv {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.klassenScoreDiv > * {
+    margin-right: 5px;
 }

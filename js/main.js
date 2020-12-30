@@ -312,6 +312,7 @@ $("#oefenButton").on("click", function(e) {
 
 //----------------------Lijst oefenen---------------------
 
+let woordenArrayTotaal = [];
 let woordenArray = [];
 let woordenAntwoord;
 
@@ -337,7 +338,8 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
         },
         success: function (response) {
             woordenLijst = response;
-            woordenArray = woordenLijst.woordenArray;
+            woordenArrayTotaal = woordenLijst.woordenArray;
+            woordenArray = (woordenLijst.woordenArray).slice();
 
             switch(urlParameters.get("oefenType")) {
                 case "Toets":
@@ -426,7 +428,7 @@ function antwoordCheck() {
                 $("#oefenDiv #oefenInput").val("");
                 $("#oefenDiv .oefenWoord").text(woordenArray[0][0]);
             } else {
-                cijfer = parseInt(((goedCount/woordenArray.length*9)+1).toFixed(1));
+                cijfer = parseInt(((goedCount/woordenArrayTotaal.length*9)+1).toFixed(1));
                 verstuurScore(cijfer * 10);
             }
         });
@@ -504,7 +506,7 @@ function updateMemory() {
     } else {
         clearInterval(interval);
         disableKaarten();
-        cijfer = parseInt(((goedCount/woordenVertaaldArray.length*9)+1).toFixed(1));
+        cijfer = parseInt(((goedCount/woordenArrayTotaal.length*9)+1).toFixed(1));
         verstuurScore(cijfer * 10);
     }
 }
@@ -639,7 +641,7 @@ function verstuurScore(score) {
         success: function (response) {
             disabled = true;
             $("#resultaatDiv").css("visibility", "visible");
-            $("#cijferText").text("Cijfer: " + ((goedCount/woordenArray.length*9)+1).toFixed(1));
+            $("#cijferText").text("Cijfer: " + ((goedCount/woordenArrayTotaal.length*9)+1).toFixed(1));
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -721,6 +723,7 @@ function laadCharacter(res) {
     characterData.forEach(function(item) {
         console.log(item);
         let newElement = $("<div draggable='true' id='" + item.type + "'></div>");
+        newElement.attr("itemId", item.id);
         newElement.css({"left": item.x + "px", "top": item.y + "px"});
         newElement.css("background-image", item.imageLocation);
         boundsElement.append(newElement);
@@ -746,6 +749,7 @@ $("#characterOpslaanButton").on("click", function() {
     let newCharacterData = [];
     $(".character > *").each(function() {
         newCharacterData.push({
+            id: $(this).attr("itemId"),
             type: $(this).attr("id"),
             imageLocation: $(this).css("background-image"),
             x: parseInt($(this).css('left').slice(0, -2)),
@@ -823,14 +827,12 @@ function drag(e) {
     }
 }
 
-let allItems = null;
-
-let currentIndex = 0;
-let currentItem = null;
+let allItems = [];
+let unlockItems = [];
+let selectItems = [];
 let currentItems = [];
-
-let selectStartIndex = 0;
-let selectEndIndex = 4;
+let currentIndex = 0;
+let currentItem;
 
 $(window).on("load", function() {
     $.ajax({
@@ -838,12 +840,37 @@ $(window).on("load", function() {
         url: "./includes/itemsData.json",
         success: function (response) {
             allItems = response;
+        }
+    });
+    
+    $.ajax({
+        type: 'get',
+        url: "./includes/characterGetUnlocks.inc.php",
+        data: {
+            klasId: urlParameters.get("klasId")
+        },
+        success: function (response) {
+            unlockItems = response;
+            allItems.forEach(function(value, index) {
+                unlockItems.forEach(function(value2) {
+                    if(index === parseInt(value2.id)) {
+                        console.log(value2);
+                        if(value2.unlocked) {
+                            allItems[index].itemUnlocked = true;
+                        } else {
+                            allItems[index].itemUnlocked = false;
+                        }
+                    }
+                });
+            });
+
+            selectItems = allItems.slice();
             currentItem = allItems[currentIndex];
+            currentItems = selectItems.slice(0, 4);
             updateItem();
-            currentItems = allItems.slice(selectStartIndex, selectEndIndex);
             updateItems();
         }
-    }); 
+    });
 });
 
 $("#shopPreviousItem").on("click", function() {
@@ -862,19 +889,17 @@ $("#shopNextItem").on("click", function() {
     }
 });
 
-let selectInverseIndex = 1;
-
 $("#selectionPreviousItem").on("click", function() {
-    let shiftedItem = allItems.pop();
-    allItems.unshift(shiftedItem);
-    currentItems = allItems.slice(0, 4);
+    let shiftedItem = selectItems.pop();
+    selectItems.unshift(shiftedItem);
+    currentItems = selectItems.slice(0, 4);
     updateItems();
 });
 
 $("#selectionNextItem").on("click", function() {
-    let shiftedItem = allItems.shift();
-    allItems.push(shiftedItem);
-    currentItems = allItems.slice(0, 4);
+    let shiftedItem = selectItems.shift();
+    selectItems.push(shiftedItem);
+    currentItems = selectItems.slice(0, 4);
     updateItems();
 });
 
@@ -892,28 +917,42 @@ function updateItems() {
         $(selectionDivs[i]).find("#selectItemType").text(currentItems[i].itemType);
         $(selectionDivs[i]).find("#selectItemName").text(currentItems[i].itemName);
         $(selectionDivs[i]).find("#selectItemImg").attr("src", currentItems[i].itemImage);
+
+        if(!currentItems[i].itemUnlocked) {
+            $(selectionDivs[i]).addClass("itemDisabled");
+        } else {
+            $(selectionDivs[i]).removeClass("itemDisabled");
+        }
     }
 }
 
-$(".itemSelect").on("click", function() {
-    let itemType = $(this).find("#selectItemType").text();
-    $("#" + itemType).css("background-image", "url(" + $(this).find("#selectItemImg").attr("src") + ")");
-    let img = new Image();
-    img.src = $("#" + itemType).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
-    $("#" + itemType).width(img.width);
-    $("#" + itemType).height(img.height);
+$(".itemSelect").on("click", function(e) {
+    if(unlockItems[parseInt($(this).find("#selectItemId").text())].unlocked) {
+        let item = allItems[parseInt($(this).find("#selectItemId").text())];
+        $("#" + item.itemType).css("background-image", "url(" + item.itemImage + ")");
+        $("#" + item.itemType).attr("itemId", allItems.indexOf(item));
+        let img = new Image();
+        img.src = item.itemImage;
+        $("#" + item.itemType).width(img.width);
+        $("#" + item.itemType).height(img.height);
+    } else {
+        e.preventDefault();
+    }
 });
 
 $("#itemUnlockButton").on("click", function() {
 
     $.ajax({
         type: 'post',
-        url: 'includes/characterUnlock.inc.php',
+        url: 'includes/characterUpdateUnlocks.inc.php',
         data: {
-            itemData: currentItem
+            unlockData: unlockItems[allItems.indexOf(currentItem)],
+            klasId: urlParameters.get("klasId")
         },
         success: function (response) {
-            console.log(response);
+            $('.leerlingScore').text(parseInt($('.leerlingScore').text()) - currentItem.itemPrice);
+            $('#klasScore').text(parseInt($('#klasScore').text()) - currentItem.itemPrice);
+            $('#response').text(response.statusText);
         },
         error: function(response) {
             $('#response').text(response.statusText);

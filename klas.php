@@ -5,7 +5,7 @@ require "loginRequired.php";
 ?>
 
 <main class="main-sidebar">
-    <div class="leerlingDiv">
+    <div class="leerlingenDiv">
         <?php
         require "includes/dbh.inc.php";
 
@@ -26,7 +26,9 @@ require "loginRequired.php";
                 <?php
                 while($leerling = mysqli_fetch_assoc($result)) {
         ?>
-                <p><?php echo $leerling['userVolledigenaam'] ?> - <?php echo $leerling['userScore'] ?></p>
+                <div class="leerlingDiv">
+                    <p><?php echo $leerling['userVolledigenaam'] ?></p><p> - </p><p class="leerlingScore"><?php echo $leerling['userScore'] ?></p>
+                </div>
 
         <?php
                 }
@@ -56,7 +58,7 @@ require "loginRequired.php";
             if(mysqli_num_rows($result) > 0) {
                 while($klas = mysqli_fetch_assoc($result)) {
         ?>
-                <p>Klassenscore: <?php echo $klas['klasScore'] ?></p>
+                <div class="klassenScoreDiv"><p>Klassenscore: </p><p id="klasScore"><?php echo $klas['klasScore'] ?></p></div>
                 <p>Docent: <?php echo $klas['klasDocentNaam'] ?></p>
                 
                 <?php
@@ -67,24 +69,28 @@ require "loginRequired.php";
                     <div class="itemSelect">
                         <p id="selectItemId" class="hidden">0</p>
                         <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemUnlocked" class="hidden">true</p>
                         <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <div class="itemSelect">
                         <p id="selectItemId" class="hidden">1</p>
                         <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemUnlocked" class="hidden">true</p>
                         <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <div class="itemSelect">
                         <p id="selectItemId" class="hidden">2</p>
                         <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemUnlocked" class="hidden">true</p>
                         <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>
                     <div class="itemSelect">
                         <p id="selectItemId" class="hidden">3</p>
                         <p id="selectItemType" class="hidden">Hoed</p>
+                        <p id="selectItemUnlocked" class="hidden">true</p>
                         <p id="selectItemName">Hoed</p>
                         <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                     </div>

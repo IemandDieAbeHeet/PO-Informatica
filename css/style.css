@@ -443,6 +443,10 @@ a:visited {
           justify-content: center;
 }
 
+.itemDisabled {
+  background-color: red;
+}
+
 .itemSelect p {
   position: absolute;
   top: 80%;
@@ -453,5 +457,29 @@ a:visited {
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+.leerlingDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+
+.klassenScoreDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+
+.klassenScoreDiv > * {
+  margin-right: 5px;
 }
 /*# sourceMappingURL=style.css.map */
