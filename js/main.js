@@ -721,7 +721,6 @@ let characterData = [];
 function laadCharacter(res) {
     characterData = res;
     characterData.forEach(function(item) {
-        console.log(item);
         let newElement = $("<div draggable='true' id='" + item.type + "'></div>");
         newElement.attr("itemId", item.id);
         newElement.css({"left": item.x + "px", "top": item.y + "px"});
@@ -854,7 +853,6 @@ $(window).on("load", function() {
             allItems.forEach(function(value, index) {
                 unlockItems.forEach(function(value2) {
                     if(index === parseInt(value2.id)) {
-                        console.log(value2);
                         if(value2.unlocked) {
                             allItems[index].itemUnlocked = true;
                         } else {
@@ -864,7 +862,7 @@ $(window).on("load", function() {
                 });
             });
 
-            selectItems = allItems.slice();
+            selectItems = [...allItems];
             currentItem = allItems[currentIndex];
             currentItems = selectItems.slice(0, 4);
             updateItem();
@@ -941,7 +939,7 @@ $(".itemSelect").on("click", function(e) {
 });
 
 $("#itemUnlockButton").on("click", function() {
-
+    $('#response').text('');
     $.ajax({
         type: 'post',
         url: 'includes/characterUpdateUnlocks.inc.php',
@@ -950,7 +948,7 @@ $("#itemUnlockButton").on("click", function() {
             klasId: urlParameters.get("klasId")
         },
         success: function (response) {
-            $('.leerlingScore').text(parseInt($('.leerlingScore').text()) - currentItem.itemPrice);
+            $('.self .leerlingScore').text(parseInt($('.self .leerlingScore').text()) - currentItem.itemPrice);
             $('#klasScore').text(parseInt($('#klasScore').text()) - currentItem.itemPrice);
             $('#response').text(response.statusText);
         },

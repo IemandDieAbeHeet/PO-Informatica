@@ -14,8 +14,8 @@ if(empty($userId)) {
     header('HTTP/1.1 400 Je bent niet ingelogd!');
 } else if(empty($score)) {
     header('HTTP/1.1 400 Geen score aangegeven!');
-} else if($score > 100) {
-    header('HTTP/1.1 400 Te hoge score!');
+} else if($score > 100 || $score < 100) {
+    header('HTTP/1.1 400 Foute score!');
 } else {
     $sql1 = "UPDATE users SET userScore=userScore+? WHERE userId=?";
     $sql2 = "UPDATE klassen SET klasScore=klasScore+? WHERE klasId=?";
