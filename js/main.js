@@ -726,10 +726,13 @@ function laadCharacter(res) {
         newElement.css({"left": item.x + "px", "top": item.y + "px"});
         newElement.css("background-image", item.imageLocation);
         boundsElement.append(newElement);
+    });
+
+    $(".character > *").each(function() {
         let img = new Image();
-        img.src = newElement.css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
-        newElement.width(img.width);
-        newElement.height(img.height);
+        img.src = $(this).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+        $(this).width(img.width);
+        $(this).height(img.height);
     });
 
     $(".character > *").on({
