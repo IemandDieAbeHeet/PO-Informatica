@@ -26,7 +26,7 @@ require "loginRequired.php";
                 <?php
                 while($leerling = mysqli_fetch_assoc($result)) {
         ?>
-                <div class="leerlingDiv">
+                <div class="leerlingDiv <?php if($leerling['userId'] == $_SESSION['userId']) { echo('self'); } ?>">
                     <p><?php echo $leerling['userVolledigenaam'] ?></p><p> - </p><p class="leerlingScore"><?php echo $leerling['userScore'] ?></p>
                 </div>
 

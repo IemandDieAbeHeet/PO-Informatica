@@ -746,16 +746,18 @@ let characterData = [];
 function laadCharacter(res) {
     characterData = res;
     characterData.forEach(function(item) {
-        console.log(item);
         let newElement = $("<div draggable='true' id='" + item.type + "'></div>");
         newElement.attr("itemId", item.id);
         newElement.css({"left": item.x + "px", "top": item.y + "px"});
         newElement.css("background-image", item.imageLocation);
         boundsElement.append(newElement);
+    });
+
+    $(".character > *").each(function() {
         let img = new Image();
-        img.src = newElement.css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
-        newElement.width(img.width);
-        newElement.height(img.height);
+        img.src = $(this).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+        $(this).width(img.width);
+        $(this).height(img.height);
     });
 
     $(".character > *").on({
@@ -879,7 +881,6 @@ $(window).on("load", function() {
             allItems.forEach(function(value, index) {
                 unlockItems.forEach(function(value2) {
                     if(index === parseInt(value2.id)) {
-                        console.log(value2);
                         if(value2.unlocked) {
                             allItems[index].itemUnlocked = true;
                         } else {
@@ -889,7 +890,7 @@ $(window).on("load", function() {
                 });
             });
 
-            selectItems = allItems.slice();
+            selectItems = [...allItems];
             currentItem = allItems[currentIndex];
             currentItems = selectItems.slice(0, 4);
             updateItem();
@@ -966,7 +967,7 @@ $(".itemSelect").on("click", function(e) {
 });
 
 $("#itemUnlockButton").on("click", function() {
-
+    $('#response').text('');
     $.ajax({
         type: 'post',
         url: 'includes/characterUpdateUnlocks.inc.php',
@@ -975,7 +976,7 @@ $("#itemUnlockButton").on("click", function() {
             klasId: urlParameters.get("klasId")
         },
         success: function (response) {
-            $('.leerlingScore').text(parseInt($('.leerlingScore').text()) - currentItem.itemPrice);
+            $('.self .leerlingScore').text(parseInt($('.self .leerlingScore').text()) - currentItem.itemPrice);
             $('#klasScore').text(parseInt($('#klasScore').text()) - currentItem.itemPrice);
             $('#response').text(response.statusText);
         },
