@@ -308,6 +308,31 @@ $("#oefenButton").on("click", function(e) {
     window.location.href = "lijst-oefenen?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
 
+$("#woordenLijstZoekenButton").on("click", function(e) {
+    e.preventDefault();
+    let woordenLijstSearch = $(this).siblings('#searchInput').val();
+    $.ajax({
+        type: 'get',
+        url: 'includes/woordenLijstSearch.inc.php',
+        data: { woordenLijstSearch: woordenLijstSearch },
+        success: function (res) {
+            res.forEach(function(value, index) {
+                let lijstDiv = `<div><p class='hidden lijstId'>` + value.woordenLijstId + `</p>
+                <p>` + value.woordenLijstNaam + `</p>
+                <p>` + value.woordenAantal + `</p>
+                <button class='bewerkButton'>Bewerken</button>
+                <button class='bekijkButton'>Bekijken</button>
+                <button class='verwijderWoordenlijstButton'>Verwijderen</button>
+                </div>`;
+            });
+        },
+        error: function(xhr) {
+            $("#response").attr("class", "error");
+            $("#response").text(xhr.statusText);
+        }
+    });
+})
+
 //--------------------------------------------------------
 
 //----------------------Lijst oefenen---------------------

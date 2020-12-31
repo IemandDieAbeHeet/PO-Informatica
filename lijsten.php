@@ -18,6 +18,12 @@ require "loginRequired.php";
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         if(mysqli_num_rows($result) > 0) {
+            ?>
+
+            <div class="lijstenDiv">
+            <input id="woordenLijstZoekenInput">
+            <button id="woordenLijstZoekenButton">Zoeken</button>
+            <?php
             while($lijst = mysqli_fetch_assoc($result)) {
     ?>
 
@@ -32,6 +38,10 @@ require "loginRequired.php";
 
     <?php
             }
+
+            ?>
+            </div>
+            <?php
         } else {
             ?>
             <p>Geen lijsten gevonden, klik <a href="lijst-editor">hier</a> om er een aan te maken</p>
