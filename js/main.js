@@ -554,7 +554,7 @@ function startMemory() {
 function updateMemory() {
     if(arrayChunks.length > currChunk) {
         if(goedCount >= arrayChunks[currChunk].length/2) {
-            laadWoorden(currChunk+1);
+            laadWoorden(currChunk);
             currChunk++;
         }
     } else {
@@ -973,7 +973,7 @@ function updateItem() {
     $("#selectItemType").text(currentItem.itemType);
     $("#itemImg").attr("src", currentItem.itemImage);
     $("#itemPrice").text(currentItem.itemPrice);
-    
+
     if(!currentItem.itemUnlocked) {
         $('.shop .shopItem').addClass("itemDisabled");
     } else {
