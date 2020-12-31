@@ -263,39 +263,45 @@ function CSVToArray( strData, strDelimiter ){
 
 //----------------------Lijst menu------------------------
 
-$('.bekijkButton').on('click', function(e) {
-    e.preventDefault;
-    let woordenLijstId = $(this).siblings('.lijstId').text();
-    window.location.href = "lijst?woordenLijst=" + woordenLijstId;
+$(window).on("load", function() {
+    laadButtons();
 });
 
-$('.bewerkButton').on('click', function(e) {
-    e.preventDefault;
-    let woordenLijstId = $(this).siblings('.lijstId').text();
-    window.location.href = "lijst-editor?woordenLijst=" + woordenLijstId;
-});
-
-$(".lijstMakenButton").on("click", function(e) {
-    e.preventDefault;
-    window.location.href="lijst-editor";
-})
-
-$(".verwijderWoordenlijstButton").on("click", function(e) {
-    e.preventDefault();
-    $.ajax({
-        type: 'post',
-        url: 'includes/woordenLijstDelete.inc.php',
-        data: { woordenLijstId: $(this).siblings('.lijstId').text() },
-        success: function () {
-            $("#response").attr("class", "success");
-            window.location.href = "lijsten";
-        },
-        error: function(xhr) {
-            $("#response").attr("class", "error");
-            $("#response").text(xhr.statusText);
-        }
+function laadButtons() {
+    $('.bekijkButton').on('click', function(e) {
+        e.preventDefault;
+        let woordenLijstId = $(this).siblings('.lijstId').text();
+        window.location.href = "lijst?woordenLijst=" + woordenLijstId;
     });
-})
+
+    $('.bewerkButton').on('click', function(e) {
+        e.preventDefault;
+        let woordenLijstId = $(this).siblings('.lijstId').text();
+        window.location.href = "lijst-editor?woordenLijst=" + woordenLijstId;
+    });
+
+    $(".lijstMakenButton").on("click", function(e) {
+        e.preventDefault;
+        window.location.href="lijst-editor";
+    })
+
+    $(".verwijderWoordenlijstButton").on("click", function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: 'includes/woordenLijstDelete.inc.php',
+            data: { woordenLijstId: $(this).siblings('.lijstId').text() },
+            success: function () {
+                $("#response").attr("class", "success");
+                window.location.href = "lijsten";
+            },
+            error: function(xhr) {
+                $("#response").attr("class", "error");
+                $("#response").text(xhr.statusText);
+            }
+        });
+    })
+}
 
 //--------------------------------------------------------
 
@@ -308,30 +314,53 @@ $("#oefenButton").on("click", function(e) {
     window.location.href = "lijst-oefenen?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
 
+$("#woordenLijstZoekenInput").on("keyup", function(e) {
+    if(e.key != "Enter") return;
+    e.preventDefault();
+
+    zoekWoordenlijsten($(this));
+})
+
 $("#woordenLijstZoekenButton").on("click", function(e) {
     e.preventDefault();
-    let woordenLijstSearch = $(this).siblings('#searchInput').val();
+    zoekWoordenlijsten($(this));
+})
+
+let timeout = 0;
+
+function zoekWoordenlijsten(t) {
+    let woordenLijstSearchInput = $(t).parent().find('#woordenLijstZoekenInput').val();
     $.ajax({
         type: 'get',
         url: 'includes/woordenLijstSearch.inc.php',
-        data: { woordenLijstSearch: woordenLijstSearch },
+        data: { woordenLijstSearch: woordenLijstSearchInput },
         success: function (res) {
-            res.forEach(function(value, index) {
+            let lijstenDiv = $('.lijstenDiv');
+            lijstenDiv.children().remove();
+            res.forEach(function(value) {
                 let lijstDiv = `<div><p class='hidden lijstId'>` + value.woordenLijstId + `</p>
-                <p>` + value.woordenLijstNaam + `</p>
-                <p>` + value.woordenAantal + `</p>
+                <p>Naam: ` + value.woordenLijstNaam + `</p>
+                <p>Aantal woorden: ` + value.woordenAantal + `</p>
                 <button class='bewerkButton'>Bewerken</button>
                 <button class='bekijkButton'>Bekijken</button>
                 <button class='verwijderWoordenlijstButton'>Verwijderen</button>
                 </div>`;
+
+                lijstenDiv.append(lijstDiv);
+                laadButtons();
             });
         },
         error: function(xhr) {
-            $("#response").attr("class", "error");
-            $("#response").text(xhr.statusText);
+            $("#searchError").text(xhr.statusText);
+            $("#searchError").css("color", "red");
+        
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                $("#searchError").text("");
+            }, 4000);
         }
     });
-})
+}
 
 //--------------------------------------------------------
 
@@ -861,46 +890,52 @@ let currentItems = [];
 let currentIndex = 0;
 let currentItem;
 
-$(window).on("load", function() {
-    $.ajax({
-        type: 'post',
-        url: "./includes/itemsData.json",
-        success: function (response) {
-            allItems = response;
-        }
-    });
-    
-    $.ajax({
-        type: 'get',
-        url: "./includes/characterGetUnlocks.inc.php",
-        data: {
-            klasId: urlParameters.get("klasId")
-        },
-        success: function (response) {
-            unlockItems = response;
-            allItems.forEach(function(value, index) {
-                unlockItems.forEach(function(value2) {
-                    if(index === parseInt(value2.id)) {
-                        if(value2.unlocked) {
-                            allItems[index].itemUnlocked = true;
-                        } else {
-                            allItems[index].itemUnlocked = false;
+if(urlParameters.has("klasId") && window.location.pathname.match("/klas")) {
+    $(window).on("load", function() {
+        $.ajax({
+            type: 'post',
+            url: "./includes/itemsData.json",
+            success: function (response) {
+                allItems = response;
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: "./includes/characterGetUnlocks.inc.php",
+            data: {
+                klasId: urlParameters.get("klasId")
+            },
+            success: function (response) {
+                unlockItems = response;
+                allItems.forEach(function(value, index) {
+                    unlockItems.forEach(function(value2) {
+                        if(index === parseInt(value2.id)) {
+                            if(value2.unlocked) {
+                                allItems[index].itemUnlocked = true;
+                            } else {
+                                allItems[index].itemUnlocked = false;
+                            }
                         }
-                    }
+                    });
                 });
-            });
 
-            selectItems = [...allItems];
-            currentItem = allItems[currentIndex];
-            currentItems = selectItems.slice(0, 4);
-            updateItem();
-            updateItems();
-        }
+                selectItems = [...allItems];
+                currentItem = allItems[currentIndex];
+                currentItems = selectItems.slice(0, 4);
+                updateItem();
+                updateItems();
+            }
+        });
     });
-});
+}
 
 $("#shopPreviousItem").on("click", function() {
-    if(currentIndex-1 >= 0) {
+    if(currentIndex-1 < 0) {
+        currentIndex = allItems.length-1;
+        currentItem = allItems[currentIndex];
+        updateItem();
+    } else {
         currentIndex--;
         currentItem = allItems[currentIndex];
         updateItem();
@@ -908,7 +943,11 @@ $("#shopPreviousItem").on("click", function() {
 });
 
 $("#shopNextItem").on("click", function() {
-    if(currentIndex+1 < allItems.length) {
+    if(currentIndex+1 >= allItems.length) {
+        currentIndex = 0;
+        currentItem = allItems[currentIndex];
+        updateItem();
+    } else {
         currentIndex++;
         currentItem = allItems[currentIndex];
         updateItem();
@@ -934,6 +973,12 @@ function updateItem() {
     $("#selectItemType").text(currentItem.itemType);
     $("#itemImg").attr("src", currentItem.itemImage);
     $("#itemPrice").text(currentItem.itemPrice);
+    
+    if(!currentItem.itemUnlocked) {
+        $('.shop .shopItem').addClass("itemDisabled");
+    } else {
+        $('.shop .shopItem').removeClass("itemDisabled");
+    }
 }
 
 function updateItems() {

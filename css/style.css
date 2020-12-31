@@ -366,12 +366,13 @@ a:visited {
       -ms-flex-align: center;
           align-items: center;
   margin: 0 auto;
+  height: inherit;
 }
 
 .shopItem p {
   position: absolute;
-  top: 60px;
-  left: 80px;
+  top: 125px;
+  left: 90px;
 }
 
 #itemId {

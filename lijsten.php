@@ -20,9 +20,13 @@ require "loginRequired.php";
         if(mysqli_num_rows($result) > 0) {
             ?>
 
+            
+            <div class="searchDiv">
+                <input id="woordenLijstZoekenInput">
+                <button id="woordenLijstZoekenButton">Zoeken</button>
+                <p id="searchError"></p>
+            </div>
             <div class="lijstenDiv">
-            <input id="woordenLijstZoekenInput">
-            <button id="woordenLijstZoekenButton">Zoeken</button>
             <?php
             while($lijst = mysqli_fetch_assoc($result)) {
     ?>
