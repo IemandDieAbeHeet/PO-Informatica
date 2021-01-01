@@ -25,9 +25,9 @@ if(empty($klasId)) {
         $result = mysqli_stmt_get_result($stmt);
 
         $assoc = mysqli_fetch_assoc($result);
-        $characterUnlocksData = json_decode($assoc['klasCharacterUnlocksData']);
+        $characterUnlocksData = json_decode($assoc['klasCharacterUnlocksData'], true);
         header('Content-type:application/json;charset=utf-8');
-        echo json_encode($characterUnlocksData, true);
+        echo json_encode($characterUnlocksData);
 
         exit();
     }

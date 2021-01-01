@@ -742,10 +742,65 @@ $(".klasJoinButton").on("click", function() {
 
 let boundsElement;
 let targetElement;
+let deleteElement;
+
+let characterData = [];
+let allItems = [];
+let defaultData = [];
+let unlockItems = [];
+let selectItems = [];
+let currentItems = [];
+let currentIndex = 0;
+let currentItem;
 
 if(urlParameters.has("klasId") && window.location.pathname.match("/klas")) {
+    let characterGetData;
     $(window).on("load", function() {
         boundsElement = $(".character");
+        $.when(
+        $.ajax({
+            type: 'post',
+            url: "./includes/itemsData.json",
+            success: function (response) {
+                allItems = response;
+            }
+        }),
+
+        $.ajax({
+            type: 'post',
+            url: "./includes/itemsDefaultData.json",
+            success: function (response) {
+                defaultData = response;
+            }
+        }),
+        
+        $.ajax({
+            type: 'get',
+            url: "./includes/characterGetUnlocks.inc.php",
+            data: {
+                klasId: urlParameters.get("klasId")
+            },
+            success: function (response) {
+                unlockItems = response;
+                allItems.forEach(function(value, index) {
+                    unlockItems.forEach(function(value2) {
+                        if(index === parseInt(value2.id)) {
+                            if(value2.unlocked) {
+                                allItems[index].itemUnlocked = true;
+                            } else {
+                                allItems[index].itemUnlocked = false;
+                            }
+                        }
+                    });
+                });
+
+                selectItems = [...allItems];
+                currentItem = allItems[currentIndex];
+                currentItems = selectItems.slice(0, 4);
+                updateItem();
+                updateItems();
+            }
+        }),
 
         $.ajax({
             type: 'get',
@@ -754,12 +809,14 @@ if(urlParameters.has("klasId") && window.location.pathname.match("/klas")) {
                 klasId: parseInt(urlParameters.get("klasId"))
             },
             success: function (response) {
-                laadCharacter(response);
+                characterGetData = response;
             },
             error: function(xhr) {
                 $('#response').text(xhr.statusText);
             }
-        });
+        }),).done(function() {
+            laadCharacter(characterGetData);
+        })
     });
 }
 
@@ -771,20 +828,29 @@ let initialY;
 let dragging = false;
 let deleting = false;
 
-let deleteElement;
-let characterData = [];
-
 function laadCharacter(res) {
     characterData = res;
     characterData.forEach(function(item) {
-        let newElement = $("<div draggable='true' id='" + item.type + "'></div>");
-        newElement.attr("itemId", item.id);
-        newElement.css("transform", "translate(" + item.x + "px, " + item.y + "px)");
-        newElement.css("background-image", item.imageLocation);
-        boundsElement.append(newElement);
+        let newElement;
+        console.log(item);
+        if(unlockItems[parseInt(item.id)].unlocked || item.deleted === 'true') {
+            newElement = $("<div draggable='true' id='" + item.type + "'></div>");
+            newElement.attr("itemId", item.id);
+            newElement.css("transform", "translate(" + item.x + "px, " + item.y + "px)");
+            newElement.css("background-image", "url(" + allItems[item.id].itemImage + ")");
+            boundsElement.append(newElement);
+        } else if(unlockItems[parseInt(item.id)].unlocked || item.deleted === 'true') {
+            newElement = $("<div draggable='false' id='" + item.type + "'></div>");
+            newElement.attr("itemId", item.id);
+            newElement.css("transform", "translate(" + defaultData[item.type].itemDefaultPos.x + "px, " + defaultData[item.type].itemDefaultPos.y + "px)");
+            newElement.css("background-image", "url()");
+            boundsElement.append(newElement);
+        }
     });
 
     deleteElement = $('#delete');
+    let preloadImg = new Image();
+    preloadImg.src = './img/character/delete/trashopen.png';
 
     $(".character > *").on({
         mousedown: dragStart,
@@ -798,6 +864,15 @@ function laadCharacter(res) {
             $(el).height(this.height);
         });
         img.attr('src', $(this).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0]);
+    });
+
+    $(document).on({
+        mousemove: function(e) {
+            drag(e);
+        },
+        mouseup: function(e) {
+            dragEnd(e);
+        }
     });
 }
 
@@ -823,14 +898,12 @@ $("#characterOpslaanButton").on("click", function() {
             newCharacterData.push({
                 id: $(this).attr("itemId"),
                 type: $(this).attr("id"),
-                imageLocation: $(this).css("background-image"),
+                deleted: $(this).attr('deleted'),
                 x: x,
                 y: y
             });
         }
     });
-
-    console.log(newCharacterData);
 
     $.ajax({
         type: 'post',
@@ -847,18 +920,6 @@ $("#characterOpslaanButton").on("click", function() {
         }
     });
 });
-
-$(document).on({
-    mousemove: function(e) {
-        drag(e);
-    },
-    mouseup: function(e) {
-        dragEnd(e);
-    }
-});
-
-let previousX;
-let previousY;
 
 function dragStart(e) {
     if(!dragging) {
@@ -882,10 +943,11 @@ function dragEnd(e) {
     e.preventDefault();
 
     if(deleting) {
+        let type = $(targetElement).attr('id');
         $(targetElement).css("background-image", "url()");
+        $(targetElement).attr('deleted', 'true');
         $(targetElement).attr("draggable", "false");
-        let defaultPos = allItems[parseInt($(targetElement).attr("itemId"))].itemDefaultPos;
-        $(targetElement).css("transform", "translate(" + defaultPos.x + "px, " + defaultPos.y + "px)");
+        $(targetElement).css("transform", "translate(" + defaultData[type].itemDefaultPos.x + "px, " + defaultData[type].itemDefaultPos.y + "px)");
     }
 
     deleteElement.css('background-image', 'url(./img/character/delete/trash.png)');
@@ -960,53 +1022,6 @@ function drag(e) {
             }
         }
     }
-}
-
-let allItems = [];
-let unlockItems = [];
-let selectItems = [];
-let currentItems = [];
-let currentIndex = 0;
-let currentItem;
-
-if(urlParameters.has("klasId") && window.location.pathname.match("/klas")) {
-    $(window).on("load", function() {
-        $.ajax({
-            type: 'post',
-            url: "./includes/itemsData.json",
-            success: function (response) {
-                allItems = response;
-            }
-        });
-        
-        $.ajax({
-            type: 'get',
-            url: "./includes/characterGetUnlocks.inc.php",
-            data: {
-                klasId: urlParameters.get("klasId")
-            },
-            success: function (response) {
-                unlockItems = response;
-                allItems.forEach(function(value, index) {
-                    unlockItems.forEach(function(value2) {
-                        if(index === parseInt(value2.id)) {
-                            if(value2.unlocked) {
-                                allItems[index].itemUnlocked = true;
-                            } else {
-                                allItems[index].itemUnlocked = false;
-                            }
-                        }
-                    });
-                });
-
-                selectItems = [...allItems];
-                currentItem = allItems[currentIndex];
-                currentItems = selectItems.slice(0, 4);
-                updateItem();
-                updateItems();
-            }
-        });
-    });
 }
 
 $("#shopPreviousItem").on("click", function() {
@@ -1085,6 +1100,7 @@ $(".itemSelect").on("click", function(e) {
         let img = new Image();
         img.src = item.itemImage;
         $("#" + item.itemType).width(img.width);
+        $("#" + item.itemType).attr('deleted', 'false');
         $("#" + item.itemType).height(img.height);
     } else {
         e.preventDefault();
@@ -1103,6 +1119,8 @@ $("#itemUnlockButton").on("click", function() {
         success: function (response) {
             $('.self .leerlingScore').text(parseInt($('.self .leerlingScore').text()) - currentItem.itemPrice);
             $('#klasScore').text(parseInt($('#klasScore').text()) - currentItem.itemPrice);
+            unlockItems[allItems.indexOf(currentItem)].unlocked = true;
+            $('.shop .shopItem').removeClass('itemDisabled');
             $('#response').text(response.statusText);
         },
         error: function(response) {

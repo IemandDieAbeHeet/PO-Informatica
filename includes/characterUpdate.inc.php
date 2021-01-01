@@ -24,7 +24,8 @@ if(empty($characterData)) {
         exit();
     }
     else {
-        mysqli_stmt_bind_param($stmt, "si", json_encode($characterData), $klasId);
+        $characterDataEncoded = json_encode($characterData);
+        mysqli_stmt_bind_param($stmt, "si", $characterDataEncoded, $klasId);
         mysqli_stmt_execute($stmt);
 
         header('HTTP/1.1 200 Poppetje opgeslagen!');

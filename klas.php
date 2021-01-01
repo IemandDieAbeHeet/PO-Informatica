@@ -110,6 +110,9 @@ require "loginRequired.php";
                 ?>
                 </div>
 
+                <?php
+                if($_SESSION['userType'] === "Leerling") {
+                ?>
                 <div class="shop">
                     <button id="shopPreviousItem"><</button>
                     <div class="shopItem">
@@ -120,7 +123,10 @@ require "loginRequired.php";
                     </div>
                     <button id="shopNextItem">></button>
                 </div>
-                
+                <?php
+                }
+                ?>
+
                 <button id="characterResetButton">Reset</button>
                 <?php
                 if($_SESSION['userType'] === "Leraar") {

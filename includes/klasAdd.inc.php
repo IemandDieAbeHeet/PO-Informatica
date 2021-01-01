@@ -25,7 +25,7 @@ if(empty($userId)) {
         exit();
     }
     else {
-        mysqli_stmt_bind_param($stmt, "ssss", $klasNaam, $klasNiveau, $klasJaar, $userId, $leraarNaam);
+        mysqli_stmt_bind_param($stmt, "sssss", $klasNaam, $klasNiveau, $klasJaar, $userId, $leraarNaam);
         $result = mysqli_stmt_execute($stmt);
 
         $id = mysqli_insert_id($conn);

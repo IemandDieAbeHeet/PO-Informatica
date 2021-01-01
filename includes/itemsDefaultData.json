@@ -1,0 +1,7 @@
+{
+"hoed": {"itemDefaultPos": { "x": 73, "y": 1}},
+"gezicht": {"itemDefaultPos": { "x": 100, "y": 20}},
+"buik": {"itemDefaultPos": { "x": 102, "y": 135}},
+"broek": {"itemDefaultPos": { "x": 112, "y": 195}},
+"schoenen": {"itemDefaultPos": { "x": 87, "y": 273}}
+}
