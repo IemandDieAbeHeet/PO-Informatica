@@ -101,7 +101,13 @@ require "loginRequired.php";
                 ?>
 
                 <div class="character">
-                <div draggable='false' id='delete'></div>
+                <?php
+                if($_SESSION['userType'] === "Leraar") {
+                ?>
+                    <div draggable='false' id='delete'></div>
+                <?php
+                }
+                ?>
                 </div>
 
                 <div class="shop">

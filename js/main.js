@@ -779,22 +779,25 @@ function laadCharacter(res) {
     characterData.forEach(function(item) {
         let newElement = $("<div draggable='true' id='" + item.type + "'></div>");
         newElement.attr("itemId", item.id);
-        newElement.css({"left": item.x + "px", "top": item.y + "px"});
+        newElement.css("transform", "translate(" + item.x + "px, " + item.y + "px)");
         newElement.css("background-image", item.imageLocation);
         boundsElement.append(newElement);
-    });
-
-    $(".character > *").each(function() {
-        let img = new Image();
-        img.src = $(this).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
-        $(this).width(img.width);
-        $(this).height(img.height);
     });
 
     deleteElement = $('#delete');
 
     $(".character > *").on({
         mousedown: dragStart,
+    });
+
+    $(".character > *").each(function() {
+        let img = $("<img>");
+        let el = $(this);
+        img.on("load", function() {
+            $(el).width(this.width);
+            $(el).height(this.height);
+        });
+        img.attr('src', $(this).css("background-image").replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0]);
     });
 }
 
@@ -808,14 +811,26 @@ $("#characterResetButton").on("click", function() {
 $("#characterOpslaanButton").on("click", function() {
     let newCharacterData = [];
     $(".character > *").each(function() {
-        newCharacterData.push({
-            id: $(this).attr("itemId"),
-            type: $(this).attr("id"),
-            imageLocation: $(this).css("background-image"),
-            x: parseInt($(this).css('left').slice(0, -2)),
-            y: parseInt($(this).css('top').slice(0, -2))
-        });
+        if($(this).attr("itemId")) {
+            let transformMatrix = $(this).css("-webkit-transform") ||
+            $(this).css("-moz-transform")    ||
+            $(this).css("-ms-transform")     ||
+            $(this).css("-o-transform")      ||
+            $(this).css("transform");
+            let matrix = transformMatrix.replace(/[^0-9\-.,]/g, '').split(',');
+            let x = matrix[12] || matrix[4];
+            let y = matrix[13] || matrix[5];
+            newCharacterData.push({
+                id: $(this).attr("itemId"),
+                type: $(this).attr("id"),
+                imageLocation: $(this).css("background-image"),
+                x: x,
+                y: y
+            });
+        }
     });
+
+    console.log(newCharacterData);
 
     $.ajax({
         type: 'post',
@@ -840,7 +855,10 @@ $(document).on({
     mouseup: function(e) {
         dragEnd(e);
     }
-})
+});
+
+let previousX;
+let previousY;
 
 function dragStart(e) {
     if(!dragging) {
@@ -850,6 +868,8 @@ function dragStart(e) {
             initialX = e.touches[0].clientX ;
             initialY = e.touches[0].clientY;
         } else {
+            previousX = $(targetElement).position().left;
+            previousY = $(targetElement).position().top;
             initialX = ($(targetElement).offset().left + $(targetElement).width() / 2) - e.clientX;
             initialY = ($(targetElement).offset().top + $(targetElement).height() / 2) - e.clientY;
         }
@@ -862,9 +882,14 @@ function dragEnd(e) {
     e.preventDefault();
 
     if(deleting) {
-        alert("bruh");
+        $(targetElement).css("background-image", "url()");
+        $(targetElement).attr("draggable", "false");
+        let defaultPos = allItems[parseInt($(targetElement).attr("itemId"))].itemDefaultPos;
+        $(targetElement).css("transform", "translate(" + defaultPos.x + "px, " + defaultPos.y + "px)");
     }
 
+    deleteElement.css('background-image', 'url(./img/character/delete/trash.png)');
+    deleteElement.height(67);
     deleting = false;
     dragging = false;
     targetElement = null;
@@ -883,6 +908,9 @@ function drag(e) {
             } else {
                 currentX = e.clientX - boundsElement.position().left - $(targetElement).width()/2 + initialX;
                 currentY = e.clientY - boundsElement.position().top - $(targetElement).height()/2 + initialY;
+
+                diffX = currentX - previousX;
+                diffY = currentY - previousY;
             }
 
             boundsLeft = 0;
@@ -890,35 +918,45 @@ function drag(e) {
             boundsTop = 0;
             boundsBottom = boundsElement.height();
 
-            if(xAllowed) {
-                xAllowed = $(targetElement).position().left > boundsLeft && $(targetElement).position().left + $(targetElement).width() <= boundsRight;
-            } else {
-                xAllowed = $(targetElement).position().left >= boundsLeft && $(targetElement).position().left + $(targetElement).width() <= boundsRight;
-            }
-            yAllowed = $(targetElement).position().top >= boundsTop && $(targetElement).position().top + $(targetElement).height() <= boundsBottom;
-            console.log(xAllowed, yAllowed);
-            if(xAllowed && yAllowed) {
-                $(targetElement).css({"left": currentX+"px","top": currentY+"px"});
-            } else if(!xAllowed && yAllowed) {
-                $(targetElement).css({"top": currentY+"px"});
-            } else if(!yAllowed && xAllowed) {
-                $(targetElement).css({"left": currentX+"px"});
+            xMinAllowed = currentX >= boundsLeft;
+            xMaxAllowed = currentX + $(targetElement).width() <= boundsRight
+            yMinAllowed = currentY >= boundsTop;
+            yMaxAllowed = currentY + $(targetElement).height() <= boundsBottom;
+
+            let boundRight = boundsElement.width() - $(targetElement).width();
+            let boundBottom = boundsElement.height() - $(targetElement).height();
+            if(xMaxAllowed && xMinAllowed && yMinAllowed && yMaxAllowed) {
+                $(targetElement).css("transform", "translate(" + currentX + "px, " + currentY + "px)");
+            } else if(!xMinAllowed && yMaxAllowed && yMinAllowed) {
+                $(targetElement).css("transform", "translate(" + 0 + "px, " + currentY + "px)");
+            } else if(!xMaxAllowed && yMaxAllowed && yMinAllowed) {
+                $(targetElement).css("transform", "translate(" + boundRight + "px, " + currentY + "px)");
+            } else if(!yMinAllowed && xMaxAllowed && xMinAllowed) {
+                $(targetElement).css("transform", "translate(" + currentX + "px, " + 0 + "px)");
+            } else if(!yMaxAllowed && xMaxAllowed && xMinAllowed) {
+                $(targetElement).css("transform", "translate(" + currentX + "px, " + boundBottom + "px)");
             }
 
-            deleteLeft = deleteElement.position().left;
-            deleteRight = deleteElement.position().left + deleteElement.width();
-            deleteTop = deleteElement.position().top;
-            deleteBottom = deleteElement.position().top + deleteElement.height();
+            previousX = currentX;
+            previousY = currentY;
 
-            deleteXAllowed = $(targetElement).position().left <= deleteRight && $(targetElement).position().left + $(targetElement).width() >= deleteLeft;
-            deleteYAllowed = $(targetElement).position().top + $(targetElement).height() >= deleteTop && $(targetElement).position().top <= deleteBottom;
-            if(deleteXAllowed && deleteYAllowed) {
-                deleting = true;
-                deleteElement.css('background-image', 'url(./img/character/delete/trashopen.png)');
-            } else {
-                deleting = false;
-                deleteElement.css('background-image', 'url(./img/character/delete/trash.png)');
-                deleteElement.height(81);
+            if(deleteElement.length) {
+                deleteLeft = deleteElement.position().left;
+                deleteRight = deleteElement.position().left + deleteElement.width();
+                deleteTop = deleteElement.position().top;
+                deleteBottom = deleteElement.position().top + deleteElement.height();
+
+                deleteXAllowed = $(targetElement).position().left <= deleteRight && $(targetElement).position().left + $(targetElement).width() >= deleteLeft;
+                deleteYAllowed = $(targetElement).position().top + $(targetElement).height() >= deleteTop && $(targetElement).position().top <= deleteBottom;
+                if(deleteXAllowed && deleteYAllowed) {
+                    deleting = true;
+                    deleteElement.css('background-image', 'url(./img/character/delete/trashopen.png)');
+                    deleteElement.height(81);
+                } else {
+                    deleting = false;
+                    deleteElement.css('background-image', 'url(./img/character/delete/trash.png)');
+                    deleteElement.height(67);
+                }
             }
         }
     }
@@ -1043,6 +1081,7 @@ $(".itemSelect").on("click", function(e) {
         let item = allItems[parseInt($(this).find("#selectItemId").text())];
         $("#" + item.itemType).css("background-image", "url(" + item.itemImage + ")");
         $("#" + item.itemType).attr("itemId", allItems.indexOf(item));
+        $("#" + item.itemType).attr("draggable", "true");
         let img = new Image();
         img.src = item.itemImage;
         $("#" + item.itemType).width(img.width);
