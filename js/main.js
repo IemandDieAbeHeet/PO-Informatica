@@ -832,16 +832,29 @@ function laadCharacter(res) {
     characterData = res;
     characterData.forEach(function(item) {
         let newElement;
-        console.log(item);
-        if(unlockItems[parseInt(item.id)].unlocked || item.deleted === 'true') {
+        let display = false;
+
+        if(unlockItems[parseInt(item.id)].unlocked) {
+            if(item.deleted === 'false') {
+                display = true;
+            } else {
+                display = false;
+            }
+        } else {
+            display = false;
+        }
+
+        if(display) {
             newElement = $("<div draggable='true' id='" + item.type + "'></div>");
+            newElement.attr("deleted", 'false');
             newElement.attr("itemId", item.id);
             newElement.css("transform", "translate(" + item.x + "px, " + item.y + "px)");
             newElement.css("background-image", "url(" + allItems[item.id].itemImage + ")");
             boundsElement.append(newElement);
-        } else if(unlockItems[parseInt(item.id)].unlocked || item.deleted === 'true') {
+        } else {
             newElement = $("<div draggable='false' id='" + item.type + "'></div>");
             newElement.attr("itemId", item.id);
+            newElement.attr("deleted", 'true');
             newElement.css("transform", "translate(" + defaultData[item.type].itemDefaultPos.x + "px, " + defaultData[item.type].itemDefaultPos.y + "px)");
             newElement.css("background-image", "url()");
             boundsElement.append(newElement);
