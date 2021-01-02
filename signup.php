@@ -20,12 +20,12 @@
                 }
                 ?>
                 <form action="includes/signup.inc.php" method="post">
-                    <input type="text" name="username" placeholder="Username">
+                    <input type="text" name="username" placeholder="Gebruikersnaam">
                     <input type="text" name="volledigenaam" placeholder="Volledige naam">
                     <input type="text" name="mail" placeholder="E-mail">
-                    <input type="password" name="pwd" placeholder="Password">
-                    <input type="password" name="pwd-repeat" placeholder="Repeat password">
-                    <button type="submit" name="signup-submit">Signup</button>
+                    <input type="password" name="pwd" placeholder="Wachtwoord">
+                    <input type="password" name="pwd-repeat" placeholder="Wachtwoord herhalen">
+                    <button type="submit" name="signup-submit">Aanmelden</button>
                 </form>
             </div>
         </div>

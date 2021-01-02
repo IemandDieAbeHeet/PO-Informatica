@@ -28,7 +28,7 @@ require "loginRequired.php";
             <p><?php echo 'Klassenscore: ' . $lijst['klasScore'] ?></p>
             <button class="klasBekijkButton">Klas bekijken</button>
             <?php
-            if(!isset($_SESSION['klasId'])) {
+            if(!isset($_SESSION['klasId']) && $_SESSION['userType'] != "Leraar") {
             ?>
             <button class="klasJoinButton">Dit is mijn klas</button>
             <?php } ?>

@@ -16,7 +16,7 @@ if(empty($userId)) {
     header('HTTP/1.1 400 Je bent niet ingelogd!');
 } else if($_SESSION['klasId'] != $klasId) {
     header('HTTP/1.1 400 Dit is niet jouw klas!');
-} else if($_SESSION['userType'] != "Leraar") {
+} else if($_SESSION['userType'] == "Leraar") {
     header('HTTP/1.1 400 Alleen leerlingen mogen dingen ontgrendelen!');
 } else if(empty($unlockData)) {
     header('HTTP/1.1 400 Geen item unlock data verzonden!');

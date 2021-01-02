@@ -879,7 +879,7 @@ function laadCharacter(res) {
 $("#characterResetButton").on("click", function() {
     let elements = $(".character > *");
     characterData.forEach(function(item, index) {
-        $(elements[index]).css({"left": item.x + "px", "top": item.y + "px"});
+        $(elements[index]).css("transform", "translate(" + item.x + "px, " + item.y + "px)");
     });
 });
 

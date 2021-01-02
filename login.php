@@ -20,9 +20,9 @@
             }
             ?>
             <form action="includes/login.inc.php" method="post">
-                <input type="text" name="mailuid" placeholder="Username/Email">
-                <input type="password" name="pwd" placeholder="Password">
-                <button type="submit" name="login-submit">Login</button>
+                <input type="text" name="mailuid" placeholder="Gebruikersnaam/Email">
+                <input type="password" name="pwd" placeholder="Wachtwoord">
+                <button type="submit" name="login-submit">Inloggen</button>
             </form>
             </div>
         </div>
