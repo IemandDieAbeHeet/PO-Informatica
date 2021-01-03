@@ -22,6 +22,13 @@
             <p><?php echo 'Klas: ' . $lijst['klasNaam'] ?></p>
             <button class="klasBekijkButton">Klas bekijken</button>
             <button class="klasDeleteButton">Klas verwijderen</button>
+            <?php
+            if($_SESSION['userType'] == "Leraar") {
+            ?>
+            <button class="klasBewerkButton">Klas bewerken</button>
+            <?php
+            }
+            ?>
         </li>
 
     <?php
