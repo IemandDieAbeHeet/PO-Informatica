@@ -1,6 +1,7 @@
 jsconfig.json
 dynmap/
 hooks/
+.vscode/
 
 #Standaard .gitignore bestanden
 

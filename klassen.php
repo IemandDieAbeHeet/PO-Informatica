@@ -31,7 +31,6 @@ require "loginRequired.php";
             if(!isset($_SESSION['klasId']) && $_SESSION['userType'] != "Leraar") {
             ?>
             <button class="klasJoinButton">Dit is mijn klas</button>
-            <?php } ?>
         </div>
 
     <?php

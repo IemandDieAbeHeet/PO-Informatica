@@ -5,6 +5,27 @@ require "loginRequired.php";
 ?>
 
 <main class="main-sidebar">
+    <div>
+        <?php
+        require "includes/dbh.inc.php";
+
+        $sql = "SELECT klasNaam FROM klassen WHERE klasId=?";
+
+        $stmt = mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: /?error=sqlerror");
+            exit();
+        } else {
+            mysqli_stmt_bind_param($stmt, "i", $_GET['klasId']);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $klasNaam = mysqli_fetch_assoc($result)['klasNaam'];
+        ?>
+        <h1><?php echo $klasNaam?></h1>
+        <?php
+            }
+        ?>
+    </div>
     <div class="leerlingenDiv">
         <?php
         require "includes/dbh.inc.php";
