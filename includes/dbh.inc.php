@@ -1,5 +1,5 @@
 <?php
-
+//
 $servername = "localhost";
 $dBUsername = file_get_contents("username.txt", true);
 $dBPassword = file_get_contents("wachtwoord.txt", true);
