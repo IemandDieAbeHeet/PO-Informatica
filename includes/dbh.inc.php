@@ -1,9 +1,9 @@
 <?php
 
 $servername = "localhost";
-$dBUsername = "root";
-$dBPassword = file_get_contents("C:/wachtwoord.txt");
-$dBName = "poinformatica";
+$dBUsername = file_get_contents("../username.txt");
+$dBPassword = file_get_contents("../wachtwoord.txt");
+$dBName = file_get_contents("../database.txt");
 
 $conn = mysqli_connect($servername, $dBUsername, $dBPassword, $dBName);
 

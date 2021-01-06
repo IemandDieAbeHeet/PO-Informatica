@@ -2,6 +2,9 @@ jsconfig.json
 dynmap/
 hooks/
 .vscode/
+username.txt
+wachtwoord.txt
+database.txt
 
 #Standaard .gitignore bestanden
 
