@@ -4,9 +4,9 @@ let woordenLijst = {};
 
 //----------------------Lijst editor----------------------
 
-$("#woordenForm input[type='text']").on("keyup", checkEmptyInputs);
+$("#woordenForm input[type='text']").on("keyup", checkLijstEmptyInputs);
 
-function checkEmptyInputs() {
+function checkLijstEmptyInputs() {
     let anyEmpty = false;
     let emptyAmount = 0;
     $("#woordenForm input[type='text']").filter(function() { return $(this).val() != "" }).each(function() {
@@ -134,7 +134,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
                 $(this).val(response.woordenArray[index][1]);
             });
 
-            setInterval(checkEmptyInputs, 10);
+            setInterval(checkLijstEmptyInputs, 10);
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -263,9 +263,11 @@ function CSVToArray( strData, strDelimiter ){
 
 //----------------------Lijst menu------------------------
 
-$(window).on("load", function() {
-    laadButtons();
-});
+if(window.location.pathname.match("/lijsten")) {
+    $(window).on("load", function() {
+        laadButtons();
+    });
+}
 
 function laadButtons() {
     $('.bekijkButton').on('click', function(e) {
@@ -1210,6 +1212,44 @@ function laadKlassen() {
             }
         });
     });
+}
+
+//--------------------------------------------------------
+
+//----------------------Signup----------------------------
+
+if(window.location.pathname.match("/signup")) {
+    $(window).on('load', function() {
+        checkSignupEmptyInputs();
+    });
+
+    $(".signup form input[type='text']").on("keyup", checkSignupEmptyInputs);
+    $("#algemeneVoorwaarden").on("change", checkSignupEmptyInputs);
+
+    function checkSignupEmptyInputs() {
+        let noneEmpty = true;
+        $(".signup form input[type='text']").each(function() {
+            if(this.value.trim() == "") {
+                noneEmpty = false;
+            }
+        });
+
+        $(".signup form input[type='password']").each(function() {
+            if(this.value.trim() == "") {
+                noneEmpty = false;
+            }
+        });
+        
+        if(!$("#algemeneVoorwaarden").is(":checked")) {
+            noneEmpty = false;
+        }
+
+        if(noneEmpty) {
+            $("#signupSubmit").prop("disabled", false);
+        } else {
+            $("#signupSubmit").prop("disabled", true);
+        }
+    }
 }
 
 //--------------------------------------------------------

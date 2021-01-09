@@ -6,3 +6,15 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteCond %{REQUEST_FILENAME} /$
 RewriteCond %{REQUEST_FILENAME}index.php -f
 RewriteRule ^(.*)$ $1index.php  [L]
+
+<Files "database.txt">
+Require all denied
+</Files>
+
+<Files "username.txt">
+Require all denied
+</Files>
+
+<Files "wachtwoord.txt">
+Require all denied
+</Files>

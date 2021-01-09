@@ -25,8 +25,13 @@
                     <input type="text" name="mail" placeholder="E-mail">
                     <input type="password" name="pwd" placeholder="Wachtwoord">
                     <input type="password" name="pwd-repeat" placeholder="Wachtwoord herhalen">
-                    <button type="submit" name="signup-submit">Aanmelden</button>
+                    <button type="submit" id="signupSubmit" name="signup-submit">Aanmelden</button>
                 </form>
+
+                <div>
+                    <p>Ik ga akkoord met de <a href="algemenevoorwaarden">Algemene voorwaarden</a></p>
+                    <input id="algemeneVoorwaarden" type="checkbox">
+                </div>
             </div>
         </div>
     </main>

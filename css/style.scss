@@ -340,3 +340,14 @@ a:visited {
     top: 100%;
     transform: translateY(-100%);
 }
+
+#algemenevoorwaarden {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    padding-left: 40px;
+    padding-right: 40px;
+    unicode-bidi: plaintext;
+    white-space: pre-line;
+    word-wrap: break-word;
+    -moz-control-character-visibility: visible;
+}
