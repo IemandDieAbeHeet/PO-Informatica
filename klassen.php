@@ -34,6 +34,7 @@ require "loginRequired.php";
         </div>
 
     <?php
+                }
             }
         }
     }

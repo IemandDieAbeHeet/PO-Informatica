@@ -25,7 +25,19 @@
             <?php
             if($_SESSION['userType'] == "Leraar") {
             ?>
-            <button class="klasBewerkButton">Klas bewerken</button>
+            <button class="editKlasOpenButton">Klas bewerken</button>
+            <div class="editKlasDiv" style="display: none">
+                <form id="editKlasForm">
+                    <input type="text" id="klasNaam" name="klasNaam" placeholder="Naam">
+                    <select name="klasNiveau" id="klasNiveau">
+                        <option value="VWO">VWO</option>
+                        <option value="HAVO">HAVO</option>
+                    </select>
+                    <input type="text" id="klasJaar" name="klasJaar" placeholder="Jaar">
+                    <input type="submit" name="editKlasSubmit" value="Bewerken">
+                </form>
+                <button class="editKlasCollapseButton">X</button>
+            </div>
             <?php
             }
             ?>
