@@ -18,7 +18,7 @@ if(empty($userId)) {
     header('HTTP/1.1 400 Foute score!');
 } else {
     $sql1 = "UPDATE users SET userScore=userScore+? WHERE userId=?";
-    $sql2 = "UPDATE klassen SET klasScore=klasScore+? WHERE klasId=?";
+    $sql2 = "UPDATE klassen SET klasScore=(SELECT SUM(userScore) FROM users WHERE klasId=?) WHERE klasId=?";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql1)) {
         header('HTTP/1.1 400 SQL error!');
