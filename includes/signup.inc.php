@@ -11,26 +11,26 @@ if(isset($_POST["signup-submit"])) {
     $passwordRepeat = $_POST["pwd-repeat"];
 
     if(empty($username) || empty($email) || empty($password) || empty($volledigenaam) || empty($passwordRepeat)) {
-        header("Location: ../signup?error=emptyfields&uid=".$username."&mail=".$email);
+        header("Location: ../signup.php?error=emptyfields&uid=".$username."&mail=".$email);
         exit();
     }
     elseif(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-        header("Location: ../signup?error=invalidmailuid");
+        header("Location: ../signup.php?error=invalidmailuid");
         exit();
     }
     elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../signup?error=invalidmail&uid=".$username);
+        header("Location: ../signup.php?error=invalidmail&uid=".$username);
         exit();
     }
     elseif(!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-        header("Location: ../signup?error=invaliduid&mail=".$email);
+        header("Location: ../signup.php?error=invaliduid&mail=".$email);
         exit();
     }
     elseif(!preg_match("/^[a-zA-Z\s]*$/", $volledigenaam)) {
-        header("Location: ../signup?error=invalidname&uid=".$username."&mail=".$email);
+        header("Location: ../signup.php?error=invalidname&uid=".$username."&mail=".$email);
     }
     elseif($password !== $passwordRepeat) {
-        header("Location: ../signup?error=passwordcheck&uid=".$username."&mail=".$email);
+        header("Location: ../signup.php?error=passwordcheck&uid=".$username."&mail=".$email);
         exit();
     }
     else {
@@ -38,7 +38,7 @@ if(isset($_POST["signup-submit"])) {
         $sql = "SELECT userUsername FROM users WHERE userUsername=?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: ../signup?error=sqlerror");
+            header("Location: ../signup.php?error=sqlerror");
             exit();
         }
         else {
@@ -47,14 +47,14 @@ if(isset($_POST["signup-submit"])) {
             mysqli_stmt_store_result($stmt);
             $resultCheck = mysqli_stmt_num_rows($stmt);
             if($resultCheck > 0) {
-                header("Location: ../signup?error=uidtaken&mail=".$email);
+                header("Location: ../signup.php?error=uidtaken&mail=".$email);
                 exit();
             }
             else {
                 $sql = "INSERT INTO users (userUsername, userVolledigenaam, userEmail, userPassword) VALUES (?, ?, ?, ?)";
                 $stmt = mysqli_stmt_init($conn);
                 if(!mysqli_stmt_prepare($stmt, $sql)) {
-                    header("Location: ../signup?error=sqlerror");
+                    header("Location: ../signup.php?error=sqlerror");
                     exit();
                 }
                 else {
@@ -74,7 +74,7 @@ if(isset($_POST["signup-submit"])) {
                     $_SESSION["loginTime"] = date("H:i:s");
                     $_SESSION["userScore"] = 0;
 
-                    header("Location: ../lijsten?signup=success");
+                    header("Location: ../lijsten.php?signup=success");
                     exit();
                 }
             }
@@ -84,6 +84,6 @@ if(isset($_POST["signup-submit"])) {
     }
 }
 else {
-    header("Location: ../signup");
+    header("Location: ../signup.php");
     exit();
 }

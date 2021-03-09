@@ -4,7 +4,7 @@ include 'loginHeader.php';
 include 'sidebar.php';
 
 if($_SESSION["userType"] != "Leraar") {
-    header('Location: lijsten');
+    header('Location: lijsten.php');
 }
 
 ?>
