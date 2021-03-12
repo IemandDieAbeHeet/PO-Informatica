@@ -172,7 +172,7 @@ $('#woordenForm').on('submit', function (e) {
       data: woordenLijst,
       success: function (xhr) {
         $("#response").attr("class", "success");
-        window.location.href = "lijsten";
+        window.location.href = "lijsten.php";
       },
       error: function(xhr) {
         $("#response").attr("class", "error");
@@ -273,18 +273,18 @@ function laadButtons() {
     $('.bekijkButton').on('click', function(e) {
         e.preventDefault;
         let woordenLijstId = $(this).siblings('.lijstId').text();
-        window.location.href = "lijst?woordenLijst=" + woordenLijstId;
+        window.location.href = "lijst.php?woordenLijst=" + woordenLijstId;
     });
 
     $('.bewerkButton').on('click', function(e) {
         e.preventDefault;
         let woordenLijstId = $(this).siblings('.lijstId').text();
-        window.location.href = "lijst-editor?woordenLijst=" + woordenLijstId;
+        window.location.href = "lijst-editor.php?woordenLijst=" + woordenLijstId;
     });
 
     $(".lijstMakenButton").on("click", function(e) {
         e.preventDefault;
-        window.location.href="lijst-editor";
+        window.location.href="lijst-editor.php";
     })
 
     $(".verwijderWoordenlijstButton").on("click", function(e) {
@@ -295,7 +295,7 @@ function laadButtons() {
             data: { woordenLijstId: $(this).siblings('.lijstId').text() },
             success: function () {
                 $("#response").attr("class", "success");
-                window.location.href = "lijsten";
+                window.location.href = "lijsten.php";
             },
             error: function(xhr) {
                 $("#response").attr("class", "error");
@@ -313,7 +313,7 @@ $("#oefenButton").on("click", function(e) {
     e.preventDefault();
     let woordenLijstId = $(this).siblings('.lijstId').text();
     let oefenType = $(this).siblings('#oefenSelection').find('option:selected').text()
-    window.location.href = "lijst-oefenen?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
+    window.location.href = "lijst-oefenen.php?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
 
 $("#woordenLijstZoekenInput").on("keyup", function(e) {
@@ -418,7 +418,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                         });
 
                         $("#resultaatDiv #resultaatButton").on("click", function() {
-                            window.location.href = "lijsten";
+                            window.location.href = "lijsten.php";
                         });
 
                         $("#resultaatDiv #foutenImporterenButton").on("click", nieuweWoordenlijstFouten);
@@ -429,7 +429,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                         startMemory();
 
                         $("#resultaatDiv #resultaatButton").on("click", function() {
-                            window.location.href = "lijsten";
+                            window.location.href = "lijsten.php";
                         });
 
                         $("#resultaatDiv #foutenImporterenButton").on("click", nieuweWoordenlijstFouten);
@@ -437,7 +437,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
 
                     break;
                 default:
-                    window.location.href = "lijst?woordenLijst=" + urlParameters.get("woordenLijst");
+                    window.location.href = "lijst.php?woordenLijst=" + urlParameters.get("woordenLijst");
             }
         },
         error: function(xhr) {
@@ -458,7 +458,7 @@ function nieuweWoordenlijstFouten() {
         data: nieuweWoordenLijst,
         success: function (response) {
             $("#response").attr("class", "success");
-            window.location.href = "lijst-editor?woordenLijst=" + response.woordenLijstId;
+            window.location.href = "lijst-editor.php?woordenLijst=" + response.woordenLijstId;
         },
         error: function(xhr) {
             $("#response").attr("class", "error");
@@ -719,7 +719,7 @@ $(".klasDiv").on({
 });
 
 $(".klasBekijkButton").on("click", function() {
-    window.location.href = "klas?klasId=" + parseInt($(this).siblings(".klasId").text());
+    window.location.href = "klas.php?klasId=" + parseInt($(this).siblings(".klasId").text());
 });
 
 $(".klasJoinButton").on("click", function() {
@@ -730,7 +730,7 @@ $(".klasJoinButton").on("click", function() {
             klasId: parseInt($(this).siblings(".klasId").text())
         },
         success: function (response) {
-            window.location.href = "klas?klasId=" + klasId;
+            window.location.href = "klas.php?klasId=" + klasId;
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -1183,7 +1183,7 @@ function laadKlassen() {
     $("#klassenLijst ul > *").remove();
     $("#klassenLijst ul").load("klassenLijst.php", function() {
         $(".klasBekijkButton").on("click", function() {
-            window.location.href = "klas?klasId=" + parseInt($(this).siblings(".klasId").text());
+            window.location.href = "klas.php?klasId=" + parseInt($(this).siblings(".klasId").text());
         });
 
         $(".editKlasOpenButton").on("click", function(e) {

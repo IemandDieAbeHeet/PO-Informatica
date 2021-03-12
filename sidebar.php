@@ -3,8 +3,8 @@
         <button type="button" class="lijstMakenButton">Lijst maken</button>
     </div>
     <nav>
-        <a href="lijsten">Lijsten</a>
-        <a href="klassen">Klassen</a>
+        <a href="lijsten.php">Lijsten</a>
+        <a href="klassen.php">Klassen</a>
         <?php
         if(isset($_SESSION['klasId']) && $_SESSION['userType'] != "Leraar") {
         ?>
@@ -15,7 +15,7 @@
         <?php
         if($_SESSION['userType'] === "Leraar") {
         ?>
-        <a href="leraarDashboard">Dashboard</a>
+        <a href="leraarDashboard.php">Dashboard</a>
         <?php
         }
         ?>

@@ -1,5 +1,4 @@
 <?php
-//
 $servername = "localhost";
 $dBUsername = file_get_contents(__DIR__ . "/../username.txt");
 $dBPassword = file_get_contents(__DIR__ . "/../wachtwoord.txt");

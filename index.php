@@ -10,8 +10,8 @@ require "loginDisallowed.php";
             <h1>Wörterwelt</h1>
         </div>
         <nav class="indexNav">
-            <a href="login">Inloggen</a>
-            <a href="signup">Registreren</a>
+            <a href="login.php">Inloggen</a>
+            <a href="signup.php">Registreren</a>
         </nav>
     </header>
 </main>

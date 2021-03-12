@@ -29,7 +29,7 @@
                 </form>
 
                 <div>
-                    <p>Ik ga akkoord met de <a href="algemenevoorwaarden">Algemene voorwaarden</a></p>
+                    <p>Ik ga akkoord met de <a href="algemenevoorwaarden.php">Algemene voorwaarden</a></p>
                     <input id="algemeneVoorwaarden" type="checkbox">
                 </div>
             </div>
