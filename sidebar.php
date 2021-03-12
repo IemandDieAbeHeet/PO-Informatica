@@ -8,7 +8,7 @@
         <?php
         if(isset($_SESSION['klasId']) && $_SESSION['userType'] != "Leraar") {
         ?>
-        <a href="klas?klasId=<?php echo $_SESSION['klasId'] ?>">Mijn klas</a>
+        <a href="klas.php?klasId=<?php echo $_SESSION['klasId'] ?>">Mijn klas</a>
         <?php
         }
         ?>

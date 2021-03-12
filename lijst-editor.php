@@ -17,7 +17,7 @@ if(!empty($_GET['woordenLijst'])) {
         $result = mysqli_stmt_get_result($stmt);
         $resultId = mysqli_fetch_assoc($result)['userId'];
         if($resultId != $_SESSION['userId']) {
-            header("Location: lijst?woordenLijst=" . $_GET['woordenLijst']);
+            header("Location: lijst.php?woordenLijst=" . $_GET['woordenLijst']);
         }
     }
 }
