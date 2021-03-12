@@ -3,6 +3,7 @@
         <button type="button" class="lijstMakenButton">Lijst maken</button>
     </div>
     <nav>
+        <h1>Ik heb een hekel aan Hannah!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
         <a href="lijsten.php">Lijsten</a>
         <a href="klassen.php">Klassen</a>
         <?php
