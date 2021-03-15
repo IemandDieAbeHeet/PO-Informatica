@@ -351,3 +351,12 @@ a:visited {
     word-wrap: break-word;
     -moz-control-character-visibility: visible;
 }
+
+#galgjeInput {
+    padding:10px 5px;
+    border: none;
+    width: calc(8*(1ch + 5px));
+    font-size:20px;
+    letter-spacing:5px;
+    background: repeating-linear-gradient(to right,black 0 1ch,transparent 1ch calc(1ch + 5px)) bottom/100% 2px content-box no-repeat;
+}
