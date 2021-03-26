@@ -312,7 +312,7 @@ function laadButtons() {
 $("#oefenButton").on("click", function(e) {
     e.preventDefault();
     let woordenLijstId = $(this).siblings('.lijstId').text();
-    let oefenType = $(this).siblings('#oefenSelection').find('option:selected').text()
+    let oefenType = $(this).siblings('#oefenSelection').find('option:selected').text();
     window.location.href = "lijst-oefenen.php?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
 
@@ -397,6 +397,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
             woordenArrayTotaal = woordenLijst.woordenArray;
             woordenArray = (woordenLijst.woordenArray).slice();
 
+            console.log(urlParameters.get("oefenType"));
             switch(urlParameters.get("oefenType")) {
                 case "Toets":
                     $("#oefenDiv").load("toets.php", function() {
@@ -424,6 +425,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                         $("#resultaatDiv #foutenImporterenButton").on("click", nieuweWoordenlijstFouten);
                     });
                     break;
+
                 case "Memory":
                     $("#oefenDiv").load("memory.php", function() {
                         startMemory();
@@ -436,6 +438,18 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                     });
 
                     break;
+
+                case "Galgje":
+                    $("#oefenDiv").load("galgje.php", function() {
+                        $("#resultaatDiv #resultaatButton").on("click", function() {
+                            window.location.href = "lijsten.php";
+                        });
+
+                        $("#resultaatDiv #foutenImporterenButton").on("click", nieuweWoordenlijstFouten);
+                    });
+
+                    break;
+                    
                 default:
                     window.location.href = "lijst.php?woordenLijst=" + urlParameters.get("woordenLijst");
             }
@@ -704,6 +718,9 @@ function verstuurScore(score) {
         }
     });
 }
+
+//Galgje
+
 
 
 //--------------------------------------------------------

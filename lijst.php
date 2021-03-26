@@ -56,6 +56,7 @@ require "loginRequired.php";
             <select name="oefentype" id="oefenSelection">
                 <option value="Toets">Toets</option>
                 <option value="Memory">Memory</option>
+                <option value="Galgje">Galgje</option>
             </select>
             <button type="submit" name="submit" id="oefenButton">Oefenen</button>
         </div>
