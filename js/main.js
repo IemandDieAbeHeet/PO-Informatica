@@ -441,6 +441,8 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
 
                 case "Galgje":
                     $("#oefenDiv").load("galgje.php", function() {
+                        startGalgje();
+
                         $("#resultaatDiv #resultaatButton").on("click", function() {
                             window.location.href = "lijsten.php";
                         });
@@ -721,7 +723,9 @@ function verstuurScore(score) {
 
 //Galgje
 
-
+function startGalgje() {
+    
+}
 
 //--------------------------------------------------------
 
