@@ -714,7 +714,7 @@ function verstuurScore(score) {
         success: function (response) {
             disabled = true;
             $("#resultaatDiv").css("visibility", "visible");
-            $("#cijferText").text("Cijfer: " + ((goedCount/woordenArrayTotaal.length*9)+1).toFixed(1));
+            $("#cijferText").text("Cijfer: " + (score/10));
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -724,26 +724,89 @@ function verstuurScore(score) {
 
 //Galgje
 
+let totaalGoedeLetters = 0;
+let totaalFouteLetters = 0;
+
+let goedeLetters = 0;
+let fouteLetters = 0;
+
 function startGalgje() {
     woordenArray = shuffleArray(woordenArray);
-    woordenVraag = woordenArray[0][0];
-    woordenAntwoord = woordenArray[0][1];
-
-    console.log(woordenArray);
 
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
     'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
     't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
     for(let i = 0; i < alphabet.length; i++) {
-        $("#letters").append("<li class='letter'>" + alphabet[i] + "</li>");
+        $("#letters").append("<li class='letter'><p>" + alphabet[i] + "</p></li>");
     }
+
+    laadAntwoord();
+
+    $("#letters > li").on("click", function() {
+        let letter = $(this).text().toLowerCase();
+        if(woordenAntwoord.toLowerCase().includes(letter)) { 
+            let indices = [];
+            
+            for(let i = 0; i < woordenAntwoord.length; i++) {
+                if(woordenAntwoord[i].toLowerCase() === letter) {
+                    indices.push(i);
+                }
+            }
+
+            if(indices.length > 0) {
+                for(let i = 0; i < indices.length; i++) {
+                    $($("#galgjeGuess").children()[indices[i]]).text(woordenAntwoord[indices[i]]);
+                }
+            }
+
+            $(this).hide();
+
+            goedeLetters += indices.length;
+            totaalGoedeLetters += indices.length;
+
+            if(goedeLetters >= woordenAntwoord.length) {
+                laadAntwoord();
+            }
+        } else {
+            fouteLetters++;
+            totaalFouteLetters++;
+
+            $(this).hide();
+
+            $($("#galgjeDiv").children()[fouteLetters]).show();
+
+            if(fouteLetters > $("#galgjeDiv").children().length) {
+                window.location.href = "lijst.php?woordenLijst=" + parseInt(urlParameters.get("woordenLijst"));
+
+                //Evt nog verlies scherm toevoegen
+            }
+        }
+    });
 }
 
 function laadAntwoord() {
+    if(woordenArray.length - 1 < 0) {
+        verstuurScore((totaalGoedeLetters - totaalFouteLetters) / totaalGoedeLetters * 100);
+        return;
+    }
+
+    goedeLetters = 0;
+    fouteLetters = 0;
+    nieuweWoorden = woordenArray.pop();
+    woordenVraag = nieuweWoorden[0];
+    woordenAntwoord = nieuweWoorden[1];
+
+    $("#galgjeDiv").children().hide();
+
     $("#galgjeWoord").text(woordenVraag);
+
+    $("#letters > li").show();
+
+    $("#galgjeGuess > *").remove();
+    
     for(let i = 0; i < woordenAntwoord.length; i++) {
-        $("#galgjeGuess").append("<p>" + woordenAntwoord[i] + "</p>");
+        $("#galgjeGuess").append("<p></p>");
     }
 }
 
