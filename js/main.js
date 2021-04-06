@@ -371,6 +371,7 @@ function zoekWoordenlijsten(t) {
 let woordenArrayTotaal = [];
 let woordenArray = [];
 let woordenAntwoord;
+let woordenVraag;
 
 let volgendeWoordenOrigineel = [];
 let volgendeWoordenVertaald = [];
@@ -519,7 +520,7 @@ function antwoordCheck() {
 
             woordenArray.splice(2, 0, temp);
 
-            alert("Hahahahahahahahahahahahahaha");
+            alert("Je hebt het fout");
             woordenAntwoord = woordenArray[0][1];
             $("#oefenDiv #oefenInput").val("");
             $("#oefenDiv .oefenWoord").text(woordenArray[0][0]);
@@ -725,6 +726,7 @@ function verstuurScore(score) {
 
 function startGalgje() {
     woordenArray = shuffleArray(woordenArray);
+    woordenVraag = woordenArray[0][0];
     woordenAntwoord = woordenArray[0][1];
 
     console.log(woordenArray);
@@ -735,6 +737,13 @@ function startGalgje() {
 
     for(let i = 0; i < alphabet.length; i++) {
         $("#letters").append("<li class='letter'>" + alphabet[i] + "</li>");
+    }
+}
+
+function laadAntwoord() {
+    $("#galgjeWoord").text(woordenVraag);
+    for(let i = 0; i < woordenAntwoord.length; i++) {
+        $("#galgjeGuess").append("<p>" + woordenAntwoord[i] + "</p>");
     }
 }
 

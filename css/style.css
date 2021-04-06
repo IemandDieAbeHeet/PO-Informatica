@@ -519,10 +519,8 @@ a:visited {
 
 #galgjeGuess > * {
   margin-right: 5px;
-}
-
-#galgjeGuess p {
   border-bottom: 4px solid black;
+  width: 1em;
 }
 
 #galgjeDiv {

@@ -1,4 +1,5 @@
 <div>
+    <p id="galgjeWoord"></p>
     <ul id="letters">
     </ul>
     <div id="galgjeDiv">
@@ -18,7 +19,7 @@
     </div>
 
     <div id="galgjeGuess">
-        <p>G</p>
+        
     </div>
 </div>
 
