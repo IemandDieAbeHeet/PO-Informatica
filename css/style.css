@@ -314,25 +314,25 @@ a:visited {
   background-position: center center;
 }
 
-#hoed {
+.character #hoed {
   background-image: url("../img/character/hoed/hoed0.png");
   z-index: 2;
 }
 
-#gezicht {
+.character #gezicht {
   background-image: url("../img/character/gezicht/gezicht0.png");
   z-index: 1;
 }
 
-#buik {
+.character #buik {
   background-image: url("../img/character/buik/buik0.png");
 }
 
-#broek {
+.character #broek {
   background-image: url("../img/character/broek/broek0.png");
 }
 
-#schoenen {
+.character #schoenen {
   background-image: url("../img/character/schoenen/schoen0.png");
 }
 
@@ -506,12 +506,45 @@ a:visited {
   -moz-control-character-visibility: visible;
 }
 
-#galgjeInput {
-  padding: 10px 5px;
-  border: none;
-  width: calc(8*(1ch + 5px));
-  font-size: 20px;
-  letter-spacing: 5px;
-  background: repeating-linear-gradient(to right, black 0 1ch, transparent 1ch calc(1ch + 5px)) bottom/100% 2px content-box no-repeat;
+#galgjeGuess {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  width: 50px;
+}
+
+#galgjeGuess > * {
+  margin-right: 5px;
+}
+
+#galgjeGuess p {
+  border-bottom: 4px solid black;
+}
+
+#galgjeDiv {
+  height: 480px;
+}
+
+#galgjeDiv > * {
+  position: absolute;
+}
+
+#letters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 25%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+
+#letters > * {
+  margin: 5px;
 }
 /*# sourceMappingURL=style.css.map */
