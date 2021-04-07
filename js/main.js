@@ -769,12 +769,12 @@ function startGalgje() {
                 laadAntwoord();
             }
         } else {
+            $($("#galgjeDiv").children()[fouteLetters]).show();
+            
             fouteLetters++;
             totaalFouteLetters++;
 
             $(this).hide();
-
-            $($("#galgjeDiv").children()[fouteLetters]).show();
 
             if(fouteLetters > $("#galgjeDiv").children().length) {
                 window.location.href = "lijst.php?woordenLijst=" + parseInt(urlParameters.get("woordenLijst"));
@@ -787,7 +787,7 @@ function startGalgje() {
 
 function laadAntwoord() {
     if(woordenArray.length - 1 < 0) {
-        verstuurScore((totaalGoedeLetters - totaalFouteLetters) / totaalGoedeLetters * 100);
+        verstuurScore(100);
         return;
     }
 
