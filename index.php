@@ -6,12 +6,13 @@ require "loginDisallowed.php";
 
 <main class="main">
     <header class="indexHeader">
-        <div>
-            <h1>Wörterwelt</h1>
+        <div id="logoDiv">
+            <img id="indexLogo" src="img/Logo.png">
+            <div><h1 style="color: orange">Wörter</h1><h1 style="color: #ccc">welt</h1></div>
         </div>
         <nav class="indexNav">
-            <a href="login.php">Inloggen</a>
-            <a href="signup.php">Registreren</a>
+            <button onclick="window.location.href='login.php'">Inloggen</button>
+            <button onclick="window.location.href='signup.php'">Registreren</button>
         </nav>
     </header>
 </main>

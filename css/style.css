@@ -48,31 +48,6 @@ table {
   font-family: "Varela Round", sans-serif;
 }
 
-.indexHeader {
-  height: 85px;
-  width: 100%;
-  background-color: #2E3E56;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  z-index: 5;
-}
-
-.indexNav > * {
-  margin-left: 15px;
-}
-
 .woordendiv {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -115,64 +90,6 @@ table {
   color: green;
 }
 
-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.sidebar {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  right: auto;
-  background-color: aquamarine;
-  overflow-x: hidden;
-  padding-top: 20px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.sidebar nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.sidebar nav > * {
-  padding-top: 25px;
-}
-
-.main-sidebar {
-  margin-left: 160px;
-  padding: 0px 10px;
-}
-
 .hidden {
   display: none;
 }
@@ -190,7 +107,7 @@ nav {
 .lijstenHeader {
   height: 50px;
   width: 100%;
-  background-color: yellowgreen;
+  background-color: #7ADAF8;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -228,10 +145,6 @@ a:visited {
   max-width: 960px;
   padding-right: 10px;
   padding-left: 10px;
-}
-
-.test {
-  text-shadow: black;
 }
 
 #kaarten {
@@ -556,6 +469,26 @@ a:visited {
   margin: 5px;
 }
 
+button {
+  height: 3em;
+  background-color: orange;
+  border: none;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  color: white;
+  cursor: pointer;
+}
+
+input {
+  padding: 8px 10px;
+  height: 1em;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
 #welcomeMessage {
   margin-bottom: 15px;
   color: orange;
@@ -633,27 +566,124 @@ a:visited {
   height: 80%;
 }
 
-#loginForm > * {
+#loginForm input {
   height: 2em;
 }
 
-button {
-  height: 3em !important;
-  background-color: orange;
-  border: none;
-  border-radius: 20px;
-  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  color: white;
-  cursor: pointer;
+#indexLogo {
+  width: 45px;
+  height: 45px;
 }
 
-input {
-  padding: 8px 10px;
-  height: 1em;
-  border: 1px solid #ccc;
-  border-radius: 20px;
+#logoDiv {
+  font-size: xx-large;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  width: 7em;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#logoDiv div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.indexHeader {
+  height: 85px;
+  width: 100%;
+  background-color: #7ADAF8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  z-index: 5;
+}
+
+.indexNav > * {
+  margin-left: 15px;
+  width: 120px;
+}
+
+.sidebar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: auto;
+  background-color: #7ADAF8;
+  -webkit-box-shadow: 0px 0px 35px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 35px 1px rgba(0, 0, 0, 0.2);
+  overflow-x: hidden;
+  padding-top: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sidebar nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 75%;
+}
+
+.sidebar nav > * {
+  font-size: 25px;
+  height: 58px;
+  width: 200px;
+  border-radius: 50px;
+}
+
+.main-sidebar {
+  margin-left: 250px;
+  padding: 0px 10px;
+}
+
+#sidebarLogo {
+  width: 164px;
+  height: 164px;
   -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 120px;
+  background-color: #06c5ff;
 }
 /*# sourceMappingURL=style.css.map */

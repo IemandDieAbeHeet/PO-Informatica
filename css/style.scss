@@ -5,22 +5,6 @@
     font-family: "Varela Round", sans-serif;
 }
 
-.indexHeader {
-    height: 85px;
-	width: 100%;
-	background-color: #2E3E56;
-	display: flex;
-	flex-flow: row nowrap;
-	align-content: center;
-	align-items: center;
-	justify-content: space-around;
-	z-index: 5;
-}
-
-.indexNav > * {
-    margin-left: 15px;
-}
-
 .woordendiv {
     display: flex;
     flex-flow: row nowrap;
@@ -49,43 +33,6 @@
     color: green;
 }
 
-nav {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
-}
-
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    right: auto;
-    background-color: aquamarine;
-    overflow-x: hidden;
-    padding-top: 20px;
-    align-items: center;
-}
-
-.sidebar nav {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-}
-
-.sidebar nav > * {
-    padding-top: 25px;
-}
-
-.main-sidebar {
-    margin-left: 160px;
-    padding: 0px 10px;
-}
-
 .hidden {
     display: none;
 }
@@ -98,7 +45,7 @@ nav {
 .lijstenHeader {
     height: 50px;
     width: 100%;
-    background-color: yellowgreen;
+    background-color: #7ADAF8;
     display: flex;
     flex-flow: row nowrap;
     align-content: center;
@@ -126,10 +73,6 @@ a:visited {
     max-width: 960px;
     padding-right: 10px;
     padding-left:  10px;
-}
-
-.test {
-    text-shadow: fade-in($color: #000000, $amount: 0);
 }
 
 #kaarten {
@@ -188,6 +131,8 @@ a:visited {
 .klasJoinButton {
     visibility: hidden;
 }
+
+//Poppetje
 
 .character {
     display: inline-block;
@@ -392,6 +337,30 @@ a:visited {
     margin: 5px;
 }
 
+//Algemeen
+
+button {
+    height: 3em;
+    background-color: orange;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    color: white;
+    cursor: pointer;
+}
+
+input {
+    padding: 8px 10px;
+    height: 1em;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+a {
+
+}
+
 //Login
 
 #welcomeMessage {
@@ -443,24 +412,90 @@ a:visited {
     height: 80%;
 }
 
-#loginForm > * {
+#loginForm input {
     height: 2em;
 }
 
-button {
-    height: 3em !important;
-    background-color: orange;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    color: white;
-    cursor: pointer;
+//Index
+
+#indexLogo {
+    width: 45px;
+    height: 45px;
 }
 
-input {
-    padding: 8px 10px;
-    height: 1em;
-    border: 1px solid #ccc;
-    border-radius: 20px;
+#logoDiv {
+    font-size: xx-large;
+    display: flex;
+    flex-flow: row wrap;
+    width: 7em;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#logoDiv div {
+    display: flex;
+}
+
+.indexHeader {
+    height: 85px;
+	width: 100%;
+	background-color: #7ADAF8;
+	display: flex;
+	flex-flow: row nowrap;
+	align-content: center;
+	align-items: center;
+	justify-content: space-around;
+	z-index: 5;
+}
+
+.indexNav > * {
+    margin-left: 15px;
+    width: 120px;
+}
+
+//Sidebar
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: auto;
+    background-color: #7ADAF8;
+    box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.2);
+    overflow-x: hidden;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 75%;
+}
+
+.sidebar nav > * {
+    font-size: 25px;
+    height: 58px;
+    width: 200px;
+    border-radius: 50px;
+}
+
+.main-sidebar {
+    margin-left: 250px;
+    padding: 0px 10px;
+}
+
+#sidebarLogo {
+    width: 164px;
+    height: 164px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 120px;
+    background-color: #06c5ff;
 }
