@@ -1,6 +1,14 @@
-<p class="oefenWoord">Woord</p>
-<input type="text" id="oefenInput">
-<button id="oefenButton">Nakijken</button>
+<h1 id="oefenTypeTekst">Toets</h1>
+
+<div class="outerBox" id="oefenOuterBox">
+    <div class="box" id="oefenBox">
+        <p class="oefenWoord">Woord</p>
+    </div>
+    <div id="oefenInputBox">
+        <input type="text" id="oefenInput">
+        <button id="oefenButton">Controleren!</button>
+    </div>
+</div>
 
 <div id="resultaatDiv">
     <p id="cijferText">Cijfer: </p>

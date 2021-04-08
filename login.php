@@ -7,11 +7,11 @@
         <div class="wrapper">
             <div id="loginMenu">
                 <h1 id="welcomeMessage">Welkom!</h1>
-                <div class="outerBox">
-                    <div class="box">
+                <div class="outerBox loginOuterBox">
+                    <div class="box loginBox">
                         <img id="welkomLogo" src="img/Logo.png">
                     </div>
-                    <div class="box">
+                    <div class="box loginBox">
                         <?php
                         if(isset($_GET["error"])) {
                             if($_GET["error"] == "emptyfields") {

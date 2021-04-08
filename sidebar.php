@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <div id="sidebarLogoDiv">
+    <div onclick="window.location.href='lijsten.php'" id="sidebarLogoDiv">
         <img id="sidebarLogoImg" src="img/Logo.png">
     </div>
     <nav>

@@ -1,9 +1,10 @@
 <?php
 include 'defaultHeader.php';
 require "loginRequired.php";
+include 'sidebar.php';
 ?>
 
-<main>
+<main class='main-sidebar'>
     <div id="oefenDiv">
     </div>
     <p id="response"></p>

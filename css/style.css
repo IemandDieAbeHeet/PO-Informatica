@@ -501,6 +501,29 @@ input {
           box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
+.outerBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px;
+  border-radius: 50px;
+  background-color: #7ADAF8;
+}
+
+.box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #56C2FA;
+  border-radius: 30px;
+}
+
 #welcomeMessage {
   margin-bottom: 15px;
   color: orange;
@@ -521,36 +544,19 @@ input {
           align-items: center;
 }
 
-.outerBox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.loginOuterBox {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 30px;
-  border-radius: 50px;
-  background-color: #7ADAF8;
   width: 780px;
   height: 310px;
 }
 
-.box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #56C2FA;
-  border-radius: 30px;
+.loginBox {
   width: 45%;
 }
 
@@ -690,8 +696,11 @@ input {
 }
 
 .main-sidebar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin-left: 250px;
-  padding: 0px 10px;
+  padding: 0px 40px;
 }
 
 #sidebarLogoImg {
@@ -732,5 +741,57 @@ input {
           box-shadow: 0 5px #666;
   -webkit-transform: translateY(4px);
           transform: translateY(4px);
+}
+
+#oefenTypeTekst {
+  position: relative;
+  top: 25px;
+  font-weight: 800;
+  color: orange;
+  font-size: 5em;
+}
+
+#oefenOuterBox {
+  position: fixed;
+  top: 50%;
+  left: calc(50% + 125px);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  width: 600px;
+}
+
+.oefenWoord {
+  margin: 30px;
+  color: white;
+  font-size: 2em;
+}
+
+#oefenInput {
+  height: 35px;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+#oefenInputBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#oefenButton {
+  font-size: 2em;
+  border-radius: 50px;
+  height: 2.5em !important;
+  width: 225px;
 }
 /*# sourceMappingURL=style.css.map */
