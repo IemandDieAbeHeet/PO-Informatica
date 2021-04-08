@@ -19,7 +19,7 @@
         }
         ?>
     </nav>
-    <div>
+    <div id="logoutDiv">
         <button onclick="window.location.href='includes/logout.inc.php'">Uitloggen</button>
     </div>
 </div>

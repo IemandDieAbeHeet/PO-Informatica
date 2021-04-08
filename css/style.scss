@@ -469,6 +469,7 @@ a {
     box-shadow: 0px 0px 35px 1px rgba(0,0,0,0.2);
     overflow-x: hidden;
     padding-top: 20px;
+    padding-bottom: 30px;
     align-items: center;
 }
 
@@ -477,10 +478,10 @@ a {
     flex-flow: column wrap;
     justify-content: space-evenly;
     align-items: center;
-    height: 75%;
+    height: 50%;
 }
 
-.sidebar nav > * {
+.sidebar *:not(img) * {
     font-size: 25px;
     height: 58px;
     width: 200px;
@@ -490,6 +491,10 @@ a {
 .main-sidebar {
     margin-left: 250px;
     padding: 0px 10px;
+}
+
+#logoutDiv {
+    
 }
 
 #sidebarLogo {
