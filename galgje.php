@@ -1,3 +1,5 @@
+<h1 id="oefenTypeTekst">Galgje</h1>
+
 <div class="outerBox" id="galgjeDiv">
     <div class="box" id="galgjeWoordDiv">
         <p id="galgjeWoord"></p>
