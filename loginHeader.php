@@ -13,9 +13,4 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>
-        <header class="lijstenHeader">
-            <a href="includes/logout.inc.php">Uitloggen</a>
-        </header>
-    </body>
 </html>
