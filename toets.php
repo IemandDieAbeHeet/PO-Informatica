@@ -1,4 +1,4 @@
-<h1 id="oefenTypeTekst">Toets</h1>
+<h1 id="paginaType">Toets</h1>
 
 <div class="outerBox" id="oefenOuterBox">
     <div class="box" id="oefenBox">

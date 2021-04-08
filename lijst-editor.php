@@ -23,6 +23,7 @@ if(!empty($_GET['woordenLijst'])) {
 }
 ?>
 <main class="main-sidebar">
+    <h1 id='paginaType'>Lijst-editor</h1>
     <div class="wrapper">
         <form id="woordenForm">
             <input name="lijstNaam" id="lijstNaam" placeholder="Naam woordenlijst" type="text" value="">

@@ -5,6 +5,7 @@ require "loginRequired.php";
 ?>
 
 <main class="main-sidebar">
+    <h1 id='paginaType'>Klassen</h1>
     <?php
     require "includes/dbh.inc.php";
 

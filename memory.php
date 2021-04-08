@@ -1,4 +1,4 @@
-<h1 id="oefenTypeTekst">Memory</h1>
+<h1 id="paginaType">Memory</h1>
 
 <div class="outerBox" id="kaarten">
 </div>

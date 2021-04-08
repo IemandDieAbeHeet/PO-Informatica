@@ -1,4 +1,4 @@
-<h1 id="oefenTypeTekst">Galgje</h1>
+<h1 id="paginaType">Galgje</h1>
 
 <div class="outerBox" id="galgjeDiv">
     <div class="box" id="galgjeWoordDiv">
