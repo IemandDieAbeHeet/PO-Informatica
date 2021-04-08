@@ -6,7 +6,7 @@
     </div>
     <div id="oefenInputBox">
         <input type="text" id="oefenInput">
-        <button id="oefenButton">Controleren!</button>
+        <button id="controleerButton">Controleren!</button>
     </div>
 </div>
 
