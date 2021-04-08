@@ -1,5 +1,7 @@
 <div class="sidebar">
-    <img id="sidebarLogo" src="img/Logo.png">
+    <div id="sidebarLogoDiv">
+        <img id="sidebarLogoImg" src="img/Logo.png">
+    </div>
     <nav>
         <button type="button" class="lijstMakenButton">Lijst maken</button>
         <button onclick="window.location.href='lijsten.php'">Lijsten</button>
@@ -18,8 +20,6 @@
         <?php
         }
         ?>
+        <button id="logoutButton" onclick="window.location.href='includes/logout.inc.php'">Uitloggen</button>
     </nav>
-    <div id="logoutDiv">
-        <button onclick="window.location.href='includes/logout.inc.php'">Uitloggen</button>
-    </div>
 </div>
