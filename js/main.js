@@ -406,7 +406,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match("/lijst-o
                         woordenAntwoord = woordenArray[0][1];
                         $("#oefenDiv .oefenWoord").text(woordenArray[0][0]);
 
-                        $("#oefenDiv #oefenButton").on("click", function(e) {
+                        $("#oefenDiv #controleerButton").on("click", function(e) {
                             e.preventDefault();
                             if(disabled === true) return;
                             antwoordCheck();
@@ -556,6 +556,8 @@ let currChunk = 0;
 
 let interval;
 
+let aantalGeopendeKaarten = 0;
+
 function startMemory() {
     let chunkGrootte = 8;
 
@@ -589,7 +591,7 @@ function laadWoorden(woordenIndex) {
 
     arrayChunks[woordenIndex].forEach(function(item, index) {
         for(let z = 0; z <= item.length-1; z++) {
-            kaarten = $("<li class='kaart' id=" + index + "><p type=" + z + ">" + item[z] + "</p></li>");
+            kaarten = $("<div class='kaart' id=" + index + "><img src='img/Logo.png'><p type=" + z + ">" + item[z] + "</p></div>");
             $("#oefenDiv #kaarten").append(kaarten);
         }
     });
@@ -628,13 +630,15 @@ function laadWoorden(woordenIndex) {
 })(jQuery);
 
 function openKaart(kaart) {
+    aantalGeopendeKaarten++;
+    $('#aantalGeopendeKaarten').text(aantalGeopendeKaarten);
     geopendeKaarten.push(kaart);
     let len = geopendeKaarten.length;
     if(len === 2) {
 
         if($(geopendeKaarten[0]).attr("id") === $(geopendeKaarten[1]).attr("id")) {
-            geopendeKaarten[0].addClass("disabled show matching");
-            geopendeKaarten[1].addClass("disabled show matching");
+            geopendeKaarten[0].addClass("disabled flip matching");
+            geopendeKaarten[1].addClass("disabled flip matching");
             matchedKaarten.push(geopendeKaarten[0], geopendeKaarten[1]);
             geopendeKaarten = [];
             goedCount++;
@@ -659,8 +663,8 @@ function openKaart(kaart) {
                 }
             }
             setTimeout(function(){
-                geopendeKaarten[0].removeClass("show disabled");
-                geopendeKaarten[1].removeClass("show disabled");
+                geopendeKaarten[0].removeClass("flip disabled");
+                geopendeKaarten[1].removeClass("flip disabled");
                 enableKaarten();
                 geopendeKaarten = [];
             }, 1200);
@@ -684,7 +688,7 @@ function enableKaarten(){
 }
 
 function toggleKaart(kaart) {
-    kaart.toggleClass("show");
+    kaart.toggleClass("flip");
     kaart.toggleClass("disabled");
 }
 

@@ -147,50 +147,6 @@ a:visited {
   padding-left: 10px;
 }
 
-#kaarten {
-  display: -ms-grid;
-  display: grid;
-  grid: repeat(4, 100px)/repeat(4, 100px);
-  gap: 10px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-#kaarten .kaart {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  word-wrap: break-word;
-  text-align: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: cadetblue;
-}
-
-#kaarten .kaart p {
-  visibility: hidden;
-  opacity: 0;
-}
-
-#kaarten .kaart.disabled {
-  pointer-events: none;
-  opacity: 90;
-}
-
-.show > p {
-  visibility: visible !important;
-  opacity: 100 !important;
-}
-
-.matching {
-  background-color: greenyellow !important;
-}
-
 #resultaatDiv {
   visibility: hidden;
   display: -webkit-box;
@@ -526,7 +482,7 @@ input {
   -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   border-radius: 500px;
-  background-color: #06c5ff;
+  background-color: #56C2FA;
 }
 
 #loginForm {
@@ -843,5 +799,112 @@ input {
 
 #galgjeWoordDiv {
   margin-bottom: 25px;
+}
+
+#kaarten {
+  position: fixed;
+  top: 56%;
+  left: calc(50% + 125px);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -ms-grid;
+  display: grid;
+  grid: repeat(4, 130px)/repeat(4, 100px);
+  gap: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#kaarten .kaart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  word-wrap: break-word;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #56C2FA;
+  border-radius: 10px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
+}
+
+#kaarten .kaart:active {
+  -webkit-transform: scale(0.97);
+          transform: scale(0.97);
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+}
+
+#kaarten img, #kaarten p {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+#kaarten .kaart img {
+  width: 50px;
+  height: 50px;
+}
+
+#kaarten .kaart p {
+  color: white;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.flip {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.matching {
+  background-color: greenyellow !important;
+}
+
+#aantalGeopendeKaartenDiv {
+  position: fixed;
+  top: 25px;
+  right: 2.5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  width: 150px;
+  height: 200px;
+}
+
+#aantalGeopendeKaartenDiv p {
+  word-wrap: break-word;
+  font-size: 1.5em;
+}
+
+#aantalGeopendeKaartenDiv h1 {
+  margin-top: 25px;
+  font-size: 3em;
 }
 /*# sourceMappingURL=style.css.map */
