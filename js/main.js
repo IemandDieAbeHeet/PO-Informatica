@@ -733,17 +733,17 @@ let fouteLetters = 0;
 function startGalgje() {
     woordenArray = shuffleArray(woordenArray);
 
-    const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-    'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+    'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+    'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
     for(let i = 0; i < alphabet.length; i++) {
-        $("#letters").append("<li class='letter'><p>" + alphabet[i] + "</p></li>");
+        $("#letters").append("<li class='letter'><button class='galgjeButton'>" + alphabet[i] + "</button></li>");
     }
 
     laadAntwoord();
 
-    $("#letters > li").on("click", function() {
+    $("#letters li button").on("click", function() {
         let letter = $(this).text().toLowerCase();
         if(woordenAntwoord.toLowerCase().includes(letter)) { 
             let indices = [];
@@ -760,7 +760,7 @@ function startGalgje() {
                 }
             }
 
-            $(this).hide();
+            $(this).attr('disabled', true);
 
             goedeLetters += indices.length;
             totaalGoedeLetters += indices.length;
@@ -769,14 +769,14 @@ function startGalgje() {
                 laadAntwoord();
             }
         } else {
-            $($("#galgjeDiv").children()[fouteLetters]).show();
+            $($("#galgjePoppetjeDiv").children()[fouteLetters]).show();
             
             fouteLetters++;
             totaalFouteLetters++;
 
-            $(this).hide();
+            $(this).attr('disabled', true);
 
-            if(fouteLetters > $("#galgjeDiv").children().length) {
+            if(fouteLetters > $("#galgjePoppetjeDiv").children().length) {
                 window.location.href = "lijst.php?woordenLijst=" + parseInt(urlParameters.get("woordenLijst"));
 
                 //Evt nog verlies scherm toevoegen
@@ -797,11 +797,11 @@ function laadAntwoord() {
     woordenVraag = nieuweWoorden[0];
     woordenAntwoord = nieuweWoorden[1];
 
-    $("#galgjeDiv").children().hide();
+    $("#galgjePoppetjeDiv").children().hide();
 
     $("#galgjeWoord").text(woordenVraag);
 
-    $("#letters > li").show();
+    $("#letters li button").attr('disabled', false);
 
     $("#galgjeGuess > *").remove();
     

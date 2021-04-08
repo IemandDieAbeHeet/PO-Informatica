@@ -307,36 +307,6 @@ a:visited {
     -moz-control-character-visibility: visible;
 }
 
-#galgjeGuess {
-    display: flex;
-    flex-flow: row nowrap;
-    width: 150px;
-}
-
-#galgjeGuess > * {
-    margin-right: 2.5px;
-    border-bottom: 4px solid black;
-    width: 1em;
-}
-
-#galgjeDiv {
-    height: 480px;
-}
-
-#galgjeDiv > * {
-    position: absolute;
-}
-
-#letters {
-    display: flex;
-    width: 25%;
-    flex-flow: row wrap;
-}
-
-#letters > * {
-    margin: 5px;
-}
-
 //Algemeen
 
 button {
@@ -349,11 +319,11 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:hover:enabled {
     background-color: orange !important;
 }
 
-button:active {
+button:active:enabled {
     background-color:orange;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
@@ -539,8 +509,7 @@ input {
     transform: translateY(4px);
 }
 
-//Oefentypes:
-//Toets
+//Oefenen (oefentypes hieronder)
 
 #oefenTypeTekst {
     position: relative;
@@ -549,6 +518,8 @@ input {
     color: orange;
     font-size: 5em;
 }
+
+//Toets
 
 #oefenOuterBox {
     position: fixed;
@@ -583,4 +554,76 @@ input {
     border-radius: 50px;
     height: 2.5em !important;
     width: 225px;
+}
+
+//Galgje
+
+.galgjeButton {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #56C2FA;
+}
+
+.galgjeButton:disabled {
+    cursor: default;
+    background-color: #469bc6;
+}
+
+#galgjeDiv {
+    display: flex;
+    position: fixed;
+    top: 57%;
+    left: calc(50% + 125px);
+    transform: translate(-50%, -50%);
+    flex-flow: column wrap;
+    width: 1000px;
+}
+
+#galgjeGuess {
+    align-self: center;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 15px;
+}
+
+#galgjeGuess > * {
+    text-align: center;
+    color: white;
+    margin-right: 2.5px;
+    border-bottom: 4px solid white;
+    border-radius: 2px;
+    width: 1em;
+    height: 1em;
+}
+
+#galgjePoppetjeDiv {
+    align-self: center;
+    width: 250px;
+    height: 250px;
+    margin: 15px;
+}
+
+#galgjePoppetjeDiv > * {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+}
+
+#letters {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#letters > * {
+    margin: 5px;
+}
+
+#galgjeWoord {
+    font-size: 3em;
+    color: white;
+    margin: 15px;
+}
+
+#galgjeWoordDiv {
+    margin-bottom: 25px;
 }
