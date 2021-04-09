@@ -20,6 +20,8 @@
         <?php
         }
         ?>
-        <button id="logoutButton" onclick="window.location.href='includes/logout.inc.php'">Uitloggen</button>
     </nav>
+    <div id='logoutDiv'>
+        <button id="logoutButton" onclick="window.location.href='includes/logout.inc.php'">Uitloggen</button>
+    </div>
 </div>
