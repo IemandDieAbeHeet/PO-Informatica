@@ -37,11 +37,6 @@
     display: none;
 }
 
-.lijstDiv {
-    display: flex;
-    flex-flow: row wrap;
-}
-
 .lijstenHeader {
     height: 50px;
     width: 100%;
@@ -295,6 +290,8 @@ button:active:enabled {
 }
 
 select {
+    min-width: 120px;
+    min-height: 3em;
     padding: 8px 10px;
     height: 1em;
     border: 1px solid #ccc;
@@ -450,7 +447,10 @@ input {
     flex-flow: column wrap;
     justify-content: space-evenly;
     align-items: center;
-    height: 35%;
+}
+
+.sidebar nav button {
+    margin-top: 30px;
 }
 
 .sidebar *:not(img) * {
@@ -672,7 +672,7 @@ input {
 }
 
 .matching {
-    background-color: greenyellow !important;
+    background-color: rgb(170, 255, 0) !important;
 }
 
 #aantalGeopendeKaartenDiv {
@@ -696,4 +696,61 @@ input {
 #aantalGeopendeKaartenDiv h1 {
     margin-top: 25px;
     font-size: 3em;
+}
+
+//Lijst
+
+#lijstDiv {
+    width: 560px;
+    display: flex;
+    flex-flow: column wrap;
+    position: absolute;
+    margin-bottom: 20px;
+    top: 20%;
+    left: 55%;
+    transform: translate(-50%, 0%);
+}
+
+#woordenLijstDiv {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#woordenLijstDiv div * {
+    font-size: 1.25em;
+    margin-bottom: 15px;
+    border-bottom: 4px solid #7ADAF8;
+    border-radius: 3px;
+}
+
+#lijstWoordenNaamDiv {
+    padding: 40px;
+    color: white;
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 40px;
+}
+
+#lijstNaam {
+    font-size: 3em;
+    margin-bottom: 25px;
+}
+
+#oefenSelection {
+    display: flex;
+    justify-content: space-around;
+    width: inherit;
+}
+
+#oefenSelection button {
+    width: 8em;
+    font-size: 1.25em;
+}
+
+#oefenSelection select {
+    width: 8em;
+    font-size: 1.25em;
 }

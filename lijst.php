@@ -27,39 +27,43 @@ require "loginRequired.php";
                 while($lijst = mysqli_fetch_assoc($result)) {
     ?>
 
-        <div>
-            <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
-            <h1><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></h1>
-            
-            <?php
-            $woordenArray = json_decode($lijst['woordenArray']);
-            ?>
-            <div class="lijstDiv">
-            <div class="">
-            <?php
-            for($i = 0; $i < count($woordenArray); $i++) {
+        <div class='outerBox' id='lijstDiv'>
+            <div id='lijstWoordenNaamDiv' class='box'>
+                <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
+                <h1 id="lijstNaam"><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></h1>
+                
+                <?php
+                $woordenArray = json_decode($lijst['woordenArray']);
                 ?>
-                <p><?php echo $woordenArray[$i][0]; ?></p>
-            <?php    
-                }
-            ?>
+                <div id="woordenLijstDiv">
+                    <div>
+                    <?php
+                    for($i = 0; $i < count($woordenArray); $i++) {
+                        ?>
+                        <p><?php echo $woordenArray[$i][0]; ?></p>
+                    <?php    
+                        }
+                    ?>
+                    </div>
+                    <div>
+                    <?php
+                    for($i = 0; $i < count($woordenArray); $i++) {
+                        ?>
+                        <p><?php echo $woordenArray[$i][1]; ?></p>
+                    <?php    
+                        }
+                    ?>
+                    </div>
+                </div>
             </div>
-            <div>
-            <?php
-            for($i = 0; $i < count($woordenArray); $i++) {
-                ?>
-                <p><?php echo $woordenArray[$i][1]; ?></p>
-            <?php    
-                }
-            ?>
+            <div id="oefenSelection">
+                <select name="oefentype" id="oefenSelection">
+                    <option value="Toets">Toets</option>
+                    <option value="Memory">Memory</option>
+                    <option value="Galgje">Galgje</option>
+                </select>
+                <button type="submit" name="submit" id="oefenButton">Oefenen</button>
             </div>
-            </div>
-            <select name="oefentype" id="oefenSelection">
-                <option value="Toets">Toets</option>
-                <option value="Memory">Memory</option>
-                <option value="Galgje">Galgje</option>
-            </select>
-            <button type="submit" name="submit" id="oefenButton">Oefenen</button>
         </div>
 
     <?php
