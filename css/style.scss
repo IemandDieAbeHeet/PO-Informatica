@@ -786,3 +786,24 @@ input {
     width: max-content;
     padding: 20px;
 }
+
+//Klassen
+
+#klassenLijstDiv {
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 20px 20px;
+}
+
+.klasLijstDiv {
+    display: flex;
+    flex-flow: column wrap;
+    color: white;
+    height: 200px;
+    justify-content: space-around;
+}

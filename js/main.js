@@ -1275,9 +1275,9 @@ $("#addKlasForm").on("submit", function(e) {
         type: 'post',
         url: 'includes/klasAdd.inc.php',
         data: {
-            klasNaam: $("#klasNaam").val(),
-            klasNiveau: $("#klasNiveau option:selected").val(),
-            klasJaar: $("#klasJaar").val(),
+            klasNaam: $("#addKlasForm #klasNaam").val(),
+            klasNiveau: $("#addKlasForm #klasNiveau option:selected").val(),
+            klasJaar: $("#addKlasForm #klasJaar").val(),
         },
         success: function (response) {
             laadKlassen();
