@@ -25,9 +25,11 @@ if(!empty($_GET['woordenLijst'])) {
 <main class="main-sidebar">
     <h1 id='paginaType'>Lijst-editor</h1>
     <div class="wrapper">
-        <form id="woordenForm">
-            <input name="lijstNaam" id="lijstNaam" placeholder="Naam woordenlijst" type="text" value="">
-            <div>
+        <div id="woordenEditorDiv" class='outerBox'>
+            <div class='box'>
+                <input id="lijstEditorNaam" placeholder="Naam woordenlijst">
+            </div>
+            <div clas='box'>
                 <select name="taal1" id="taal1">
                     <option value="Nederlands">Nederlands</option>
                     <option value="Duits">Duits</option>
@@ -37,7 +39,7 @@ if(!empty($_GET['woordenLijst'])) {
                     <option value="Nederlands">Nederlands</option>
                 </select>
             </div>
-            <div id="woordentotaal">
+            <div class='box' id="woordentotaal">
                 <div class="woordenDiv">
                     <p id="woordnummer">1</p>
                     <input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">
@@ -46,16 +48,16 @@ if(!empty($_GET['woordenLijst'])) {
             </div>
             <div>
                 <input type="number" id="hoeveelheid" name="hoeveelheid" value="1" min="1" max="100">
-                <input type="button" value="Voeg woorden toe" onclick="woordenToevoegen()">
-                <input type="submit" id="woordenSubmit" name="woordenSubmit" value="Klaar">
+                <button onclick="woordenToevoegen()">Voeg woorden toe</button>
+                <button id="woordenSubmit">Klaar</button>
             </div>
             <p>Of</p>
             <div>
                 <input id="bestandInput" type="file" style="display:none;">
-                <input id="bestandButton" type="button" value="Importeer woordenlijst">
+                <button id="bestandButton">Importeer woordenlijst</button>
             </div>
             <p id="response"></p>
-        </form>
+        </div>
     </div>
 </main>
 <?php

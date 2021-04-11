@@ -4,6 +4,10 @@ let woordenLijst = {};
 
 //----------------------Lijst editor----------------------
 
+$(window).on('load', function() {
+    laadEditor();
+})
+
 $("#woordenForm input[type='text']").on("keyup", checkLijstEmptyInputs);
 
 function checkLijstEmptyInputs() {
@@ -122,7 +126,7 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
         },
         success: function (response) {
             woordenToevoegen(response.woordenAantal-1);
-            $('#lijstNaam').val(response.woordenLijstNaam);
+            $('#lijstEditorNaam').val(response.woordenLijstNaam);
             $('#woordenForm #taal1').val(response.taalOrigineel);
             $('#woordenForm #taal2').val(response.taalVertaald);
             
@@ -142,44 +146,46 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
     });
 }
 
-$('#woordenForm').on('submit', function (e) {
-    e.preventDefault();
+function laadEditor() {
+    $('#woordenSubmit').on('click', function (e) {
+        e.preventDefault();
 
-    woordenLijst = {
-        woordenLijstId: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
-        woordenLijstNaam: $("#lijstNaam").val(),
-        woordenAantal: $('#woordenForm #woord1').filter(function() { return $(this).val() != ""; }).length,
-        taalOrigineel: $("#taal1 option:selected").text(),
-        taalVertaald: $("#taal2 option:selected").text(),
-        woordenArray: {}
-    }
-
-    $('#woordenForm #woord1').each(function(index){
-        if(this.value.trim() != "") {
-            woordenLijst.woordenArray[index] = {0: $(this).val()};
+        woordenLijst = {
+            woordenLijstId: urlParameters.has('woordenLijst') ? parseInt(urlParameters.get('woordenLijst')) : null,
+            woordenLijstNaam: $("#lijstEditorNaam").val(),
+            woordenAantal: $('#woordenEditorDiv #woord1').filter(function() { return $(this).val() != ""; }).length,
+            taalOrigineel: $("#taal1 option:selected").text(),
+            taalVertaald: $("#taal2 option:selected").text(),
+            woordenArray: {}
         }
-    });
 
-    $('#woordenForm #woord2').each(function(index){
-        if(this.value.trim() != "") {
-            woordenLijst.woordenArray[index][1] = $(this).val();
+        $('#woordenEditorDiv #woord1').each(function(index){
+            if(this.value.trim() != "") {
+                woordenLijst.woordenArray[index] = {0: $(this).val()};
+            }
+        });
+
+        $('#woordenEditorDiv #woord2').each(function(index){
+            if(this.value.trim() != "") {
+                woordenLijst.woordenArray[index][1] = $(this).val();
+            }
+        });
+        
+        $.ajax({
+        type: 'post',
+        url: 'includes/woordenLijstSubmit.inc.php',
+        data: woordenLijst,
+        success: function () {
+            $("#response").attr("class", "success");
+            window.location.href = "lijsten.php";
+        },
+        error: function(xhr) {
+            $("#response").attr("class", "error");
+            $("#response").text(xhr.statusText);
         }
+        });
     });
-    
-    $.ajax({
-      type: 'post',
-      url: 'includes/woordenLijstSubmit.inc.php',
-      data: woordenLijst,
-      success: function (xhr) {
-        $("#response").attr("class", "success");
-        window.location.href = "lijsten.php";
-      },
-      error: function(xhr) {
-        $("#response").attr("class", "error");
-        $("#response").text(xhr.statusText);
-      }
-    });
-});
+}
 
 //Lijst importeren
 
