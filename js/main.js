@@ -8,12 +8,12 @@ $(window).on('load', function() {
     laadEditor();
 })
 
-$("#woordenForm input[type='text']").on("keyup", checkLijstEmptyInputs);
+$("#woordenEditorDiv input[type='text']").on("keyup", checkLijstEmptyInputs);
 
 function checkLijstEmptyInputs() {
     let anyEmpty = false;
     let emptyAmount = 0;
-    $("#woordenForm input[type='text']").filter(function() { return $(this).val() != "" }).each(function() {
+    $("#woordenEditorDiv input[type='text']").filter(function() { return $(this).val() != "" }).each(function() {
         if(this.value.trim() == "") {
             anyEmpty = true;
         }
@@ -49,13 +49,13 @@ $(document).on("click", "#verwijderWoord", function() {
 });
 
 function updateWoordenNummers() {
-    $("#woordenForm .woordenDiv").each(function() {
+    $("#woordenEditorDiv .woordenDiv").each(function() {
         let vorigNummer = $("p#woordnummer").index($(this).find("p#woordnummer"));
         $(this).find("p#woordnummer").text(vorigNummer + 1);
     });
 }
 
-const totaalWoordenDiv = document.getElementById("woordentotaal");
+const totaalWoordenDiv = document.getElementById("woordenTotaal");
 
 function woordenToevoegen(hoeveelheid) {
     if(hoeveelheid == null) hoeveelheid = document.getElementById("hoeveelheid").value;
@@ -71,14 +71,13 @@ function woordenToevoegen(hoeveelheid) {
         woordNummerElement.appendChild(woordNummerNode);
         woordenDiv.appendChild(woordNummerElement);
         
-        let input1 = $('<input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">');
-        let input2 = $('<input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling" type="text" value=""></input>');
+        let input1 = $('<input class="woord" id="woord1" placeholder="Woord">');
+        let input2 = $('<input class="woord" id="woord2" placeholder="Woord vertaling">');
         $(woordenDiv).append(input1);
         $(woordenDiv).append(input2);
 
-        let removeButton = document.createElement("input");
-        removeButton.type = "button";
-        removeButton.value = "X";
+        let removeButton = document.createElement("button");
+        removeButton.textContent = "X";
         removeButton.id = "verwijderWoord"
         woordenDiv.appendChild(removeButton);
 
@@ -101,14 +100,13 @@ function woordenReplace(hoeveelheid) {
         woordNummerElement.appendChild(woordNummerNode);
         woordenDiv.appendChild(woordNummerElement);
         
-        let input1 = $('<input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">');
-        let input2 = $('<input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling" type="text" value=""></input>');
+        let input1 = $('<input class="woord" id="woord1" name="woord1" placeholder="Woord">');
+        let input2 = $('<input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling">');
         $(woordenDiv).append(input1);
         $(woordenDiv).append(input2);
 
-        let removeButton = document.createElement("input");
-        removeButton.type = "button";
-        removeButton.value = "X";
+        let removeButton = document.createElement("button");
+        removeButton.textContent = "X";
         removeButton.id = "verwijderWoord";
 
         woordenDiv.appendChild(removeButton);
@@ -127,8 +125,8 @@ if(urlParameters.has("woordenLijst") && window.location.pathname.match('/lijst-e
         success: function (response) {
             woordenToevoegen(response.woordenAantal-1);
             $('#lijstEditorNaam').val(response.woordenLijstNaam);
-            $('#woordenForm #taal1').val(response.taalOrigineel);
-            $('#woordenForm #taal2').val(response.taalVertaald);
+            $('#woordenEditorDiv #taal1').val(response.taalOrigineel);
+            $('#woordenEditorDiv #taal2').val(response.taalVertaald);
             
             $('.woordenDiv #woord1').each(function(index) {
                 $(this).val(response.woordenArray[index][0]);
@@ -190,7 +188,7 @@ function laadEditor() {
 //Lijst importeren
 
 $("#bestandInput").on("change", function() {
-    $("#woordenForm #woord1").each(function(index) {
+    $("#woordenEditorDiv #woord1").each(function(index) {
         $(this).val(CSVToArray());
     });
 
@@ -201,14 +199,14 @@ $("#bestandInput").on("change", function() {
         woordenReplace(woordenArray.length);
 
         let i = 0;
-        $("#woordenForm #woord1").each(function() {
+        $("#woordenEditorDiv #woord1").each(function() {
             $(this).val(woordenArray[i][0]);
             i++;
         });
 
 
         let j = 0
-        $("#woordenForm #woord2").each(function() {
+        $("#woordenEditorDiv #woord2").each(function() {
             $(this).val(woordenArray[j][1]);
             j++;
         });

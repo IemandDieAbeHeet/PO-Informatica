@@ -48,40 +48,6 @@ table {
   font-family: "Varela Round", sans-serif;
 }
 
-.woordendiv {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.woord {
-  max-height: 25px;
-}
-
-#woordnummer {
-  margin-right: 15px;
-}
-
-#woordenForm {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
 .error {
   color: red;
 }
@@ -92,40 +58,6 @@ table {
 
 .hidden {
   display: none;
-}
-
-.lijstenHeader {
-  height: 50px;
-  width: 100%;
-  background-color: #7ADAF8;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  z-index: 5;
-}
-
-.lijstenHeader a {
-  margin-right: 50px;
-}
-
-a {
-  color: green;
-}
-
-a:visited {
-  color: green;
 }
 
 .wrapper {
@@ -400,9 +332,8 @@ button:active:enabled {
 
 select {
   min-width: 120px;
-  min-height: 3em;
+  min-height: calc(1em + 8px);
   padding: 8px 10px;
-  height: 1em;
   border: 1px solid #ccc;
   border-radius: 20px;
   -webkit-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
@@ -1116,5 +1047,81 @@ input {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   padding: 25px;
+}
+
+#woordenEditorDiv {
+  position: absolute;
+  top: 25%;
+  left: 55%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#woordenTotaal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  margin-bottom: 15px;
+}
+
+.woordenDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 10px;
+  width: 475px;
+  color: white;
+}
+
+#editorNaamTaalDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+#editorTaalSelectie {
+  margin-top: 10px;
+}
+
+#editorButtonsDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=style.css.map */

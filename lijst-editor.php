@@ -26,37 +26,40 @@ if(!empty($_GET['woordenLijst'])) {
     <h1 id='paginaType'>Lijst-editor</h1>
     <div class="wrapper">
         <div id="woordenEditorDiv" class='outerBox'>
-            <div class='box'>
+            <div class='box' id="editorNaamTaalDiv">
                 <input id="lijstEditorNaam" placeholder="Naam woordenlijst">
+                <div id='editorTaalSelectie'>
+                    <select name="taal1" id="taal1">
+                        <option value="Nederlands">Nederlands</option>
+                        <option value="Duits">Duits</option>
+                    </select>
+                    <select name="taal2" id="taal2">
+                        <option value="Duits">Duits</option>
+                        <option value="Nederlands">Nederlands</option>
+                    </select>
+                </div>
             </div>
-            <div clas='box'>
-                <select name="taal1" id="taal1">
-                    <option value="Nederlands">Nederlands</option>
-                    <option value="Duits">Duits</option>
-                </select>
-                <select name="taal2" id="taal2">
-                    <option value="Duits">Duits</option>
-                    <option value="Nederlands">Nederlands</option>
-                </select>
-            </div>
-            <div class='box' id="woordentotaal">
+            <div class='box' id="woordenTotaal">
                 <div class="woordenDiv">
                     <p id="woordnummer">1</p>
                     <input class="woord" id="woord1" name="woord1" placeholder="Woord" type="text" value="">
                     <input class="woord" id="woord2" name="woord2" placeholder="Woord vertaling" type="text" value="">
+                    <button>X</button>
                 </div>
             </div>
-            <div>
-                <input type="number" id="hoeveelheid" name="hoeveelheid" value="1" min="1" max="100">
-                <button onclick="woordenToevoegen()">Voeg woorden toe</button>
-                <button id="woordenSubmit">Klaar</button>
+            <div id='editorButtonsDiv'>
+                <div>
+                    <input type="number" id="hoeveelheid" name="hoeveelheid" value="1" min="1" max="100">
+                    <button onclick="woordenToevoegen()">Voeg woorden toe</button>
+                    <button id="woordenSubmit">Klaar</button>
+                </div>
+                <p style='margin:15px'>Of</p>
+                <div>
+                    <input id="bestandInput" type="file" style="display:none;">
+                    <button id="bestandButton">Importeer woordenlijst</button>
+                </div>
+                <p id="response"></p>
             </div>
-            <p>Of</p>
-            <div>
-                <input id="bestandInput" type="file" style="display:none;">
-                <button id="bestandButton">Importeer woordenlijst</button>
-            </div>
-            <p id="response"></p>
         </div>
     </div>
 </main>

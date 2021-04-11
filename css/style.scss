@@ -5,26 +5,6 @@
     font-family: "Varela Round", sans-serif;
 }
 
-.woordendiv {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-}
-
-.woord {
-    max-height: 25px;
-}
-
-#woordnummer {
-    margin-right: 15px;
-}
-
-#woordenForm {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-}
-
 .error {
     color: red;
 }
@@ -35,30 +15,6 @@
 
 .hidden {
     display: none;
-}
-
-.lijstenHeader {
-    height: 50px;
-    width: 100%;
-    background-color: #7ADAF8;
-    display: flex;
-    flex-flow: row nowrap;
-    align-content: center;
-    align-items: center;
-    justify-content: flex-end;
-    z-index: 5;
-}
-
-.lijstenHeader a {
-    margin-right: 50px;
-}
-
-a {
-    color: green;
-}
-
-a:visited {
-    color: green;
 }
 
 .wrapper {
@@ -291,9 +247,8 @@ button:active:enabled {
 
 select {
     min-width: 120px;
-    min-height: 3em;
+    min-height: calc(1em + 8px);
     padding: 8px 10px;
-    height: 1em;
     border: 1px solid #ccc;
     border-radius: 20px;
     box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.2);
@@ -829,3 +784,45 @@ $sidebar-width: 250px;
 
 //Lijst Editor
 
+#woordenEditorDiv {
+    position: absolute;
+    top: 25%;
+    left: 55%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+#woordenTotaal {
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 15px;
+}
+
+.woordenDiv {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    width: 475px;
+    color: white;
+}
+
+#editorNaamTaalDiv {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+#editorTaalSelectie {
+    margin-top:  10px;
+}
+
+#editorButtonsDiv {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
