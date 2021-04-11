@@ -1109,8 +1109,12 @@ input {
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
   color: white;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   height: 200px;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  padding: 25px;
 }
 /*# sourceMappingURL=style.css.map */
