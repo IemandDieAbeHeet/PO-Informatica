@@ -754,3 +754,35 @@ input {
     width: 8em;
     font-size: 1.25em;
 }
+
+//Lijsten
+
+#lijstenDiv {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    flex-flow: column wrap;
+}
+
+#lijsten {
+    margin-top: 45px;      
+    display: flex;
+    flex-flow: column wrap;
+    padding: 20px;
+    color: white;
+}
+
+#lijsten * {
+    margin-bottom: 10px;
+}
+
+#lijsten > * {
+    border-bottom: 4px solid #7ADAF8;
+}
+
+#searchDiv {
+    width: max-content;
+    padding: 20px;
+}
