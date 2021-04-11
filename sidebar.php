@@ -3,7 +3,7 @@
         <img id="sidebarLogoImg" src="img/Logo.png">
     </div>
     <nav>
-        <button type="button" class="lijstMakenButton">Lijst maken</button>
+        <button onclick="window.location.href='lijst-editor.php'" class="lijstMakenButton">Lijst maken</button>
         <button onclick="window.location.href='lijsten.php'">Lijsten</button>
         <button onclick="window.location.href='klassen.php'">Klassen</button>
         <?php

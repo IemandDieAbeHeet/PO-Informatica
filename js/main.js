@@ -282,11 +282,6 @@ function laadButtons() {
         window.location.href = "lijst-editor.php?woordenLijst=" + woordenLijstId;
     });
 
-    $(".lijstMakenButton").on("click", function(e) {
-        e.preventDefault;
-        window.location.href="lijst-editor.php";
-    })
-
     $(".verwijderWoordenlijstButton").on("click", function(e) {
         e.preventDefault();
         $.ajax({
