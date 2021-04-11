@@ -33,8 +33,8 @@
                         <option value="VWO">VWO</option>
                         <option value="HAVO">HAVO</option>
                     </select>
-                    <input type="text" id="klasJaar" name="klasJaar" placeholder="Jaar">
-                    <input type="submit" name="editKlasSubmit" value="Bewerken">
+                    <input type="number" id="klasJaar" name="klasJaar" placeholder="Jaar" min='0' max='6'>
+                    <button type="submit" name="editKlasSubmit" form='editKlasForm'>Deze werkt nog niet :(</button>
                 </form>
                 <button class="editKlasCollapseButton">X</button>
             </div>

@@ -17,6 +17,8 @@ if(empty($userId)) {
     header('HTTP/1.1 400 Je bent geen leraar!');
 } else if(empty($klasNaam) || empty($klasNiveau) || empty($klasJaar)) {
     header('HTTP/1.1 400 Velden niet ingevuld!');
+} else if($klasJaar < 0 || $klasJaar > 6) {
+    header('HTTP/1.1 400 Ongeldige jaarlaag');
 } else if(empty($woordenLijstId)) {
     $sql = "INSERT INTO klassen (klasNaam, klasNiveau, klasJaar, klasDocentId, klasDocentNaam) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_stmt_init($conn);

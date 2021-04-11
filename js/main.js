@@ -1268,20 +1268,21 @@ $("#addKlasCollapseButton").on("click", function(e) {
     $("#addKlasDiv").css("visibility", "hidden");
 });
 
-$("#addKlasForm").on("submit", function(e) {
+$("#addKlasSubmit").on("click", function(e) {
     e.preventDefault();
     $.ajax({
         type: 'post',
         url: 'includes/klasAdd.inc.php',
         data: {
-            klasNaam: $("#addKlasForm #klasNaam").val(),
-            klasNiveau: $("#addKlasForm #klasNiveau option:selected").val(),
-            klasJaar: $("#addKlasForm #klasJaar").val(),
+            klasNaam: $("#addKlasDiv #klasNaam").val(),
+            klasNiveau: $("#addKlasDiv #klasNiveau option:selected").val(),
+            klasJaar: $("#addKlasDiv #klasJaar").val(),
         },
-        success: function (response) {
+        success: function () {
             laadKlassen();
         },
         error: function(xhr) {
+            $('#response').show();
             $('#response').text(xhr.statusText);
         }
     });
@@ -1310,7 +1311,7 @@ function laadKlassen() {
                     data: {
                         klasId: parseInt($(this).siblings(".klasId").text()),
                     },
-                    success: function (response) {
+                    success: function () {
                         laadKlassen();
                     },
                     error: function(xhr) {
