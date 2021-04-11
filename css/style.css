@@ -1025,19 +1025,34 @@ input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  top: 25%;
   left: 55%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 
 #lijsten {
   margin-top: 45px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: (1fr)[1];
+      grid-template-rows: repeat(1, 1fr);
+  gap: 25px 20px;
+  padding: 20px;
+  color: white;
+}
+
+.lijstenInformatieDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1045,8 +1060,6 @@ input {
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
-  padding: 20px;
-  color: white;
 }
 
 #lijsten * {
@@ -1058,10 +1071,18 @@ input {
 }
 
 #searchDiv {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   padding: 20px;
+  width: 325px;
+}
+
+#woordenLijstZoekenButton {
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 #klassenLijstDiv {

@@ -423,11 +423,13 @@ input {
 
 //Sidebar
 
+$sidebar-width: 250px;
+
 .sidebar {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 250px;
+    width: $sidebar-width;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -759,19 +761,27 @@ input {
 
 #lijstenDiv {
     display: flex;
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 25%;
     left: 55%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     flex-flow: column wrap;
+    width: max-content;
 }
 
 #lijsten {
     margin-top: 45px;      
-    display: flex;
-    flex-flow: column wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 25px 20px;
     padding: 20px;
     color: white;
+}
+
+.lijstenInformatieDiv {
+    display: flex;
+    flex-flow: column wrap;
 }
 
 #lijsten * {
@@ -783,8 +793,15 @@ input {
 }
 
 #searchDiv {
-    width: max-content;
+    display: flex;
+    justify-content: space-around;
     padding: 20px;
+    width: 325px;
+}
+
+#woordenLijstZoekenButton {
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 //Klassen

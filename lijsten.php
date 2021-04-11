@@ -21,33 +21,29 @@ require "loginRequired.php";
             $result = mysqli_stmt_get_result($stmt);
             if(mysqli_num_rows($result) > 0) {
                 ?>
-
                 
-                <div class="box" id="searchDiv">
-                    <input id="woordenLijstZoekenInput">
-                    <button id="woordenLijstZoekenButton">Zoeken</button>
-                    <p id="searchError"></p>
-                </div>
-                <div class="box" id="lijsten">
-                <?php
-                while($lijst = mysqli_fetch_assoc($result)) {
-        ?>
-
-            <div>
-                <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
-                <p><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></p>
-                <p><?php echo 'Aantal woorden: ' . $lijst['woordenAantal'] ?></p>
-                <button class="bewerkButton">Bewerken</button>
-                <button class="bekijkButton">Bekijken</button>
-                <button class="verwijderWoordenlijstButton">Verwijderen</button>
+            <div class="box" id="searchDiv">
+                <input id="woordenLijstZoekenInput">
+                <button id="woordenLijstZoekenButton">Zoeken</button>
+                <p id="searchError"></p>
             </div>
-
-        <?php
-                }
-
-                ?>
+            <div class="box" id="lijsten">
+            <?php
+            while($lijst = mysqli_fetch_assoc($result)) {
+            ?>
+                <div class="lijstenInformatieDiv">
+                    <p class="hidden lijstId"><?php echo $lijst['woordenLijstId']?></p>
+                    <p><?php echo 'Naam: ' . $lijst['woordenLijstNaam'] ?></p>
+                    <p><?php echo 'Aantal woorden: ' . $lijst['woordenAantal'] ?></p>
+                    <button class="bewerkButton">Bewerken</button>
+                    <button class="bekijkButton">Bekijken</button>
+                    <button class="verwijderWoordenlijstButton">Verwijderen</button>
                 </div>
-                <?php
+            <?php
+            }
+            ?>
+            </div>
+            <?php
             } else {
                 ?>
                 <p>Geen lijsten gevonden, klik <a href="lijst-editor.php">hier</a> om er een aan te maken</p>
