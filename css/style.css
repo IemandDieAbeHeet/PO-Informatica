@@ -1145,15 +1145,15 @@ input {
   width: auto;
 }
 
-.klasDiv:first-child {
+.klasInformatieDiv:first-child {
   margin-top: 0;
 }
 
-.klasDiv p {
+.klasInformatieDiv p {
   margin-bottom: 10px;
 }
 
-.klasDiv {
+.klasInformatieDiv {
   color: white;
   margin-top: 15px;
   padding-bottom: 12px;

@@ -17,7 +17,7 @@
             while($lijst = mysqli_fetch_assoc($result)) {
     ?>
 
-        <li class="klasDiv">
+        <li class="klasInformatieDiv">
             <p class="hidden klasId"><?php echo $lijst['klasId']?></p>
             <p><?php echo 'Klas: ' . $lijst['klasNaam'] ?></p>
             <button class="klasBekijkButton">Klas bekijken</button>

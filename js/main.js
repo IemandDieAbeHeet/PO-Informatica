@@ -817,7 +817,7 @@ function laadAntwoord() {
 
 //----------------------Klassen lijst---------------------
 
-$(".klasDiv").on({
+$(".klasInformatieDiv").on({
     mouseenter: function () {
         $(this).find(".klasJoinButton").css("visibility", "visible");
     },
