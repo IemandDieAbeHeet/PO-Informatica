@@ -89,10 +89,6 @@
     background-image: url("../img/character/schoenen/schoen0.png");
 }
 
-#addKlasDiv {
-    visibility: hidden;
-}
-
 .shop {
     position: absolute;
     left: 45%;
@@ -830,5 +826,49 @@ $sidebar-width: 250px;
 //Leraar dashboard
 
 #leraarDashboardKlassen {
-    
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    position: absolute;
+    top: 25%;
+    left: 55%;
+    transform: translateX(-50%);
+}
+
+#leraarDashboardKlassenLijst {
+    margin-bottom: 15px;
+    padding: 25px;
+    width: auto;
+}
+
+.klasDiv:first-child {
+    margin-top: 0;
+}
+
+.klasDiv p {
+    margin-bottom: 10px;
+}
+
+.klasDiv {
+    color: white;
+    margin-top: 15px;
+    padding-bottom: 12px;
+    border-bottom: 4px solid #7ADAF8;
+    border-radius: 3px;
+}
+
+#addKlasDiv {
+    display: flex;
+    flex-flow: column wrap;
+    padding: 15px;
+    height: 175px;
+    justify-content: space-between;
+}
+
+#addKlasInputs {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    height: 125px;
+    justify-content: space-around;
 }

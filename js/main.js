@@ -1260,14 +1260,6 @@ if(window.location.pathname.match("/leraarDashboard")) {
     laadKlassen();
 }
 
-$("#addKlasOpenButton").on("click", function(e) {
-    $("#addKlasDiv").css("visibility", "visible");
-});
-
-$("#addKlasCollapseButton").on("click", function(e) {
-    $("#addKlasDiv").css("visibility", "hidden");
-});
-
 $("#addKlasSubmit").on("click", function(e) {
     e.preventDefault();
     $.ajax({
@@ -1289,8 +1281,8 @@ $("#addKlasSubmit").on("click", function(e) {
 });
 
 function laadKlassen() {
-    $("#klassenLijst ul > *").remove();
-    $("#klassenLijst ul").load("klassenLijst.php", function() {
+    $("#leraarDashboardKlassenLijst ul > *").remove();
+    $("#leraarDashboardKlassenLijst ul").load("klassenLijst.php", function() {
         $(".klasBekijkButton").on("click", function() {
             window.location.href = "klas.php?klasId=" + parseInt($(this).siblings(".klasId").text());
         });

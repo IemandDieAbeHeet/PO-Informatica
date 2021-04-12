@@ -137,10 +137,6 @@ table {
   background-image: url("../img/character/schoenen/schoen0.png");
 }
 
-#addKlasDiv {
-  visibility: hidden;
-}
-
 .shop {
   position: absolute;
   left: 45%;
@@ -1123,5 +1119,76 @@ input {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#leraarDashboardKlassen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 25%;
+  left: 55%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+#leraarDashboardKlassenLijst {
+  margin-bottom: 15px;
+  padding: 25px;
+  width: auto;
+}
+
+.klasDiv:first-child {
+  margin-top: 0;
+}
+
+.klasDiv p {
+  margin-bottom: 10px;
+}
+
+.klasDiv {
+  color: white;
+  margin-top: 15px;
+  padding-bottom: 12px;
+  border-bottom: 4px solid #7ADAF8;
+  border-radius: 3px;
+}
+
+#addKlasDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  padding: 15px;
+  height: 175px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#addKlasInputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 125px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 /*# sourceMappingURL=style.css.map */
