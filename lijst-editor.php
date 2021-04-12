@@ -53,7 +53,7 @@ if(!empty($_GET['woordenLijst'])) {
                     <button onclick="woordenToevoegen()">Voeg woorden toe</button>
                     <button id="woordenSubmit">Klaar</button>
                 </div>
-                <p style='margin:15px'>Of</p>
+                <p style='margin:15px; color:white;'>Of</p>
                 <div>
                     <input id="bestandInput" type="file" style="display:none;">
                     <button id="bestandButton">Importeer woordenlijst</button>
