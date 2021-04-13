@@ -5,14 +5,6 @@
     font-family: "Varela Round", sans-serif;
 }
 
-.error {
-    color: red;
-}
-
-.success {
-    color: green;
-}
-
 .hidden {
     display: none;
 }
@@ -24,35 +16,6 @@
     max-width: 960px;
     padding-right: 10px;
     padding-left:  10px;
-}
-
-#resultaatDiv {
-    visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: aqua;
-    width: 400px;
-    height: 150px;
-}
-
-.foutAntwoord {
-    color: red;
-}
-
-#algemenevoorwaarden {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 13px;
-    padding-left: 40px;
-    padding-right: 40px;
-    unicode-bidi: plaintext;
-    white-space: pre-line;
-    word-wrap: break-word;
-    -moz-control-character-visibility: visible;
 }
 
 //Algemeen
@@ -123,7 +86,7 @@ input {
     font-size: 5em;
 }
 
-//Login
+//Login/signup
 
 #welcomeMessage {
     margin-bottom: 15px;
@@ -149,7 +112,7 @@ input {
     width: 45%;
 }
 
-#welkomLogo {
+#welkomLogoLogin {
     width: 70%;
     height: 80%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -167,6 +130,75 @@ input {
 
 #loginForm input {
     height: 2em;
+}
+
+#signupMenu {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.signupOuterBox {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 900px;
+    height: 475px;
+}
+
+.signupBox {
+    width: 45%;
+}
+
+#signupForm {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    width: 80%;
+    height: 90%;
+}
+
+#signupForm input {
+    height: 2em;
+}
+
+#signupFormDiv {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+#welkomLogoSignup {
+    width: 90%;
+    height: 75%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 500px;
+    background-color: #06c5ff;
+}
+
+#algemeneVoorwaardenDiv {
+    margin-top: 15px;
+    color: white;
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 10px;
+    font-size: .75em;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+input[type='checkbox'] {
+    border-radius: 15px;
+}
+
+#algemenevoorwaarden {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    padding-left: 40px;
+    padding-right: 40px;
+    unicode-bidi: plaintext;
+    white-space: pre-line;
+    word-wrap: break-word;
+    -moz-control-character-visibility: visible;
 }
 
 //Index
@@ -298,7 +330,30 @@ $sidebar-width: 250px;
 }
 
 //Oefenen
+
+#resultaatDiv {
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    background-color: #06c5ff;
+    width: 400px;
+    height: 150px;
+    border-radius: 15px;
+    border: 5px solid #7ADAF8;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.2);
+    color: white;
+}
+
 //Toets
+
+.foutAntwoord {
+    color: red;
+}
 
 #oefenOuterBox {
     position: fixed;

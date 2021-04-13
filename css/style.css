@@ -48,14 +48,6 @@ table {
   font-family: "Varela Round", sans-serif;
 }
 
-.error {
-  color: red;
-}
-
-.success {
-  color: green;
-}
-
 .hidden {
   display: none;
 }
@@ -67,42 +59,6 @@ table {
   max-width: 960px;
   padding-right: 10px;
   padding-left: 10px;
-}
-
-#resultaatDiv {
-  visibility: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  background-color: aqua;
-  width: 400px;
-  height: 150px;
-}
-
-.foutAntwoord {
-  color: red;
-}
-
-#algemenevoorwaarden {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 13px;
-  padding-left: 40px;
-  padding-right: 40px;
-  unicode-bidi: plaintext;
-  white-space: pre-line;
-  word-wrap: break-word;
-  -moz-control-character-visibility: visible;
 }
 
 button {
@@ -224,7 +180,7 @@ input {
   width: 45%;
 }
 
-#welkomLogo {
+#welkomLogoLogin {
   width: 70%;
   height: 80%;
   -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -250,6 +206,111 @@ input {
 
 #loginForm input {
   height: 2em;
+}
+
+#signupMenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.signupOuterBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 900px;
+  height: 475px;
+}
+
+.signupBox {
+  width: 45%;
+}
+
+#signupForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 80%;
+  height: 90%;
+}
+
+#signupForm input {
+  height: 2em;
+}
+
+#signupFormDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
+
+#welkomLogoSignup {
+  width: 90%;
+  height: 75%;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 500px;
+  background-color: #06c5ff;
+}
+
+#algemeneVoorwaardenDiv {
+  margin-top: 15px;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin-bottom: 10px;
+  font-size: .75em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+input[type='checkbox'] {
+  border-radius: 15px;
+}
+
+#algemenevoorwaarden {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  padding-left: 40px;
+  padding-right: 40px;
+  unicode-bidi: plaintext;
+  white-space: pre-line;
+  word-wrap: break-word;
+  -moz-control-character-visibility: visible;
 }
 
 #indexLogo {
@@ -432,6 +493,36 @@ input {
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
+}
+
+#resultaatDiv {
+  visibility: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  position: fixed;
+  top: 50%;
+  left: 55%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #06c5ff;
+  width: 400px;
+  height: 150px;
+  border-radius: 15px;
+  border: 5px solid #7ADAF8;
+  -webkit-box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.foutAntwoord {
+  color: red;
 }
 
 #oefenOuterBox {
