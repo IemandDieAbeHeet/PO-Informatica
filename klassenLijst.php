@@ -20,12 +20,11 @@
         <li class="klasInformatieDiv">
             <p class="hidden klasId"><?php echo $lijst['klasId']?></p>
             <p><?php echo 'Klas: ' . $lijst['klasNaam'] ?></p>
-            <button class="klasBekijkButton">Klas bekijken</button>
-            <button class="klasDeleteButton">Klas verwijderen</button>
+            <button class="klasBekijkButton">Bekijken</button>
             <?php
             if($_SESSION['userType'] == "Leraar") {
             ?>
-            <button class="editKlasOpenButton">Klas bewerken</button>
+            <button class="editKlasOpenButton">Bewerken</button>
             <div class="editKlasDiv" style="display: none">
                 <form id="editKlasForm">
                     <input type="text" id="klasNaam" name="klasNaam" placeholder="Naam">
@@ -41,6 +40,7 @@
             <?php
             }
             ?>
+            <button class="klasDeleteButton">Verwijderen</button>
         </li>
 
     <?php
