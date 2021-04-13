@@ -310,7 +310,7 @@ function laadButtons() {
 
 $("#oefenButton").on("click", function(e) {
     e.preventDefault();
-    let woordenLijstId = $(this).siblings('.lijstId').text();
+    let woordenLijstId = $('.lijstId').text();
     let oefenType = $(this).siblings('#oefenSelection').find('option:selected').text();
     window.location.href = "lijst-oefenen.php?woordenLijst=" + woordenLijstId + "&oefenType=" + oefenType;
 });
