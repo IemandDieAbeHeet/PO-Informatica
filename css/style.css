@@ -94,10 +94,6 @@ table {
   color: red;
 }
 
-.klasJoinButton {
-  visibility: hidden;
-}
-
 .character {
   display: inline-block;
   position: relative;
@@ -1043,6 +1039,10 @@ input {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   padding: 25px;
+}
+
+.klasJoinButton {
+  display: none;
 }
 
 #woordenEditorDiv {

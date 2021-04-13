@@ -8,7 +8,7 @@ require "loginRequired.php";
     <?php
     require "includes/dbh.inc.php";
 
-    $sql = "SELECT klasNaam FROM klassen WHERE klasId=?";
+    $sql = "SELECT * FROM klassen WHERE klasId=?";
 
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)) {
@@ -18,13 +18,19 @@ require "loginRequired.php";
         mysqli_stmt_bind_param($stmt, "i", $_GET['klasId']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        $klasNaam = mysqli_fetch_assoc($result)['klasNaam'];
+        $klas = mysqli_fetch_assoc($result);
+        $klasNaam = $klas['klasNaam'];
     ?>
     <h1 id='paginaType'><?php echo $klasNaam?></h1>
     <?php
         }
     ?>
-    <div class="leerlingenDiv">
+    <div class='outerBox' id="klasDiv">
+        <div>
+        <div class="klassenScoreDiv"><p>Klassenscore: </p><p id="klasScore"><?php echo $klas['klasScore'] ?></p></div>
+        <p>Docent: <?php echo $klas['klasDocentNaam'] ?></p>
+        </div>
+
         <?php
         require "includes/dbh.inc.php";
 
@@ -37,13 +43,13 @@ require "loginRequired.php";
         } else {
             mysqli_stmt_bind_param($stmt, "i", $_GET['klasId']);
             mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            if(mysqli_num_rows($result) > 0) {
+            $leerlingResult = mysqli_stmt_get_result($stmt);
+            if(mysqli_num_rows($leerlingResult) > 0) {
 
                 ?>
                 <p>Leerlingen:</p>
                 <?php
-                while($leerling = mysqli_fetch_assoc($result)) {
+                while($leerling = mysqli_fetch_assoc($leerlingResult)) {
         ?>
                 <div class="leerlingDiv <?php if($leerling['userId'] == $_SESSION['userId']) { echo('self'); } ?>">
                     <p><?php echo $leerling['userVolledigenaam'] ?></p><p> - </p><p class="leerlingScore"><?php echo $leerling['userScore'] ?></p>
@@ -59,107 +65,83 @@ require "loginRequired.php";
         }
         ?>
     </div>
-    <div class="klasDiv">
+    <div class='outerBox' id="poppetjeDiv">
         <?php
-        require "includes/dbh.inc.php";
-
-        $sql = "SELECT * FROM klassen WHERE klasId=?";
-
-        $stmt = mysqli_stmt_init($conn);
-        if(!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: /?error=sqlerror");
-            exit();
-        } else {
-            mysqli_stmt_bind_param($stmt, "i", $_GET['klasId']);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-            if(mysqli_num_rows($result) > 0) {
-                while($klas = mysqli_fetch_assoc($result)) {
+            if($_SESSION['userType'] === "Leraar") {
         ?>
-                <div class="klassenScoreDiv"><p>Klassenscore: </p><p id="klasScore"><?php echo $klas['klasScore'] ?></p></div>
-                <p>Docent: <?php echo $klas['klasDocentNaam'] ?></p>
-                
-                <?php
-                if($_SESSION['userType'] === "Leraar") {
-                ?>
-                <div class="itemSelection">
-                    <button id="selectionPreviousItem"><</button>
-                    <div class="itemSelect">
-                        <p id="selectItemId" class="hidden">0</p>
-                        <p id="selectItemType" class="hidden">Hoed</p>
-                        <p id="selectItemUnlocked" class="hidden">true</p>
-                        <p id="selectItemName">Hoed</p>
-                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
-                    </div>
-                    <div class="itemSelect">
-                        <p id="selectItemId" class="hidden">1</p>
-                        <p id="selectItemType" class="hidden">Hoed</p>
-                        <p id="selectItemUnlocked" class="hidden">true</p>
-                        <p id="selectItemName">Hoed</p>
-                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
-                    </div>
-                    <div class="itemSelect">
-                        <p id="selectItemId" class="hidden">2</p>
-                        <p id="selectItemType" class="hidden">Hoed</p>
-                        <p id="selectItemUnlocked" class="hidden">true</p>
-                        <p id="selectItemName">Hoed</p>
-                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
-                    </div>
-                    <div class="itemSelect">
-                        <p id="selectItemId" class="hidden">3</p>
-                        <p id="selectItemType" class="hidden">Hoed</p>
-                        <p id="selectItemUnlocked" class="hidden">true</p>
-                        <p id="selectItemName">Hoed</p>
-                        <img id="selectItemImg" src="img/character/hoed/hoed0.png">
-                    </div>
-                    <button id="selectionNextItem">></button>
+            <div class="itemSelection">
+                <button id="selectionPreviousItem"><</button>
+                <div class="itemSelect">
+                    <p id="selectItemId" class="hidden">0</p>
+                    <p id="selectItemType" class="hidden">Hoed</p>
+                    <p id="selectItemUnlocked" class="hidden">true</p>
+                    <p id="selectItemName">Hoed</p>
+                    <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                 </div>
-                <?php
-                }
-                ?>
-
-                <div class="character">
-                <?php
-                if($_SESSION['userType'] === "Leraar") {
-                ?>
-                    <div draggable='false' id='delete'></div>
-                <?php
-                }
-                ?>
+                <div class="itemSelect">
+                    <p id="selectItemId" class="hidden">1</p>
+                    <p id="selectItemType" class="hidden">Hoed</p>
+                    <p id="selectItemUnlocked" class="hidden">true</p>
+                    <p id="selectItemName">Hoed</p>
+                    <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                 </div>
-
-                <?php
-                if($_SESSION['userType'] === "Leerling") {
-                ?>
-                <div class="shop">
-                    <button id="shopPreviousItem"><</button>
-                    <div class="shopItem">
-                        <p id="itemId"></p>
-                        <img id="itemImg" src="img/character/hoed/hoed0.png">
-                        <p id="itemPrice">50 punten</p>
-                        <button id="itemUnlockButton">Ontgrendelen</button>
-                    </div>
-                    <button id="shopNextItem">></button>
+                <div class="itemSelect">
+                    <p id="selectItemId" class="hidden">2</p>
+                    <p id="selectItemType" class="hidden">Hoed</p>
+                    <p id="selectItemUnlocked" class="hidden">true</p>
+                    <p id="selectItemName">Hoed</p>
+                    <img id="selectItemImg" src="img/character/hoed/hoed0.png">
                 </div>
-                <?php
-                }
-                ?>
-
-                <button id="characterResetButton">Reset</button>
-                <?php
-                if($_SESSION['userType'] === "Leraar") {
-                ?>
-                <button id="characterOpslaanButton">Opslaan</button>
-                <?php
-                }
-                ?>
-
-                <p id="response"></p>
-        <?php
-                }
+                <div class="itemSelect">
+                    <p id="selectItemId" class="hidden">3</p>
+                    <p id="selectItemType" class="hidden">Hoed</p>
+                    <p id="selectItemUnlocked" class="hidden">true</p>
+                    <p id="selectItemName">Hoed</p>
+                    <img id="selectItemImg" src="img/character/hoed/hoed0.png">
+                </div>
+                <button id="selectionNextItem">></button>
+            </div>
+            <?php
             }
-        }
-        ?>
+            ?>
+
+            <div class="character">
+            <?php
+            if($_SESSION['userType'] === "Leraar") {
+            ?>
+                <div draggable='false' id='delete'></div>
+            <?php
+            }
+            ?>
+            </div>
+
+            <?php
+            if($_SESSION['userType'] === "Leerling") {
+            ?>
+            <div class="shop">
+                <button id="shopPreviousItem"><</button>
+                <div class="shopItem">
+                    <p id="itemId"></p>
+                    <img id="itemImg" src="img/character/hoed/hoed0.png">
+                    <p id="itemPrice">50 punten</p>
+                    <button id="itemUnlockButton">Ontgrendelen</button>
+                </div>
+                <button id="shopNextItem">></button>
+            </div>
+            <?php
+            }
+            ?>
+
+            <button id="characterResetButton">Reset</button>
+            <?php
+            if($_SESSION['userType'] === "Leraar") {
+            ?>
+            <button id="characterOpslaanButton">Opslaan</button>
+            <?php
+            }
+            ?>
+
+            <p id="response"></p>
     </div>
 </main>
 

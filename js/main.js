@@ -819,10 +819,10 @@ function laadAntwoord() {
 
 $(".klasLijstDiv").on({
     mouseenter: function () {
-        $(this).find(".klasJoinButton").css("visibility", "visible");
+        $(this).find(".klasJoinButton").css("display", "block");
     },
     mouseleave: function () {
-        $(this).find(".klasJoinButton").css("visibility", "hidden");
+        $(this).find(".klasJoinButton").css("display", "none");
     }
 });
 

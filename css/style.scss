@@ -44,10 +44,6 @@
     color: red;
 }
 
-.klasJoinButton {
-    visibility: hidden;
-}
-
 //Poppetje
 
 .character {
@@ -778,6 +774,10 @@ $sidebar-width: 250px;
     padding: 25px;
 }
 
+.klasJoinButton {
+    display: none;
+}
+
 //Lijst Editor
 
 #woordenEditorDiv {
@@ -871,4 +871,10 @@ $sidebar-width: 250px;
     align-items: center;
     height: 125px;
     justify-content: space-around;
+}
+
+//Klas
+
+#klasDiv {
+    
 }
