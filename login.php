@@ -9,7 +9,7 @@
                 <h1 id="welcomeMessage">Welkom!</h1>
                 <div class="outerBox loginOuterBox">
                     <div class="box loginBox">
-                        <img id="welkomLogo" src="img/Logo.png">
+                        <img id="welkomLogoLogin" src="img/Logo.png">
                     </div>
                     <div class="box loginBox">
                         <?php
