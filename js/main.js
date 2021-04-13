@@ -838,7 +838,7 @@ $(".klasJoinButton").on("click", function() {
             klasId: parseInt($(this).siblings(".klasId").text())
         },
         success: function (response) {
-            window.location.href = "klas.php?klasId=" + klasId;
+            window.location.href = "klas.php?klasId=" + parseInt($(this).siblings(".klasId").text());
         },
         error: function(xhr) {
             $('#response').text(xhr.statusText);
@@ -1044,12 +1044,15 @@ $("#characterOpslaanButton").on("click", function() {
     });
 });
 
+let boundsElementDOM;
+
 function dragStart(e) {
+    boundsElementDOM = boundsElement.get(0);
     if(!dragging) {
         e.preventDefault();
         targetElement = e.target;
         if (e.type === "touchstart") {
-            initialX = e.touches[0].clientX ;
+            initialX = e.touches[0].clientX;
             initialY = e.touches[0].clientY;
         } else {
             previousX = $(targetElement).position().left;
@@ -1091,8 +1094,8 @@ function drag(e) {
                 currentX = e.touches[0].clientX - boundsElement.position().left - $(targetElement).width()/2;
                 currentY = e.touches[0].clientY - boundsElement.position().top - $(targetElement).height()/2;
             } else {
-                currentX = e.clientX - boundsElement.position().left - $(targetElement).width()/2 + initialX;
-                currentY = e.clientY - boundsElement.position().top - $(targetElement).height()/2 + initialY;
+                currentX = e.clientX - boundsElementDOM.getBoundingClientRect().left - $(targetElement).width()/2 + initialX;
+                currentY = e.clientY - boundsElementDOM.getBoundingClientRect().top - $(targetElement).height()/2 + initialY;
 
                 diffX = currentX - previousX;
                 diffY = currentY - previousY;
@@ -1244,6 +1247,7 @@ $("#itemUnlockButton").on("click", function() {
             $('#klasScore').text(parseInt($('#klasScore').text()) - currentItem.itemPrice);
             unlockItems[allItems.indexOf(currentItem)].unlocked = true;
             $('.shop .shopItem').removeClass('itemDisabled');
+            window.location.reload();
             $('#response').text(response.statusText);
         },
         error: function(response) {
